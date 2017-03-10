@@ -1,22 +1,21 @@
 <template lang="html">
-    <button class="btn" :disabled="disabled" v-if="!href"
-            :type="htmlType"
-            :autofocus="autofocus">
+    <button class="btn" :class="classes" :disabled="disabled" v-if="!href"
+            :type="htmlType">
         <Icon :type="icon" v-if="icon"></Icon>
-        <span v-if="$slots.default"><slot></slot></span>
+        <slot></slot>
     </button>
 
     <a class="btn" :class="classes" :href="href" :disabled="disabled"
         :target="target" v-else>
         <Icon :type="icon" v-if="icon"></Icon>
-        <span v-if="$slots.default"><slot></slot></span>
+        <slot></slot>
     </a>
 </template>
 
 <script>
 //    <button class="btn btn-default btn-icon btn-icon-text btn-lg" disabled="disabled">
-    import Icon from '../icon';
-    import { oneOf } from '../../utils/assist';
+    import Icon from '../../icon';
+    import { oneOf } from '../../../utils/assist';
 
     const prefixCls = 'btn';
 
@@ -26,9 +25,11 @@
         },
         props: {
             type: {
-                validator (value) {
+                /*validator (value) {
                     return oneOf(value, ['default', 'primary', 'info', 'success', 'warning', 'danger']);
-                }
+                },
+                default:'default'*/
+                type:String
             },
             shape: {
                 validator (value) {
@@ -37,7 +38,7 @@
             },
             size: {
                 validator (value) {
-                    return oneOf(value, ['lg', 'sm']);
+                    return oneOf(value, ['lg', 'sm','xs']);
                 }
             },
             iconText:Boolean,
@@ -53,6 +54,9 @@
             long: {
                 type: Boolean,
                 default: false
+            },
+            class: {
+                type: String
             }
         },
         data () {
@@ -64,6 +68,7 @@
             classes () {
                 return [
                     {
+                        [`${this.class}`]: !!this.class,
                         [`${prefixCls}-${this.type}`]: !!this.type,
                         [`${prefixCls}-${this.size}`]: !!this.size,
                         [`${prefixCls}-${this.shape}`]: !!this.shape,

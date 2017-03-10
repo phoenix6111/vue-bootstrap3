@@ -1,72 +1,52 @@
-<tempalte lang="html">
-    <div class="alert alert-success alert-dismissible" role="alert"
-         transition="fade"
-         :style="{width:width}">
-        <button type="button" class="close" v-show="dismissable"
-                @click="show = false">
+<template lang="html">
+    <div :class="classes" transition="fade" v-show="visible">
+        <button type="button" class="close" v-if="closable"
+                aria-label="Close" aria-hidden="true" @click="close">
             <span>&times;</span>
         </button>
         <slot></slot>
     </div>
-</tempalte>
+</template>
 
 <script>
+    import { oneOf } from '../../../utils/assist';
+
+    const prefixCls = 'alert';
+
     export default {
         props: {
             type: {
-                type: String
+                validator(value) {
+                    return oneOf(value,['success','warning','info','danger','inverse']);
+                },
+                default:'info'
             },
-            dismissable: {
+            closable: {
                 type: Boolean,
                 default: false
-            },
-            show: {
-                type: Boolean,
-                default: true
-            },
-            duration: {
-                type: Number,
-                default: 0
-            },
-            width: {
-                type: String
-            },
-            placement: {
-                type: String
             }
         },
-        watch: {
-            show (val) {
-                if (this._timeout) clearTimeout(this._timeout)
-                if (val && Boolean(this.duration)) {
-                    this._timeout = setTimeout(() => { this.show = false }, this.duration)
-                }
+        data() {
+            return {
+                visible: true
+            }
+        },
+        computed: {
+            classes() {
+                return [
+                    `${prefixCls}`,
+                    `${prefixCls}-${this.type}`,
+                    {
+                        [`${prefixCls}-dismissible`]: this.closable
+                    }
+                ];
+            }
+        },
+        methods: {
+            close(e) {
+                this.visible = false;
+                this.$emit('close', e);
             }
         }
     }
 </script>
-
-<style>
-    .fade-transition {
-        transition: opacity .3s ease;
-    }
-    .fade-enter,
-    .fade-leave {
-        height: 0;
-        opacity: 0;
-    }
-    /*.alert.top {
-        position: fixed;
-        top: 30px;
-        margin: 0 auto;
-        left: 0;
-        right: 0;
-        z-index: 1050;
-    }
-    .alert.top-right {
-        position: fixed;
-        top: 30px;
-        right: 50px;
-        z-index: 1050;
-    }*/
-</style>

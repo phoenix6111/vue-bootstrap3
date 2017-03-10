@@ -1,0 +1,141 @@
+/***** login style *****/
+.login-content {
+    min-height: 100vh;
+    text-align: center;
+    background-color: #009688
+}
+
+.login-content:before {
+    content: '';
+    height: 100vh;
+    width: 1px
+}
+
+.lc-block {
+    max-width: 500px;
+    padding: 20px 0;
+    width: 80%;
+    position: relative
+}
+
+.lcb-navigation a, .lcb-navigation a i {
+    vertical-align: top;
+    display: inline-block
+}
+
+.lc-block:not(.toggled) {
+    display: none
+}
+
+.lc-block.toggled {
+    -webkit-animation-name: fadeInUp;
+    animation-name: fadeInUp;
+    -webkit-animation-duration: .3s;
+    animation-duration: .3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    z-index: 10
+}
+
+.lc-block:not(.lc-block-alt) .lcb-form {
+    padding: 35px 55px 35px 25px
+}
+
+.lc-block:not(.lc-block-alt) .btn-login {
+    top: 50%;
+    margin-top: -43px;
+    right: -25px
+}
+
+.lc-block .checkbox {
+    margin: 5px 0 0 41px;
+    text-align: left
+}
+
+.lcb-form {
+    background: #fff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+    border-radius: 2px
+}
+
+.lcb-navigation {
+    margin-top: 15px
+}
+
+.lcb-navigation a, .lcb-navigation a span {
+    -webkit-transition: width;
+    -o-transition: width;
+    transition: width;
+    -webkit-transition-duration: .2s;
+    transition-duration: .2s
+}
+
+.lcb-navigation a {
+    color: #fff;
+    background: rgba(255, 255, 255, .2);
+    margin: 0 1px;
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
+    white-space: nowrap;
+    text-align: left
+}
+
+.lcb-navigation a i {
+    width: 30px;
+    font-style: normal;
+    font-size: 16px;
+    text-align: center;
+    line-height: 30px
+}
+
+.lcb-navigation a span {
+    width: 0;
+    overflow: hidden;
+    display: inline-block;
+    line-height: 29px;
+    margin-left: -3px
+}
+
+.lcb-navigation a:hover span {
+    width: 100%
+}
+
+.lcb-navigation a[data-ma-block="#l-register"]:hover {
+    width: 95px
+}
+
+.lcb-navigation a[data-ma-block="#l-forget-password"]:hover {
+    width: 147px
+}
+
+.lcb-navigation a[data-ma-block="#l-login"]:hover {
+    width: 85px
+}
+
+.lc-block-alt .lcb-form {
+    padding: 70px 35px 60px
+}
+
+.lc-block-alt .btn-login {
+    bottom: 0;
+    left: 50%;
+    margin-left: -25px
+}
+
+.lcb-user {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    margin-left: -50px;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, .18)
+}
+
+.lc-block, .login-content:before {
+    vertical-align: middle;
+    display: inline-block
+}
