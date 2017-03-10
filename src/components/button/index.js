@@ -1,7 +1,7 @@
-import iButton from './src/button';
+import IButton from './src/button';
 
-iButton.install = (Vue) => {
-    Vue.component(iButton.name,iButton);
+IButton.install = (Vue) => {
+    Vue.component(IButton.name,IButton);
 }
 
-export default iButton;
+export default IButton;

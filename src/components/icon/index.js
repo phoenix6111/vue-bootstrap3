@@ -4,4 +4,4 @@ Icon.install = (Vue) => {
     Vue.component(Icon.name,Icon);
 }
 
-export  default Icon;
+export default Icon;

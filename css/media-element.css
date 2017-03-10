@@ -1,0 +1,121 @@
+/***** mediaelement style *****/
+.mejs-container {
+    outline: 0
+}
+
+.bootstrap-select .dropdown-toggle:focus, .mejs-container .mejs-controls .mejs-button button:focus {
+    outline: 0 !important
+}
+
+.mejs-container .mejs-controls {
+    background: #ec592f;
+    height: 50px;
+    padding: 10px 5px 0
+}
+
+.mejs-container .mejs-controls div {
+    height: 5px
+}
+
+.mejs-container .mejs-controls div.mejs-time-rail {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0;
+    width: 100% !important
+}
+
+.mejs-container .mejs-controls div.mejs-time-rail .mejs-time-total {
+    margin: 0;
+    width: 100% !important;
+    background: #ec592f
+}
+
+.mejs-container .mejs-controls div.mejs-time-rail .mejs-time-loaded {
+    background: #D04B25
+}
+
+.mejs-container .mejs-controls div.mejs-time-rail .mejs-time-current {
+    background: #ffea00
+}
+
+.mejs-container .mejs-controls div.mejs-time-rail .mejs-time-buffering {
+    background: #ec592f
+}
+
+.mejs-container .mejs-controls div.mejs-time-rail a, .mejs-container .mejs-controls div.mejs-time-rail span:not(.mejs-time-float) {
+    border-radius: 0;
+    height: 3px
+}
+
+.mejs-container .mejs-controls .mejs-button button {
+    background-color: #ec592f;
+    width: 15px;
+    height: 15px;
+    background-position: center
+}
+
+.mejs-container .mejs-controls .mejs-volume-button {
+    position: absolute;
+    right: 35px
+}
+
+.mejs-container .mejs-controls .mejs-play button {
+    background-image: url(../img/icons/play.png)
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+    .mejs-container .mejs-controls .mejs-play button {
+        background-image: url(../img/icons/play@2x.png);
+        background-size: 15px 15px
+    }
+}
+
+.mejs-container .mejs-controls .mejs-pause button {
+    background-image: url(../img/icons/pause.png)
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+    .mejs-container .mejs-controls .mejs-pause button {
+        background-image: url(../img/icons/pause@2x.png);
+        background-size: 15px 15px
+    }
+}
+
+.mejs-container .mejs-controls .mejs-mute button {
+    background-image: url(../img/icons/speaker.png)
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+    .mejs-container .mejs-controls .mejs-mute button {
+        background-image: url(../img/icons/speaker@2x.png);
+        background-size: 15px 15px
+    }
+}
+
+.mejs-container .mejs-controls .mejs-unmute button {
+    background-image: url(../img/icons/speaker-2.png)
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+    .mejs-container .mejs-controls .mejs-unmute button {
+        background-image: url(../img/icons/speaker-2@2x.png);
+        background-size: 15px 15px
+    }
+}
+
+.mejs-container .mejs-controls .mejs-fullscreen-button {
+    position: absolute;
+    right: 5px
+}
+
+.mejs-container .mejs-controls .mejs-fullscreen-button button {
+    background-image: url(../img/icons/fullscreen.png)
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+    .mejs-container .mejs-controls .mejs-fullscreen-button button {
+        background-image: url(../img/icons/fullscreen@2x.png);
+        background-size: 15px 15px
+    }
+}

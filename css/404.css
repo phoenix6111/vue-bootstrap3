@@ -1,0 +1,67 @@
+.four-zero {
+    height: 100vh;
+    background-color: #607D8B
+}
+.fz-block, .fzb-links > a {
+    text-align: center;
+    color: #ECF0F1
+}
+
+.fz-block {
+    background: #557382;
+    border-radius: 2px;
+    position: absolute;
+    top: 50%;
+    margin-top: -150px;
+    padding: 25px;
+    height: 300px;
+    width: 500px;
+    left: 50%;
+    margin-left: -250px
+}
+
+.fz-block h2 {
+    font-size: 130px;
+    line-height: 100%;
+    color: #ECF0F1;
+    font-weight: 100
+}
+
+@media (max-width: 767px) {
+    .fz-block {
+        width: calc(100% - 40px);
+        left: 20px;
+        margin-left: 0;
+        height: 260px;
+        margin-top: -130px
+    }
+
+    .fz-block h2 {
+        font-size: 90px
+    }
+}
+
+.fz-block small {
+    display: block;
+    font-size: 26px;
+    margin-top: -10px
+}
+
+.fzb-links {
+    margin-top: 20px
+}
+
+.fzb-links > a {
+    font-size: 16px;
+    display: inline-block;
+    margin: 0 1px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    background: rgba(0, 0, 0, .09);
+    border-radius: 50%
+}
+
+.fzb-links > a:hover {
+    background: rgba(0, 0, 0, .2)
+}

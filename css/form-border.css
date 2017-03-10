@@ -1,0 +1,125 @@
+.form-control:not(.fc-alt) {
+    border: 1px solid #d9d9d9;
+    border-radius: 3px;
+    /*padding: 0 10px 0 40px;*/
+    padding: 5px 10px;
+}
+
+.input-group-lg>.input-group-addon {
+    padding: 6px 12px;
+}
+
+.form-control:focus {
+    border-color: #a6a6a6;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.fg-line:not([class*=has-]):after {
+    background: transparent;
+}
+
+.fg-float .fg-toggled .fg-label {
+    top: -20px;
+    left: 0;
+}
+
+.fg-float .fg-label {
+    top: 6px;
+    left: 10px;
+}
+
+html:not(.ie9) .select:before {
+    width: 0;
+}
+
+.input-group-addon {
+    border: 1px solid #d9d9d9;
+}
+
+.input-group-addon:last-child {
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.input-group-addon:first-child {
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.input-group-sm .input-group-addon>.zmdi {
+    top:1px;
+}
+
+.bootstrap-select>.btn-default,
+.bootstrap-select>.btn-default:hover,
+.bootstrap-select>.btn-default:focus,
+.bootstrap-select>.btn-default:focus:focus {
+    border-color: #d9d9d9;
+    border-radius: 3px;
+}
+
+.open > .dropdown-toggle.btn-default:hover,
+.open > .dropdown-toggle.btn-default,
+.open > .dropdown-toggle.btn-default:hover {
+    border-color: #d9d9d9;
+}
+
+
+.bootstrap-select.btn-group .dropdown-toggle .filter-option {
+    padding-left: 10px;
+}
+
+.chosen-container-multi .chosen-choices,
+.chosen-container-single .chosen-single {
+    border-radius: 3px;
+    height: 35px;
+    padding: 6px 10px;
+    border: 1px solid #d9d9d9;
+}
+
+.chosen-container-multi .chosen-choices li.search-choice {
+    margin: 0 4px 0 0;
+}
+
+.chosen-container-multi .chosen-choices li.search-field input[type="text"] {
+    margin: 0;
+    height: 25px;
+}
+
+.bootstrap-select > .btn-default:before {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    height: 100%;
+    content: "\f2f9";
+    font-family: Material-Design-Iconic-Font;
+    font-size: 25px;
+    pointer-events: none;
+    z-index: 5;
+    transition: all .2s ease-in-out;
+}
+
+.bootstrap-select.open > .btn-default:before {
+    transform: rotate(180deg);
+}
+
+.form-control-feedback {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.chosen-container-single .chosen-single:before {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    height: 100%;
+    width: 30px;
+    content: "\f2f9";
+    font-family: Material-Design-Iconic-Font;
+    font-size: 25px;
+    pointer-events: none;
+    z-index: 5
+}
