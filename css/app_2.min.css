@@ -86,7 +86,6 @@
     z-index: 4
 }
 
-
 /**** common load more style *****/
 .load-more {
     margin-top: 30px
@@ -126,7 +125,6 @@
     color: #5E5E5E
 }
 
-
 /******* app header style ******/
 #header, .waves-effect {
     -moz-user-select: none;
@@ -136,9 +134,11 @@
 #main, body, html {
     min-height: 100vh
 }
+
 #main, .h-inner, .hi-trigger, body {
     position: relative
 }
+
 #header, .toggle-switch {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -485,6 +485,11 @@
     text-transform: uppercase
 }
 
+.tab-nav li > a:after {
+    content: "";
+    left: 0
+}
+
 .list-group.lg-even-black .list-group-item:nth-child(even), .list-group.lg-odd-black .list-group-item:nth-child(odd) {
     background-color: #f9f9f9
 }
@@ -551,7 +556,6 @@
     display: block
 }
 
-
 /***** app header toggle sidebar logo style *****/
 .line-wrap, .line-wrap .line {
     width: 18px;
@@ -598,7 +602,6 @@
     transform: translateX(8px) translateY(-1px) rotate(-45deg);
     -webkit-transform: translateX(8px) translateY(-1px) rotate(-45deg)
 }
-
 
 /**** header switch skin style ***/
 #header .ss-skin, .event-tag > span, .ss-skin {
@@ -846,7 +849,6 @@
     }
 }
 
-
 /***** sidebar style ****/
 .sidebar {
     position: fixed;
@@ -1034,7 +1036,7 @@
 
 .sub-menu ul {
     list-style: none;
-    display: none;
+    /*display: none;*/
     padding: 0
 }
 
@@ -1072,7 +1074,6 @@
         display: block
     }
 }
-
 
 /***** app footer style *****/
 #footer, #footer .f-menu > li > a {
@@ -1116,8 +1117,6 @@
 .sidebar-toggled #footer {
     display: none
 }
-
-
 
 /*****example.css*****/
 .container {

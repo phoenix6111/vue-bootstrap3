@@ -14,7 +14,7 @@
 }
 
 .noUi-horizontal {
-    height: 3px
+    height: 4px
 }
 
 .noUi-horizontal .noUi-handle {
@@ -22,7 +22,12 @@
 }
 
 .noUi-vertical {
-    width: 3px
+    width: 4px
+}
+
+.noUi-vertical .noUi-handle {
+    left: -8px;
+    top: -17px;
 }
 
 .noUi-connect {
@@ -45,7 +50,10 @@
     background-color: #009688
 }
 
-.noUi-horizontal .noUi-handle:after, .noUi-horizontal .noUi-handle:before, .noUi-vertical .noUi-handle:after, .noUi-vertical .noUi-handle:before {
+.noUi-horizontal .noUi-handle:after,
+.noUi-horizontal .noUi-handle:before,
+.noUi-vertical .noUi-handle:after,
+.noUi-vertical .noUi-handle:before {
     display: none
 }
 
@@ -63,6 +71,15 @@
     border-radius: 0;
     box-shadow: none;
     border: 0;
+    cursor: pointer;
+}
+
+.noUi-base {
+    cursor: pointer;
+}
+
+.input-slider[disabled] .noUi-base {
+    cursor: not-allowed !important;
 }
 
 .noUi-background {
@@ -71,7 +88,7 @@
 }
 
 .noUi-horizontal {
-    height: 3px;
+    height: 4px;
 }
 
 .noUi-horizontal .noUi-handle {
@@ -79,7 +96,7 @@
 }
 
 .noUi-vertical {
-    width: 3px;
+    width: 4px;
 }
 
 .noUi-horizontal .noUi-handle,
@@ -239,7 +256,7 @@
 }
 
 .input-slider:not([data-is-color]) .noUi-base {
-    background: #009688 !important;
+    /*background: #009688 !important;*/
 }
 
 .input-slider[data-is-color=red] .noUi-base {
@@ -262,13 +279,40 @@
     background: #4caf50 !important;
 }
 
+/* Disabled state;
+ */
+
+.input-slider[disabled] .noUi-connect,
+.input-slider[disabled] .noUi-base {
+    background: #d8d5d5 !important;
+}
+.input-slider[disabled].noUi-target,
+.input-slider[disabled].noUi-handle,
+.input-slider[disabled] .noUi-handle {
+    cursor: not-allowed !important;
+    background: #d8d5d5 !important;
+}
+
+.slider-stop {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 100%;
+    background-color: #009688;
+    transform: translateX(-50%);
+}
 
 /***** sweetalert2 style ****/
 .swal2-modal {
     border-radius: 2px;
-    padding: 30px !important;
+    padding: 20px !important;
     font-family: roboto;
     box-shadow: 0 5px 20px rgba(0, 0, 0, .07)
+}
+
+.swal2-modal .swal2-title {
+    font-size: 25px;
+    font-weight: 500;
 }
 
 .swal2-modal h2 {
@@ -283,8 +327,53 @@
 
 .swal2-modal .swal2-icon {
     margin-top: 0;
-    margin-bottom: 20px
+    margin-bottom: 10px;
+    /*width:65px;
+    height:65px;*/
 }
+
+/*.swal2-icon.swal2-warning ,
+.swal2-icon.swal2-info ,
+.swal2-icon.swal2-error ,
+.swal2-icon.swal2-question ,
+.swal2-icon.swal2-success {
+    font-size: 50px;
+    line-height: 65px;
+}
+
+.swal2-icon.swal2-success .placeholder {
+    width: 65px;
+    height: 65px;
+    left: -4px;
+    top: -4px;
+    z-index: 2;
+}
+
+.swal2-icon.swal2-error .line.left {
+    left: 10px;
+}
+.swal2-icon.swal2-success .line.tip {
+    width: 23px;
+    left: 8px;
+    top: 40px;
+}
+
+.swal2-icon.swal2-success .line.long {
+    width: 42px;
+    right: 4px;
+    top: 32px;
+}
+
+.swal2-icon.swal2-error .line.right {
+    right: 10px;
+}
+
+.swal2-icon.swal2-success .fix {
+    width: 7px;
+    height: 60px;
+    left: 28px;
+    top: 4px;
+}*/
 
 .swal2-modal .swal2-content {
     color: #777;
@@ -318,6 +407,12 @@
 
 .swal2-container.in {
     background-color: rgba(0, 0, 0, .2)
+}
+
+.swal2-modal .swal2-spacer {
+    height: 5px;
+    color: transparent;
+    border: 0;
 }
 
 

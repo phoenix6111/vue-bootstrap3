@@ -19,6 +19,20 @@
                     <li class="nav-item"><router-link to="/carousels">Carousel 走马灯</router-link></li>
                     <li class="nav-item"><router-link to="/switchs">Switch 开关</router-link></li>
                     <li class="nav-item"><router-link to="/rates">Rate 评分</router-link></li>
+                    <li class="nav-item"><router-link to="/tags">Tag 标签</router-link></li>
+                    <li class="nav-item"><router-link to="/tooltips">Tooltip 文字提示</router-link></li>
+                    <li class="nav-item"><router-link to="/popovers">Poptip 气泡提示</router-link></li>
+                    <li class="nav-item"><router-link to="/progresses">Progress 进度条</router-link></li>
+                    <li class="nav-item"><router-link to="/collapses">Collapse 折叠面板</router-link></li>
+                    <li class="nav-item"><router-link to="/tabsdemo">Tabs 标签页</router-link></li>
+                    <li class="nav-item"><router-link to="/menus">Menu 导航菜单</router-link></li>
+                    <li class="nav-item"><router-link to="/modals">Modal 对话框</router-link></li>
+                    <li class="nav-item"><router-link to="/swals">Sweetalert 对话框</router-link></li>
+                    <li class="nav-item"><router-link to="/radios">Radio 单选框</router-link></li>
+                    <li class="nav-item"><router-link to="/checkboxs">Checkbox 多选框</router-link></li>
+                    <li class="nav-item"><router-link to="/dropdowns">Dropdown 下拉菜单</router-link></li>
+                    <li class="nav-item"><router-link to="/sliders">Slider 滑块</router-link></li>
+                    <li class="nav-item"><router-link to="/messages">Message 通知提醒</router-link></li>
                   </ul>
                 </div>
               </li>

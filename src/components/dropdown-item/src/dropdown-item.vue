@@ -1,16 +1,21 @@
 <template lang="html">
     <li role="presentation"
-        :class="classes" @click="handleClick">
-        <slot></slot>
+        :class="classes"
+        @click="handleClick">
+        <a href="javascript:void(0)" v-if="!divided"><slot></slot></a>
     </li>
 </template>
 
 <script>
+    import Emitter from '../../../mixins/emitter';
+
     export default {
+        name:'DropdownItem',
+
+        mixins: [Emitter],
+
         props: {
-            key: {
-                type:[String,Number]
-            },
+            command:String,
             disabled: {
                 type: Boolean,
                 default: false
@@ -19,15 +24,16 @@
                 type: Boolean,
                 default: false
             },
-            /*selected: {
+            selected: {
                 type: Boolean,
                 default: false
-            }*/
+            }
         },
         computed: {
             classes() {
                 return [
                     {
+                        'active':this.selected,
                         'disabled': this.disabled,
                         'divider': this.divider
                     }
@@ -36,21 +42,14 @@
         },
         methods: {
             handleClick() {
-                const $parent = this.$parent;
-                const hasChildren = this.$parent && this.$parent.$options.name == 'DropdownMenu';
-
                 //如果是disabled则点击不关闭dropdown-menu
                 if(this.disabled) {
                     this.$nextTick(()=> {
                         $parent.visible = true;
                     });
                 } else {
-                    if($parent && $parent.options.name === 'DropdownMenu') {
-                        $parent.$emit('on-hover-click');
-                    }
+                    this.dispatch('Dropdown', 'menu-item-click', [this.command, this]);
                 }
-
-                $parent.$emit('on-click',this.key);
             }
         }
     }

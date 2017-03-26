@@ -1,5 +1,5 @@
 <template lang="html">
-    <i :class="classes" :style="styles"></i>
+    <i :class="classes" :style="styles" @click="_click"></i>
 </template>
 
 <script>
@@ -24,6 +24,11 @@
                     style.color = this.color;
                 }
                 return style;
+            }
+        },
+        methods: {
+            _click(e) {
+                this.$emit('click',e);
             }
         }
     };

@@ -1,31 +1,40 @@
 <template lang="html">
-    <ul :class="classes"
-        v-show="visible" :align="align"><slot></slot></ul>
+    <transition :name="transition">
+        <ul :class="classes" v-show="visible">
+            <slot></slot>
+        </ul>
+    </transition>
 </template>
 
 <script>
-    import { oneOf } from '../../utils/assist';
+    import { oneOf } from '../../../utils/assist';
 
     export default {
-        props: {
-            align: {
-                type:String,
-                validator(value) {
-                    return oneOf(value, ['left', 'right']);
-                }
-            },
-            visible: {
-                type:Boolean,
-                default:false,
-            }
-        },
+        name:'DropdownMenu',
         computed: {
-            classes:[
-                'dropdown-menu',
-                {
-                    [`dropdown-menu-${this.align}`]: !!this.align
-                }
-            ]
+            classes(){
+                return [
+                    'dropdown-menu',
+                    {
+                        [`dropdown-menu-${this.align}`]: !!this.align
+                    }
+                ];
+            },
+            visible() {
+                let parent = this.$parent;
+                return parent && parent.visible;
+            },
+            direction() {
+                let parent = this.$parent;
+                return parent && parent.direction;
+            },
+            align() {
+                let parent = this.$parent;
+                return parent && parent.align;
+            },
+            transition () {
+                return this.direction === 'up' ? 'slide-down' : 'slide-up';
+            }
         }
     }
 </script>

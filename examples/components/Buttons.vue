@@ -73,7 +73,7 @@
 
                 <div class="btn-demo">
                     <IButton type="primary" size="lg">Large</IButton>
-                    <IButton type="primary">Large</IButton>
+                    <IButton type="primary">Normal</IButton>
                     <IButton type="primary" size="sm">Small</IButton>
                     <IButton type="primary" size="xs">Extra Small</IButton>
                 </div>
@@ -277,6 +277,32 @@
                         <button type="button" class="btn btn-warning">Right</button>
                     </div>
 
+                    <br/>
+                    <br/>
+
+                    <p class="f-500 c-black m-b-5">SplitButtons</p>
+                    <small>SplitButtons examples
+                    </small>
+
+                    <br/>
+                    <br/>
+
+                    <SplitButton type="primary" size="xs">
+                        SplitButton
+                    </SplitButton>
+                    <SplitButton type="primary" size="sm">
+                        SplitButton
+                    </SplitButton>
+                    <SplitButton type="primary"
+                                 @btn-click="btnClick"
+                                 @caret-click="caretClick"
+                                 @caret-mouse-enter="caretMouseEnter"
+                                 @caret-mouse-leave="caretMouseLeave">
+                        SplitButton
+                    </SplitButton>
+                    <SplitButton type="primary" size="lg">
+                        SplitButton
+                    </SplitButton>
 
                 </div>
 
@@ -494,6 +520,20 @@
 
 <script>
     export default {
-        name:'Buttons'
+        name:'Buttons',
+        methods: {
+            btnClick() {
+                console.log("Split-button btn clicked");
+            },
+            caretClick() {
+                console.log("Split-button caret btn clicked");
+            },
+            caretMouseEnter() {
+                console.log("Split-button caret mouse entering");
+            },
+            caretMouseLeave() {
+                console.log("Split-button caret mouse leaveing");
+            },
+        }
     }
 </script>

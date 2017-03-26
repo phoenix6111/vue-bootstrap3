@@ -9,7 +9,7 @@
 
                 <div class="col-sm-4" data-name="cloud-box" data-code="f217">
                     <p>
-                        <Icon type="cloud-box"></Icon>
+                        <Icon type="cloud-box" @click="iconClick"></Icon>
                         <span>cloud-circle</span>
                     </p>
                 </div>
@@ -74,6 +74,11 @@
 </template>
 <script>
     export default {
-        name:'Icons'
+        name:'Icons',
+        methods: {
+            iconClick() {
+                console.log("icon clicked ");
+            }
+        }
     }
 </script>

@@ -21,7 +21,7 @@
                 },
                 default:'info'
             },
-            closable: {
+            showClose: {
                 type: Boolean,
                 default: false
             }
@@ -37,7 +37,7 @@
                     `${prefixCls}`,
                     `${prefixCls}-${this.type}`,
                     {
-                        [`${prefixCls}-dismissible`]: this.closable
+                        [`${prefixCls}-dismissible`]: this.showClose
                     }
                 ];
             }

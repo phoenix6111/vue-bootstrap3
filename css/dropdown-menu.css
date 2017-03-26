@@ -1,5 +1,9 @@
 /****** dropdown style *****/
 
+.dropdown, .dropup {
+    position: relative
+}
+
 .dropdown-toggle:focus {
     outline: 0
 }
@@ -8,7 +12,7 @@
     position: absolute;
     left: 0;
     z-index: 9;
-    display: none;
+    display: block;
     min-width: 160px;
     list-style: none;
     font-size: 13px;
@@ -124,6 +128,7 @@
 }
 
 /****** second css ******/
+/*
 .dropdown:not([data-animation]) .dropdown-menu {
     -webkit-animation-name: fadeIn;
     animation-name: fadeIn;
@@ -132,9 +137,11 @@
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both
 }
+*/
 
 .dropdown-menu {
-    box-shadow: 0 2px 10px rgba(0,0,0,.2);
+    /*box-shadow: 0 2px 10px rgba(0,0,0,.2);*/
+    box-shadow: 0 2px 6px rgba(0,0,0,.2);
     padding: 10px 0;
     border-radius: 3px;
     top: -1px;
@@ -186,4 +193,20 @@
 .dropdown-header, .dropdown-menu > li > a {
     line-height: 1.42857143;
     white-space: nowrap
+}
+
+
+/** iview dropdown select style ***/
+.select-dropdown {
+    width: inherit;
+    max-height: 200px;
+    overflow: auto;
+    margin: 5px 0;
+    padding: 5px 0;
+    background-color: #fff;
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
+    position: absolute;
+    z-index: 900
 }
