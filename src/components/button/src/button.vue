@@ -1,12 +1,12 @@
 <template lang="html">
     <button class="btn" :class="classes" :disabled="disabled" v-if="!href"
-            :type="htmlType">
+            :type="htmlType" @click="_click">
         <Icon :type="icon" v-if="icon"></Icon>
         <slot></slot>
     </button>
 
     <a class="btn" :class="classes" :href="href" :disabled="disabled"
-        :target="target" v-else>
+        :target="target"  @click="_click" v-else>
         <Icon :type="icon" v-if="icon"></Icon>
         <slot></slot>
     </a>
@@ -39,7 +39,7 @@
             size: {
                 validator (value) {
                     return oneOf(value, ['lg', 'sm','xs']);
-                }
+                },
             },
             iconText:Boolean,
             disabled: Boolean,
@@ -55,20 +55,21 @@
                 type: Boolean,
                 default: false
             },
-            class: {
-                type: String
-            }
         },
         data () {
             return {
                 showSlot: true
             };
         },
+        methods: {
+            _click(e) {
+                this.$emit('click',e);
+            }
+        },
         computed: {
             classes () {
                 return [
                     {
-                        [`${this.class}`]: !!this.class,
                         [`${prefixCls}-${this.type}`]: !!this.type,
                         [`${prefixCls}-${this.size}`]: !!this.size,
                         [`${prefixCls}-${this.shape}`]: !!this.shape,

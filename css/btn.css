@@ -379,10 +379,10 @@ fieldset[disabled] .btn-success:active, fieldset[disabled] .btn-success:focus, f
 }
 
 .btn-group-lg > .btn, .btn-lg {
-    padding: 10px 16px;
+    padding: 10px 18px;
     font-size: 17px;
     line-height: 1.3333333;
-    border-radius: 2px
+    border-radius: 4px
 }
 
 .btn-group-sm > .btn, .btn-sm {
@@ -737,14 +737,6 @@ fieldset[disabled] .btn-success:active, fieldset[disabled] .btn-success:focus, f
     padding: 0;
     text-align: center;
 }
-
-.btn-lg, .btn-group-lg > .btn {
-    padding: 12px 26px;
-    font-size: 17px;
-    line-height: 1.3333333;
-    border-radius: 4px;
-}
-
 
 .btn-group-vertical:not(.bootstrap-select), .btn-group:not(.bootstrap-select) {
     box-shadow: none;

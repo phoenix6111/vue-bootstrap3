@@ -1,91 +1,164 @@
-<template lang="html">
-    <!--<div class="dropdown dropup">
-        <a href="#" class="dropdown-toggle btn btn-warning">Warning</a>
-        <ul class="dropdown-menu dropdown-menu-right">
-            <li><a role="menuitem" tabindex="-1" href="#">Action</a>
-            </li>
-            <li><a role="menuitem" tabindex="-1" href="#">Another
-                action</a></li>
-            <li><a role="menuitem" tabindex="-1" href="#">Something else
-                here</a></li>
-            <li class="divider"></li>
-            <li><a role="menuitem" tabindex="-1" href="#">Separated
-                link</a></li>
-        </ul>
-    </div>-->
-    <div class="dropdown" :class="{'dropup':dropup}"
-        @mouseenter="handleMouseEnter"
-        @mouseleave="handleMouseLeave">
-        <slot name="trigger"></slot>
-        <slot name="menu"></slot>
+<template>
+    <div :class="classes"
+         v-clickoutside="handleClose">
+
+        <!--<ButtonGroup v-if="splitButton" :size="size">
+            <IButton :type="type">
+                <slot></slot>
+            </IButton>
+            <IButton :type="type"
+                     class="dropdown-toggle"
+                     @click="handleClick"
+                     @mouseenter.native="handleMouseEnter"
+                     @mouseleave.native="handleMouseLeave">
+                <span class="caret"></span>
+                <span class="sr-only">Split button dropdowns</span>
+            </IButton>
+        </ButtonGroup>-->
+        <SplitButton v-if="splitButton"
+                     :size="size"
+                     :type="type"
+                     @caret-click="handleClick"
+                     @caret-mouse-enter="handleMouseEnter"
+                     @caret-mouse-leave="handleMouseLeave">
+            <slot></slot>
+        </SplitButton>
+
+        <span class="dropdown-trigger"
+              @click="handleClick"
+              @mouseenter="handleMouseEnter"
+              @mouseleave="handleMouseLeave"
+              v-else>
+            <slot></slot>
+        </span>
+
+        <slot name="list"></slot>
     </div>
 </template>
 <script>
-    import DropdownMenu from '../../dropdown-menu/src/dropdown-menu';
-    import { oneOf } from '../../utils/assist';
+    import clickoutside from '../../../directives/clickoutside';
+    import {oneOf} from '../../../utils/assist';
+    import Emitter from '../../../mixins/emitter';
+    import SplitButton from '../../split-button';
+
+    const prefixCls = 'dropdown';
 
     export default {
-        name:'Dropdown',
+        name: 'Dropdown',
+        componentName: 'Dropdown',
+        mixins: [Emitter],
+        directives: {clickoutside},
         props: {
             trigger: {
-                validator(value) {
-                    return oneOf(value,['click','hover','custom']);
+                validator (value) {
+                    return oneOf(value, ['click', 'hover']);
                 },
-                default:'hover'
+                default: 'hover'
             },
-            visible: {
-                type:Boolean,
-                default:false,
+            align: {
+                validator (value) {
+                    return oneOf(value, ['left', 'right']);
+                },
+                default: 'left'
+            },
+            direction: {
+                validator(value) {
+                    return oneOf(value, ['down', 'up']);
+                },
+                default: 'down'
+            },
+            hideOnClick: {
+                type: Boolean,
+                default: true
+            },
+            splitButton: {
+                type: Boolean,
+                default: false
+            },
+            type: {
+                validator (value) {
+                    return oneOf(value, ['default', 'primary', 'info', 'success', 'warning', 'danger']);
+                },
+                default: 'default'
+            },
+            size: {
+                validator (value) {
+                    return oneOf(value, ['lg', 'sm','xs']);
+                },
+            }
+        },
+        data () {
+            return {
+                prefixCls: prefixCls,
+                visible: false
+            };
+        },
+        computed: {
+            classes() {
+                return [
+                    'dropdown',
+                    {
+                        'dropup': this.direction == 'up'
+                    }
+                ];
+            },
+        },
+        watch: {
+            visible(val) {
+                this.broadcast('DropdownMenu', 'visible', val);
             }
         },
         methods: {
             handleClick () {
-                if (this.trigger === 'custom') return false;
                 if (this.trigger !== 'click') {
                     return false;
                 }
                 this.visible = !this.visible;
             },
-            handleMouseenter () {
-                if (this.trigger === 'custom') return false;
+            handleMouseEnter () {
                 if (this.trigger !== 'hover') {
                     return false;
                 }
+
                 clearTimeout(this.timeout);
                 this.timeout = setTimeout(() => {
                     this.visible = true;
                 }, 250);
             },
-            handleMouseleave () {
-                if (this.trigger === 'custom') return false;
+            handleMouseLeave () {
                 if (this.trigger !== 'hover') {
                     return false;
                 }
+
                 clearTimeout(this.timeout);
                 this.timeout = setTimeout(() => {
                     this.visible = false;
                 }, 150);
             },
             handleClose () {
-                if (this.trigger === 'custom') return false;
                 if (this.trigger !== 'click') {
                     return false;
                 }
                 this.visible = false;
             },
-            hasParent () {
-                const $parent = this.$parent.$parent;
-                if ($parent && $parent.$options.name === 'Dropdown') {
-                    return $parent;
-                } else {
-                    return false;
+            handleMenuItemClick(command, instance) {
+                if (this.hideOnClick) {
+                    this.visible = false;
                 }
-            }
+                this.$emit('command', command, instance);
+            },
+            initEvent() {
+                if (this.trigger === 'hover') {
+                    let dropdownElm = this.$slots.list[0].elm;
+
+                    dropdownElm.addEventListener('mouseenter', this.handleMouseEnter);
+                    dropdownElm.addEventListener('mouseleave', this.handleMouseLeave);
+                }
+            },
         },
-        watch: {
-            visible(value) {
-                this.$emit('on-visible-change', val);
-            }
+        mounted () {
+            this.$on('menu-item-click', this.handleMenuItemClick);
+            this.initEvent();
         }
     }
 </script>

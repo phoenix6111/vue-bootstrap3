@@ -812,6 +812,10 @@
     text-align: right
 }
 
+.tab-nav.tab-nav-center {
+    text-align: center;
+}
+
 .tab-nav.tn-justified > li {
     display: table-cell;
     width: 1%;
@@ -820,6 +824,8 @@
 
 .tab-nav.tn-icon > li .zmdi {
     font-size: 22px;
+    font-size:16px;
+    margin-right: 5px;
     line-height: 100%;
     min-height: 25px
 }

@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "material-design-iconic-font": "^2.2.0",
+    "popper.js": "^0.6.4",
+    "sweetalert2": "^6.4.4",
     "vue": "^2.2.1",
     "vue-router": "^2.2.0"
   },
