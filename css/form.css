@@ -518,7 +518,7 @@ select[multiple].input-lg, textarea.input-lg {
         width: 100%
     }
 
-    .form-inline .checkbox, .form-inline .radio {
+    /*.form-inline .checkbox, .form-inline .radio {
         display: inline-block;
         margin-top: 0;
         margin-bottom: 0;
@@ -533,7 +533,7 @@ select[multiple].input-lg, textarea.input-lg {
         position: relative;
         margin-left: 0
     }
-
+*/
     .form-inline .has-feedback .form-control-feedback {
         top: 0
     }
@@ -564,9 +564,9 @@ select[multiple].input-lg, textarea.input-lg {
     margin-right: -15px
 }
 
-.form-horizontal .has-feedback .form-control-feedback {
+/*.form-horizontal .has-feedback .form-control-feedback {
     right: 15px
-}
+}*/
 
 @media (min-width: 768px) {
     .form-horizontal .form-group-lg .control-label {
@@ -1908,7 +1908,7 @@ html:not(.ie9) .select.fg-line:before {
 
 /****** dropzone style ******/
 .dropzone {
-    border: 0;
+    border: 1px solid #f3f3f3;
     background-color: #f3f3f3;
     border-radius: 2px
 }
@@ -2036,4 +2036,52 @@ html:not(.ie9) .select.fg-line:before {
     animation: loader 1.1s infinite linear;
     border-left-color: #fff;
     border-style: solid
+}
+
+.ivu-select .dropdown-menu {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.select-item.active{
+    color: #ffffff;
+    text-decoration: none;
+    outline: 0;
+    background-color: rgba(51,153,255,.9);
+}
+
+.select-item.disabled {
+    color: #e4e4e4;
+    cursor: pointer;
+}
+
+.select-item.disabled:hover {
+    text-decoration: none;
+    background-color: transparent;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    cursor: not-allowed;
+}
+
+.ivu-select-multiple .select-item.active {
+    background-color: transparent;
+    color: rgba(51,153,255,.9);
+}
+
+.ivu-select-multiple .select-item.active:after {
+    display: inline-block;
+    font-family: Material-Design-Iconic-Font;
+    speak: none;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    text-rendering: auto;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    float: right;
+    font-size: 18px;
+    content: '\f26b';
+    color: rgba(51,153,255,.9);
 }

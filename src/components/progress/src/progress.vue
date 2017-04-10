@@ -72,6 +72,10 @@
             active: {
                 type: Boolean,
                 default: false
+            },
+            autoStatus: {
+                type:Boolean,
+                default:true
             }
         },
         data() {
@@ -169,7 +173,7 @@
                 if (isDown) {
                     this.curStatus = 'normal';
                 } else {
-                    if (parseInt(this.percent, 10) == 100) {
+                    if (this.autoStatus && parseInt(this.percent, 10) == 100) {
                         this.curStatus = 'success';
                     }
                 }
@@ -177,11 +181,15 @@
         },
         watch: {
             percent (val, oldVal) {
+                console.log("progress status "+this.curStatus);
                 if (val < oldVal) {
                     this.handleStatus(true);
                 } else {
                     this.handleStatus();
                 }
+            },
+            status(val) {
+                this.curStatus = val;
             }
         }
     };

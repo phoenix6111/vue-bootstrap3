@@ -5,7 +5,7 @@
                 <span aria-hidden="true">×</span>
                 <span class="sr-only">Close</span>
             </button>
-            <div :class="[baseClass + '-content']" ref="content" v-html="content"></div>
+            <div :class="contentClasses" ref="content" v-html="content"></div>
         </div>
     </transition>
 </template>
@@ -16,6 +16,10 @@
                 type: String,
                 default: ''
             },
+            type: {
+                type:String,
+                default:'info'
+            },
             duration: {
                 type: Number,
                 default: 2000
@@ -23,6 +27,10 @@
             content: {
                 type: String,
                 default: ''
+            },
+            withIcon: {
+                type:Boolean,
+                default:false
             },
             styles: {
                 type: Object,
@@ -52,19 +60,23 @@
         },
         data () {
             return {
-                withDesc: false
+                withDesc: false,
             };
         },
         computed: {
             baseClass () {
-                return `${this.prefixCls}-notice`;
+                return `${this.prefixCls}`;
             },
             classes () {
+//                'alert alert-info alert-dismissible notification with-desc with-icon',
                 return [
-                    this.baseClass,
+                    this.baseClass,'alert',
                     {
                         [`${this.className}`]: !!this.className,
-                        [`${this.baseClass}-with-desc`]: this.withDesc
+                        [`alert-${this.type}`]:!!this.type,
+                        'alert-dismissable':this.closable,
+                        'with-desc': this.withDesc,
+                        'with-icon':this.withIcon
                     }
                 ];
             },
@@ -95,8 +107,9 @@
             }
 
             // check if with desc in Notice component
-            if (this.prefixCls === 'i-notice') {
-                this.withDesc = this.$refs.content.querySelectorAll(`.${this.prefixCls}-desc`)[0].innerHTML !== '';
+            if (this.prefixCls === 'notification') {
+                let _desc = this.$refs.content.querySelectorAll(`.alert-desc`);
+                this.withDesc = _desc && _desc[0];
             }
         },
         beforeDestroy () {

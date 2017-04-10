@@ -13,7 +13,7 @@
     background-color: #ffffff;
     line-height: 1.5;
     /*line-height: 1.42857143;*/
-    padding:6px 15px;
+    padding:7px 15px;
     /*padding: 6px 12px;*/
     /*padding:8px 16px;*/
     font-size: 13px;
@@ -581,7 +581,11 @@ fieldset[disabled] .btn-success:active, fieldset[disabled] .btn-success:focus, f
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .3)
 }
 
-.btn-group .btn, .btn-group .btn-group, .btn-group .btn:active, .btn-group .btn:focus, .btn-group-vertical .btn, .btn-group-vertical .btn-group, .btn-group-vertical .btn:active, .btn-group-vertical .btn:focus, .form-control, input:active, input:focus {
+.btn-group .btn, .btn-group .btn-group, .btn-group .btn:active,
+.btn-group .btn:focus, .btn-group-vertical .btn,
+.btn-group-vertical .btn-group,
+.btn-group-vertical .btn:active,
+.btn-group-vertical .btn:focus {
     box-shadow: none !important
 }
 

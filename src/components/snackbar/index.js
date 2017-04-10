@@ -1,8 +1,8 @@
 import Notification from '../base/notification';
 
-const prefixCls = 'i-notification';
+const prefixCls = 'snackbar';
 const iconPrefixCls = 'zmdi';
-const prefixKey = 'i_notification_key_';
+const prefixKey = 'i_snackbar_key_';
 
 let top = 24;
 let defaultDuration = 4500;
@@ -10,18 +10,19 @@ let noticeInstance;
 let name = 1;
 
 const iconTypes = {
-    'info': 'information-circled',
-    'success': 'checkmark-circled',
-    'warning': 'android-alert',
-    'error': 'close-circled'
+    'inverse':'notifications',
+    'info': 'info',
+    'success': 'check-circle',
+    'warning': 'alert-circle',
+    'danger': 'close-circle'
 };
 
 function getNoticeInstance () {
     noticeInstance = noticeInstance || Notification.newInstance({
             prefixCls: prefixCls,
             styles: {
-                top: `${top}px`,
-                right: 0
+                width:'100%',
+                top:0,
             }
         });
 
@@ -30,9 +31,9 @@ function getNoticeInstance () {
 
 function notice (type, options) {
     const title = options.title || '';
-    const desc = options.desc || '';
     const noticeKey = options.name || `${prefixKey}${name}`;
     const onClose = options.onClose || function () {};
+    const showIcon = options.showIcon || true;
     // todo const btn = options.btn || null;
     const duration = (options.duration === 0) ? 0 : options.duration || defaultDuration;
 
@@ -40,44 +41,40 @@ function notice (type, options) {
 
     let instance = getNoticeInstance();
 
-    let content;
+    let content = "";
 
-    const with_desc = desc === '' ? '' : ` ${prefixCls}-with-desc`;
+    const iconType = iconTypes[type];
 
-    if (type == 'normal') {
-        content = `
-            <div class="${prefixCls}-custom-content ${prefixCls}-with-normal${with_desc}">
-                <div class="${prefixCls}-title">${title}</div>
-                <div class="${prefixCls}-desc">${desc}</div>
-            </div>
-        `;
-    } else {
-        const iconType = iconTypes[type];
-        content = `
-            <div class="${prefixCls}-custom-content ${prefixCls}-with-icon ${prefixCls}-with-${type}${with_desc}">
-                <span class="${prefixCls}-icon ${prefixCls}-icon-${type}">
+    if(showIcon) {
+        content += `
+                <span class="alert-icon">
                     <i class="${iconPrefixCls} ${iconPrefixCls}-${iconType}"></i>
                 </span>
-                <div class="${prefixCls}-title">${title}</div>
-                <div class="${prefixCls}-desc">${desc}</div>
-            </div>
-        `;
+             `;
+    }
+
+    if(!!title) {
+        content += `
+                <div class="alert-msg">${title}</div>
+            `;
     }
 
     instance.notice({
         name: noticeKey.toString(),
+        type:type,
         duration: duration,
-        styles: {},
-        transitionName: 'move-notice',
+        styles: {'position':'fixed','top':0,'left':0,'right':0},
+        transitionName: 'move-up',
         content: content,
         onClose: onClose,
-        closable: true
+        closable: true,
+        showIcon:options.showIcon || false,
     });
 }
 
 export default {
     open (options) {
-        return notice('normal', options);
+        return notice('inverse', options);
     },
     info (options) {
         return notice('info', options);
@@ -88,8 +85,8 @@ export default {
     warning (options) {
         return notice('warning', options);
     },
-    error (options) {
-        return notice('error', options);
+    danger (options) {
+        return notice('danger', options);
     },
     config (options) {
         if (options.top) {

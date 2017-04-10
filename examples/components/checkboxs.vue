@@ -39,9 +39,9 @@
 
             <Checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</Checkbox>
             <div style="margin: 15px 0;"></div>
-            <!--<checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-                <Checkbox v-for="(city,key) in cities" :label="city">{{city}}</Checkbox>
-            </checkbox-group>-->
+            <checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+                <Checkbox v-for="(city,index) in cities" :label="city" :key="index">{{city}}</Checkbox>
+            </checkbox-group>
         </div>
     </div>
 </template>

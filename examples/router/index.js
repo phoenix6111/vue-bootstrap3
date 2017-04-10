@@ -19,7 +19,14 @@ import Radios from '../components/Radios';
 import Checkboxs from '../components/checkboxs';
 import Dropdowns from '../components/Dropdowns';
 import Sliders from '../components/sliders';
-import Messages from '../components/Messages.vue';
+import Notices from '../components/Notices.vue';
+import Snackbars from '../components/Snackbars';
+import Loadings from '../components/Loadings';
+import Inputs from '../components/inputs';
+import InputNumbers from '../components/InputNumbers';
+import Selects from '../components/Selects';
+import Forms from '../components/Forms.vue';
+import Uploads from '../components/Uploads';
 
 Vue.use(Router);
 
@@ -106,9 +113,37 @@ export default new Router({
             name:'Sliders',
             component:Sliders
         }, {
-            path:'/messages',
-            name:'Messages',
-            component:Messages
+            path:'/notices',
+            name:'Notices',
+            component:Notices
+        }, {
+            path:'/snackbars',
+            name:'Snackbars',
+            component:Snackbars
+        }, {
+            path:'/loadings',
+            name:'Loadings',
+            component:Loadings
+        }, {
+            path:'/inputs',
+            name:'Inputs',
+            component:Inputs
+        }, {
+            path:'/input_numbers',
+            name:'InputNumbers',
+            component:InputNumbers
+        }, {
+            path:'/selects',
+            name:'Selects',
+            component:Selects
+        }, {
+            path:'/forms',
+            name:'Forms',
+            component:Forms
+        }, {
+            path:'/uploads',
+            name:'Uploads',
+            component:Uploads
         }
 
     ]

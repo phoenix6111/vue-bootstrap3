@@ -15,7 +15,7 @@
     export default {
         components: {Icon},
         props: {
-            showClose: {
+            closable: {
                 type: Boolean,
                 default: false
             },
@@ -37,7 +37,7 @@
                     {
                         [`${prefixCls}-${this.color}`]: !!this.color,
                         [`${prefixCls}-${this.type}`]: !!this.type,
-                        [`${prefixCls}-closable`]: this.showClose
+                        [`${prefixCls}-closable`]: this.closable
                     }
                 ];
             },

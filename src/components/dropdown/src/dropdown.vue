@@ -2,19 +2,6 @@
     <div :class="classes"
          v-clickoutside="handleClose">
 
-        <!--<ButtonGroup v-if="splitButton" :size="size">
-            <IButton :type="type">
-                <slot></slot>
-            </IButton>
-            <IButton :type="type"
-                     class="dropdown-toggle"
-                     @click="handleClick"
-                     @mouseenter.native="handleMouseEnter"
-                     @mouseleave.native="handleMouseLeave">
-                <span class="caret"></span>
-                <span class="sr-only">Split button dropdowns</span>
-            </IButton>
-        </ButtonGroup>-->
         <SplitButton v-if="splitButton"
                      :size="size"
                      :type="type"

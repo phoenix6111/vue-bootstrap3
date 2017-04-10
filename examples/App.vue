@@ -32,7 +32,14 @@
                     <li class="nav-item"><router-link to="/checkboxs">Checkbox 多选框</router-link></li>
                     <li class="nav-item"><router-link to="/dropdowns">Dropdown 下拉菜单</router-link></li>
                     <li class="nav-item"><router-link to="/sliders">Slider 滑块</router-link></li>
-                    <li class="nav-item"><router-link to="/messages">Message 通知提醒</router-link></li>
+                    <li class="nav-item"><router-link to="/notices">Message 通知提醒</router-link></li>
+                    <li class="nav-item"><router-link to="/snackbars">Snackbars 顶部通知提醒</router-link></li>
+                    <li class="nav-item"><router-link to="/loadings">Loading 加载</router-link></li>
+                    <li class="nav-item"><router-link to="/inputs">Input 输入框</router-link></li>
+                    <li class="nav-item"><router-link to="/input_numbers">InputNumber 数字输入框</router-link></li>
+                    <li class="nav-item"><router-link to="/selects">Select 选择器</router-link></li>
+                    <li class="nav-item"><router-link to="/forms">Form 表单</router-link></li>
+                    <li class="nav-item"><router-link to="/uploads">Upload 文件上传</router-link></li>
                   </ul>
                 </div>
               </li>

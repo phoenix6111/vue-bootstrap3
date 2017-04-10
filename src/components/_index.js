@@ -30,6 +30,13 @@ import DropdownMenu from './dropdown-menu';
 import DropdownItem from './dropdown-item';
 
 import Slider from './slider';
+import BsInput from './input';
+import InputNumber from './input-number';
+import BsForm from './form';
+import FormItem from './form-item';
+import Upload from './upload';
+
+import {BsSelect,BsOption,OptionGroup} from './select';
 
 export default {
     Alert,
@@ -63,6 +70,14 @@ export default {
     DropdownMenu,
     DropdownItem,
     Slider,
+    BsInput,
+    InputNumber,
+    BsForm,
+    FormItem,
+    BsSelect,
+    BsOption,
+    OptionGroup,
+    Upload
 };
 
 

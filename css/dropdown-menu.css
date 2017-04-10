@@ -41,7 +41,7 @@
     color: #333
 }
 
-.dropdown-menu>li>a:focus,.dropdown-menu>li>a:hover {
+.dropdown-menu>li>a:focus,.dropdown-menu>li>a:hover{
     text-decoration: none;
     color: #333;
     background-color: rgba(0,0,0,.075)
@@ -144,8 +144,10 @@
     box-shadow: 0 2px 6px rgba(0,0,0,.2);
     padding: 10px 0;
     border-radius: 3px;
-    top: -1px;
-    margin: 0;
+    /*top: -1px;*/
+    top:100%;/** add style **/
+    /*margin:0;*/
+    margin: 2px 0 0;
     border: 0
 }
 
@@ -164,10 +166,6 @@
 
 .dropdown-menu[class*=bgm-]>li>a {
     color: #fff
-}
-
-.dropup .dropdown-menu {
-    bottom: -2px
 }
 
 .dm-icon>li>a>.zmdi {
