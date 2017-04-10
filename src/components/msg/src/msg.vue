@@ -98,7 +98,7 @@
                 type:Boolean,
                 default:true
             },
-            showClose: {//是否可关闭
+            closable: {//是否可关闭
                 type: Boolean,
                 default: true,
             },

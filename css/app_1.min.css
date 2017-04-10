@@ -888,6 +888,10 @@ ol, ul {
     margin-bottom: 9px
 }
 
+li {
+    list-style: none;
+}
+
 .list-inline {
     margin-left: -5px
 }
@@ -2508,29 +2512,29 @@ a.thumbnail.active, a.thumbnail:focus, a.thumbnail:hover {
     color: #e6e6e6
 }
 
-.message.alert {
-    position: fixed;
-    right: 16px;
-    transition: opacity .3s,transform .3s,right .3s,top .4s;
-}
-
-.message.alert-inverse {
+.notification.alert-inverse,
+.snackbar.alert-inverse {
     box-shadow: 0 0 5px rgba(51, 51, 51, .5)
 }
 
-.message.alert-info {
+.notification.alert-info,
+.snackbar.alert-info {
     box-shadow: 0 0 5px rgba(33, 150, 243, .5)
 }
 
-.message.alert-success {
-    box-shadow: 0 0 5px rgba(76, 175, 80, .5)
+.notification.alert-success,
+.snackbar.alert-success {
+    box-shadow: 0 0 5px rgba(76, 175, 80, .5);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
 }
 
-.message.alert-warning {
+.notification.alert-warning,
+.snackbar.alert-warning {
     box-shadow: 0 0 5px rgba(255, 193, 7, .5)
 }
 
-.message.alert-danger {
+.notification.alert-danger,
+.snackbar.alert-danger {
     box-shadow: 0 0 5px rgba(244, 67, 54, .5)
 }
 
@@ -2538,15 +2542,90 @@ a.thumbnail.active, a.thumbnail:focus, a.thumbnail:hover {
     color: #fff !important
 }
 
-.notification.alert {
+.alert.notification {
+    position: relative;
+    border-radius: 5px;
+}
+.alert-icon {
+    top: 14px;
+    left: 16px;
+    position: absolute;
+    font-size: 16px;
+}
+
+.notification.with-icon {
+    padding-left: 40px;
+}
+
+.notification .alert-msg {
+    font-size: 14px;
+    display: block;
+}
+
+.notification .alert-desc {
+    font-size: 12px;
+    display: block;
+}
+
+.notification.with-desc {
+    padding-left: 16px;
+}
+
+.notification.with-desc.with-icon {
+    padding-left:60px;
+}
+
+.notification.with-desc .alert-icon {
+    top: 50%;
+    left: 24px;
+    margin-top: -21px;
+    font-size: 28px;
+}
+
+.notification-container {
+    width: 335px;
+    margin-right: 24px;
     position: fixed;
+    z-index: 1010;
+}
+
+.snackbar-container {
+    position: fixed;
+    width:100%;
+    top:0;
+    left:0;
+    right:0;
+    z-index: 1020;
+}
+
+.alert.snackbar {
+    text-align: center !important;
+    padding:16px;
+    font-size:16px;
     border-radius: 0;
-    width: 100%;
-    line-height: 2;
-    z-index: 1000;
-    top: 0;
-    text-align: center;
-    left: 0;
+}
+
+.snackbar.alert-danger,
+.snackbar.alert-warning,
+.snackbar.alert-info,
+.snackbar.alert-success,
+.snackbar.alert-inverse {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+}
+
+.snackbar .alert-icon {
+    position: static;
+    display: inline;
+    font-size: 18px;
+}
+
+.snackbar .alert-msg {
+    display: initial;
+    margin-left:10px;
+}
+
+.snackbar.alert-dismissable {
+    padding-right:35px;
 }
 
 /****** progressbar *****/

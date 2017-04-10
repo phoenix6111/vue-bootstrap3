@@ -1,19 +1,23 @@
 <template lang="html">
     <span :class="wrapClasses" @click="toggle">
         <span :class="innerClasses">
-            <slot name="open" v-if="checked"></slot>
-            <slot name="close" v-if="!checked"></slot>
+            <slot name="open" v-if="currentValue"></slot>
+            <slot name="close" v-if="!currentValue"></slot>
         </span>
     </span>
 </template>
 
 <script>
     import { oneOf } from '../../../utils/assist';
+    import Emitter from '../../../mixins/emitter';
 
     const prefixCls = 'i-switch';
     export default {
+        name:'ISwitch',
+
+        mixins:[Emitter],
         props: {
-            isChecked: {
+            value: {
                 type: Boolean,
                 default: false
             },
@@ -29,18 +33,15 @@
         },
         data() {
             return {
-                checked:false
+                currentValue: this.value
             }
-        },
-        mounted() {
-            this.checked = this.isChecked;
         },
         computed: {
             wrapClasses () {
                 return [
                     `${prefixCls}`,
                     {
-                        [`${prefixCls}-checked`]: this.checked,
+                        [`${prefixCls}-checked`]: this.currentValue,
                         [`${prefixCls}-disabled`]: this.disabled,
                         [`${prefixCls}-${this.size}`]: !!this.size
                     }
@@ -55,9 +56,12 @@
                 if (this.disabled) {
                     return false;
                 }
-                this.checked = !this.checked;
-                this.$emit('on-change', this.checked);
-//                this.$dispatch('on-form-change', this.checked);
+
+                const checked = !this.currentValue;
+                this.currentValue = checked;
+                this.$emit('input', checked);
+                this.$emit('on-change', checked);
+                this.dispatch('FormItem', 'bs.form.change', checked);
             }
         }
     }

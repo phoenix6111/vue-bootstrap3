@@ -1,5 +1,5 @@
 <template>
-    <div class="select-dropdown" :style="styles"><slot></slot></div>
+    <div class="ivu-select-dropdown" :style="styles"><slot></slot></div>
 </template>
 <script>
     import { getStyle } from '../../../utils/assist';

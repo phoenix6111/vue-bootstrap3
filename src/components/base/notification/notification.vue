@@ -3,6 +3,7 @@
         <Notice
                 v-for="notice in notices"
                 :key="notice.name"
+                :type="notice.type"
                 :prefix-cls="prefixCls"
                 :styles="notice.styles"
                 :content="notice.content"
@@ -10,6 +11,7 @@
                 :closable="notice.closable"
                 :name="notice.name"
                 :transition-name="notice.transitionName"
+                :with-icon="notice.showIcon"
                 :on-close="notice.onClose">
         </Notice>
     </div>
@@ -17,7 +19,7 @@
 <script>
     import Notice from './notice.vue';
 
-    const prefixCls = 'i-notification';
+    const prefixCls = 'notification';
     let seed = 0;
     const now = Date.now();
 
@@ -55,7 +57,7 @@
         computed: {
             classes () {
                 return [
-                    `${this.prefixCls}`,
+                    `${this.prefixCls}-container`,
                     {
                         [`${this.className}`]: !!this.className
                     }
@@ -67,9 +69,6 @@
                 const name = notice.name || getUuid();
 
                 let _notice = Object.assign({
-                    styles: {
-                        right: '50%'
-                    },
                     content: '',
                     duration: 2000,
                     closable: false,

@@ -21,16 +21,13 @@
                 ];
             },
             visible() {
-                let parent = this.$parent;
-                return parent && parent.visible;
+                return this.$parent.visible;
             },
             direction() {
-                let parent = this.$parent;
-                return parent && parent.direction;
+                return this.$parent.direction;
             },
             align() {
-                let parent = this.$parent;
-                return parent && parent.align;
+                return this.$parent.align;
             },
             transition () {
                 return this.direction === 'up' ? 'slide-down' : 'slide-up';

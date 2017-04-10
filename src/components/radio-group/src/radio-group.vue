@@ -36,10 +36,13 @@
         },
         computed: {
             classes() {
-                return {
-                    [`${prefixCls}-${this.size}`]: !!this.size,
-                    [`${prefixCls}-${this.type}`]: !!this.type,
-                };
+                return [
+                    `${prefixCls}`,
+                    {
+                        [`${prefixCls}-${this.size}`]: !!this.size,
+                        [`${prefixCls}-${this.type}`]: !!this.type,
+                    }
+                ];
             }
         },
         watch: {
