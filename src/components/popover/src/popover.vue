@@ -1,92 +1,92 @@
 <template>
-    <div
-            :class="classes"
-            @mouseenter="handleMouseenter"
-            @mouseleave="handleMouseleave"
-            v-clickoutside="handleClose">
-        <div
-                :class="[prefixCls + '-rel']"
-                ref="reference"
-                @click="handleClick"
-                @mousedown="handleFocus(false)"
-                @mouseup="handleBlur(false)">
+    <div class="popover-wrap"
+         @mouseenter="handleMouseenter"
+         @mouseleave="handleMouseleave"
+         v-clickoutside="handleClose">
+
+        <div class="popover-rel"
+             ref="reference"
+             @click="handleClick"
+             @mousedown="handleFocus(false)"
+             @mouseup="handleBlur(false)">
             <slot></slot>
         </div>
-        <transition name="fade">
-            <div :class="[prefixCls + '-popper']" :style="styles" ref="popper" v-show="visible">
-                <div :class="[prefixCls + '-content']">
-                    <div :class="[prefixCls + '-arrow']"></div>
-                    <div :class="[prefixCls + '-inner']" v-if="confirm">
-                        <div :class="[prefixCls + '-body']">
-                            <!--<i class="ivu-icon ivu-icon-help-circled"></i>-->
-                            <div :class="[prefixCls + '-body-message']">
-                                <slot name="title">{{ title }}</slot>
-                            </div>
-                        </div>
-                        <div :class="[prefixCls + '-footer']">
-                            <i-button type="text" size="sm" @click="cancel">{{ cancelText }}
-                            </i-button>
-                            <i-button type="primary" size="sm" @click="ok">{{ okText }}
-                            </i-button>
+
+        <transition :name="transition" @after-leave="doDestroy">
+            <div :class="classes"
+                 ref="popper"
+                 v-show="!disabled && showPopper"
+                 :style="{ width: width + 'px' }">
+                <div class="arrow"></div>
+
+                <div class="popover-inner" v-if="confirm">
+                    <div class="popover-content">
+                        <i class="zmdi zmdi-help"></i>
+                        <div class="popover-content-msg">
+                            <slot name="title">{{title}}</slot>
                         </div>
                     </div>
-                    <div :class="[prefixCls + '-inner']" v-if="!confirm">
-                        <div :class="[prefixCls + '-title']" v-if="showTitle" ref="title">
-                            <slot name="title">
-                                <div :class="[prefixCls + '-title-inner']">{{ title }}</div>
-                            </slot>
-                        </div>
-                        <div :class="[prefixCls + '-body']">
-                            <div :class="[prefixCls + '-body-content']">
-                                <slot name="content">
-                                    <div :class="[prefixCls + '-body-content-inner']">{{ content
-                                        }}
-                                    </div>
-                                </slot>
-                            </div>
-                        </div>
+                    <div class="popover-foot">
+                        <i-button type="text" size="sm" @click.native="cancel">{{ cancelText }}</i-button>
+                        <i-button type="primary" size="sm" @click.native="ok">{{ okText }}</i-button>
                     </div>
+                </div>
+                <div class="popover-inner" v-if="!confirm">
+                    <h3 class="popover-title" v-if="title || $slots.title">
+                        <slot name="title">{{title}}</slot>
+                    </h3>
+
+                    <div class="popover-content">
+                        <slot name="content">{{ content }}</slot>
+                    </div>
+
                 </div>
             </div>
         </transition>
     </div>
+
 </template>
 <script>
-    import Popper from '../../base/popper';
-    import iButton from '../../button/src/button.vue';
-    import clickoutside from '../../../directives/clickoutside';
+    import Popper from '../../../utils/vue-popper';
     import {oneOf} from '../../../utils/assist';
-
-    const prefixCls = 'i-popover';
+    import clickoutside from '../../../directives/clickoutside';
+    import { t } from '../../../locale';
+    import IButton from '../../button';
 
     export default {
-        name: 'Popover',
+        name:'Popover',
+
         mixins: [Popper],
         directives: {clickoutside},
-        components: {iButton},
+        components: { IButton },
+
         props: {
             trigger: {
-                validator (value) {
-                    return oneOf(value, ['click', 'focus', 'hover']);
+                validator(value) {
+                    return oneOf(value,['click', 'focus', 'hover', 'manual']);
                 },
-                default: 'click'
+                default: 'click',
             },
             placement: {
                 validator (value) {
-                    return oneOf(value, ['top', 'top-start', 'top-end', 'bottom', 'bottom-start',
-                        'bottom-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end']);
+                    return oneOf(value, ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end',
+                        'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end']);
                 },
                 default: 'top'
             },
-            title: {
-                type: [String, Number]
+            title: String,
+            disabled: Boolean,
+            content: String,
+            reference: {},
+            popperClass: String,
+            width: [String,Number],
+            visibleArrow: {
+                type:Boolean,
+                default: true
             },
-            content: {
-                type: [String, Number],
-                default: ''
-            },
-            width: {
-                type: [String, Number]
+            transition: {
+                type: String,
+                default: 'fade'
             },
             confirm: {
                 type: Boolean,
@@ -95,92 +95,92 @@
             okText: {
                 type: String,
                 default () {
-                    return "确定";
+                    return t('el.popover.okText');
                 }
             },
             cancelText: {
                 type: String,
                 default () {
-                    return "取消";
+                    return t('el.popover.cancelText');
                 }
+            },
+//            appendToBody:false,
+        },
+
+        data() {
+            return {
+                isInput: false
             }
         },
-        data () {
-            return {
-                prefixCls: prefixCls,
-                showTitle: true,
-                isInput: false
-            };
-        },
+
         computed: {
-            classes () {
+            classes() {
                 return [
-                    `${prefixCls}`,
+                    'popover',this.popperClass,
                     {
-                        [`${prefixCls}-confirm`]: this.confirm
+                        'popover-confirm':confirm
                     }
                 ];
-            },
-            styles () {
-                let style = {};
-
-                if (this.width) {
-                    style.width = `${this.width}px`;
-                }
-                return style;
             }
         },
+
+        watch: {
+            showPopper(newVal, oldVal) {
+                newVal ? this.$emit('on-show') : this.$emit('on-hide');
+            }
+        },
+
         methods: {
             handleClick () {
                 if (this.confirm) {
-                    this.visible = !this.visible;
+                    this.showPopper = !this.showPopper;
                     return true;
                 }
                 if (this.trigger !== 'click') {
                     return false;
                 }
-                this.visible = !this.visible;
+                this.showPopper = !this.showPopper;
             },
             handleClose () {
                 if (this.confirm) {
-                    this.visible = false;
+                    this.showPopper = false;
                     return true;
                 }
                 if (this.trigger !== 'click') {
                     return false;
                 }
-                this.visible = false;
+                this.showPopper = false;
             },
             handleFocus (fromInput = true) {
                 if (this.trigger !== 'focus' || this.confirm || (this.isInput && !fromInput)) {
                     return false;
                 }
-                this.visible = true;
+                this.showPopper = true;
             },
             handleBlur (fromInput = true) {
                 if (this.trigger !== 'focus' || this.confirm || (this.isInput && !fromInput)) {
                     return false;
                 }
-                this.visible = false;
+                this.showPopper = false;
             },
             handleMouseenter () {
                 if (this.trigger !== 'hover' || this.confirm) {
                     return false;
                 }
-                this.visible = true;
+                this.showPopper = true;
             },
             handleMouseleave () {
                 if (this.trigger !== 'hover' || this.confirm) {
                     return false;
                 }
-                this.visible = false;
+                this.showPopper = false;
             },
             cancel () {
-                this.visible = false;
+                this.showPopper = false;
                 this.$emit('on-cancel');
             },
             ok () {
-                this.visible = false;
+                this.showPopper = false;
                 this.$emit('on-ok');
             },
             getInputChildren () {
@@ -197,11 +197,8 @@
                 return $children;
             }
         },
+
         mounted () {
-            if (!this.confirm) {
-                this.showTitle =  (!!this.title)||(this.$slots.title !== undefined);
-                console.log(" show title "+this.showTitle);
-            }
             // if trigger and children is input or textarea,listen focus & blur event
             if (this.trigger === 'focus') {
                 const $children = this.getInputChildren();
@@ -219,5 +216,5 @@
                 $children.removeEventListener('blur', this.handleBlur, false);
             }
         }
-    };
+    }
 </script>

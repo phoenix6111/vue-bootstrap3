@@ -8,13 +8,16 @@
 
         <div class="card-body card-padding">
 
+            <h4>文字Tooltip</h4>
             <Tooltip content="这里是提示文字">
                 当鼠标经过这段文字时，会显示一个气泡框
             </Tooltip>
 
             <hr>
-
-            <div class="top">
+            <h4>基础用法</h4>
+            <small class="c-gray">在这里我们提供 9 种不同方向的展示方式，可以通过以下完整示例来理解，选择你要的效果。</small>
+            <div class="m-t-10">
+                <div class="top">
                 <Tooltip content="Top Left 文字提示" placement="top-start">
                     <i-button>上左</i-button>
                 </Tooltip>
@@ -62,26 +65,52 @@
             </div>
 
             <hr>
+            <h4>自定义内容</h4>
+            <small class="c-gray">通过自定义 slot 显示多行文本或更复杂的样式。</small>
 
-            <Tooltip placement="top">
-                <i-button>多行</i-button>
-                <div slot="content">
-                    <p>显示多行信息</p>
-                    <p><i>可以自定义样式</i></p>
-                </div>
-            </Tooltip>
+            <div class="m-t-10">
+                <Tooltip placement="top">
+                    <i-button>多行</i-button>
+                    <div slot="content">
+                        <p>显示多行信息</p>
+                        <p><i>可以自定义样式</i></p>
+                    </div>
+                </Tooltip>
+            </div>
+
+            </div>
 
             <hr>
-
+            <h4>禁用</h4>
+            <small class="c-gray">通过设置属性disabled可以禁用文字提示。</small>
+            <div class="m-t-10">
             <Tooltip placement="top" content="可以禁用文字提示" :disabled="disabled">
                 <i-button @click="disabled = true">点击关闭提示</i-button>
             </Tooltip>
+</div>
 
             <hr>
 
-            <Tooltip placement="top" content="Tooltip 文字提示" :delay="1000">
+            <h4>延时</h4>
+            <small class="c-gray">通过设置属性open-delay可以延时显示文字提示，单位毫秒。</small>
+            <div class="m-t-10">
+            <Tooltip placement="top" content="Tooltip 文字提示" :open-delay="1000">
                 <i-button @click="disabled = true">延时1秒显示</i-button>
             </Tooltip>
+</div>
+
+            <hr>
+            <h4>主题</h4>
+            <small class="c-gray">Tooltip 组件提供了两个不同的主题：dark和light，默认为dark</small>
+            <div class="m-t-10">
+                <Tooltip placement="top" effect="light">
+                <i-button>多行--light effect</i-button>
+                <div slot="content">
+                    <p>显示多行信息</p>
+                    <p><i>light effect 样式</i></p>
+                </div>
+            </Tooltip>
+</div>
 
         </div>
     </div>

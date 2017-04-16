@@ -6,20 +6,6 @@
                     <small>Use any of the available button classes to quickly create a styled button.
                     </small>
                 </h2>
-
-                <ul class="actions">
-                    <li class="dropdown action-show">
-                        <a href="" data-toggle="dropdown">
-                            <i class="zmdi zmdi-more-vert"></i>
-                        </a>
-
-                        <div class="dropdown-menu pull-right">
-                            <p class="p-20">
-                                You can put anything here
-                            </p>
-                        </div>
-                    </li>
-                </ul>
             </div>
 
             <div class="card-body card-padding">
@@ -27,13 +13,48 @@
 
                 <div class="btn-demo">
                     <IButton>Button</IButton>
-                    <IButton type="default">Default</IButton>
                     <IButton type="primary">Primary</IButton>
+                    <!--<IButton type="primary" shape="icon" icon="home"></IButton>-->
+                    <IButton type="secondary">Default</IButton>
                     <IButton type="info">Info</IButton>
                     <IButton type="success">Success</IButton>
                     <IButton type="warning">Warning</IButton>
                     <IButton type="danger">Danger</IButton>
                     <IButton type="inverse">Inverse</IButton>
+                    <IButton type="link">Link</IButton>
+                </div>
+
+                <br/>
+                <br/>
+                <p class="f-500 c-black m-b-20">Outline Buttons</p>
+                <div class="btn-demo">
+                    <button class="btn btn-primary btn-outline">Primary</button>
+                    <button class="btn btn-info btn-outline">Info</button>
+                    <button class="btn btn-success btn-outline">Success</button>
+                    <button class="btn btn-warning btn-outline">Warning</button>
+                    <button class="btn btn-danger btn-outline">Danger</button>
+                </div>
+
+                <br/>
+                <br/>
+                <p class="f-500 c-black m-b-20">Circle Buttons</p>
+                <div class="btn-demo">
+                    <IButton type="primary" shape="circle">Primary</IButton>
+                    <IButton type="info" shape="circle">Primary</IButton>
+                    <IButton type="success" shape="circle">Primary</IButton>
+                    <IButton type="warning" shape="circle">Primary</IButton>
+                    <IButton type="danger" shape="circle">Primary</IButton>
+                </div>
+
+                <br/>
+                <br/>
+                <p class="f-500 c-black m-b-20">Loading Buttons</p>
+                <div class="btn-demo">
+                    <IButton type="primary" :loading="true">Primary</IButton>
+                    <IButton type="info" :loading="true">Primary</IButton>
+                    <IButton type="success" :loading="true">Primary</IButton>
+                    <IButton type="warning" :loading="true">Primary</IButton>
+                    <IButton type="danger" :loading="true">Primary</IButton>
                 </div>
 
                 <br/>
@@ -84,9 +105,9 @@
                 <p class="f-500 c-black m-b-20">Disable Stat</p>
 
                 <div class="btn-demo">
-                    <IButton type="default" disabled>Default</IButton>
-                    <IButton type="info" disabled>Default</IButton>
+                    <IButton disabled>Default</IButton>
                     <IButton type="primary" disabled>Default</IButton>
+                    <IButton type="info" disabled>Default</IButton>
                     <IButton type="success" disabled>Default</IButton>
                     <IButton type="warning" disabled>Default</IButton>
                     <IButton type="danger" disabled>Default</IButton>
@@ -104,12 +125,14 @@
             </div>
             <div class="card-body card-padding">
                 <div class="btn-demo">
-                    <button class="btn btn-default btn-icon-text">
+                    <!--<button class="btn btn-default btn-icon-text">
                         <i class="zmdi zmdi-home"></i> Home
-                    </button>
-                    <button class="btn btn-default btn-icon-text">
+                    </button>-->
+                    <IButton type="primary" icon-text icon="home">Home</IButton>
+                    <IButton type="default" icon-text icon="search">Home</IButton>
+                    <!--<button class="btn btn-default btn-icon-text">
                         <i class="zmdi zmdi-search"></i> Search
-                    </button>
+                    </button>-->
                     <button class="btn btn-default btn-icon-text">
                         <i class="zmdi zmdi-more-vert"></i> More
                     </button>
@@ -268,6 +291,7 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-success">Left</button>
                         <button type="button" class="btn btn-success">Middle</button>
+                        <button type="button" class="btn btn-success">Right</button>
                         <button type="button" class="btn btn-success">Right</button>
                     </div>
 

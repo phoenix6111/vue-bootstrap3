@@ -21,7 +21,7 @@
                     <li class="nav-item"><router-link to="/rates">Rate 评分</router-link></li>
                     <li class="nav-item"><router-link to="/tags">Tag 标签</router-link></li>
                     <li class="nav-item"><router-link to="/tooltips">Tooltip 文字提示</router-link></li>
-                    <li class="nav-item"><router-link to="/popovers">Poptip 气泡提示</router-link></li>
+                    <li class="nav-item"><router-link to="/popovers">Popover 气泡提示</router-link></li>
                     <li class="nav-item"><router-link to="/progresses">Progress 进度条</router-link></li>
                     <li class="nav-item"><router-link to="/collapses">Collapse 折叠面板</router-link></li>
                     <li class="nav-item"><router-link to="/tabsdemo">Tabs 标签页</router-link></li>
@@ -40,6 +40,8 @@
                     <li class="nav-item"><router-link to="/selects">Select 选择器</router-link></li>
                     <li class="nav-item"><router-link to="/forms">Form 表单</router-link></li>
                     <li class="nav-item"><router-link to="/uploads">Upload 文件上传</router-link></li>
+                    <li class="nav-item"><router-link to="/tables">Table 表格</router-link></li>
+                    <li class="nav-item"><router-link to="/tables2">Table 表格</router-link></li>
                   </ul>
                 </div>
               </li>

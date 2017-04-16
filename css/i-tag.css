@@ -1,0 +1,189 @@
+/**** tag customStyles ****/
+.i-tag {
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    margin: 2px 4px 2px 0;
+    padding: 0 8px;
+    border: 1px solid #e3e8ee;
+    border-radius: 3px;
+    background: #f7f7f7;
+    font-size: 12px;
+    vertical-align: middle;
+    opacity: 1;
+    overflow: hidden;
+    cursor: pointer
+}
+
+.i-tag-dot {
+    height: 32px;
+    line-height: 32px;
+    border: 1px solid #e3e8ee !important;
+    color: #657180 !important;
+    background: #fff !important;
+    padding: 0 12px
+}
+
+.i-tag-dot-inner {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 8px;
+    border-radius: 50%;
+    background: #e3e8ee;
+    position: relative;
+    top: 1px
+}
+
+.i-tag-dot .zmdi-close {
+    color: #666 !important;
+    margin-left: 12px !important
+}
+
+.i-tag-border {
+    height: 24px;
+    line-height: 24px;
+    border: 1px solid #e3e8ee !important;
+    color: #657180 !important;
+    background: #fff !important;
+    position: relative
+}
+
+.i-tag-border .zmdi-close {
+    color: #666 !important;
+    margin-left: 12px !important
+}
+
+.i-tag-border:after {
+    content: "";
+    display: none;
+    width: 1px;
+    background: #e3e8ee;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 22px
+}
+
+.i-tag-border.i-tag-closable:after {
+    display: block
+}
+
+.i-tag-border.i-tag-closable .zmdi-close {
+    margin-left: 14px !important
+}
+
+.i-tag-border.i-tag-blue {
+    color: #39f !important;
+    border: 1px solid #39f !important
+}
+
+.i-tag-border.i-tag-blue:after {
+    background: #39f
+}
+
+.i-tag-border.i-tag-blue .zmdi-close {
+    color: #39f !important
+}
+
+.i-tag-border.i-tag-green {
+    color: #0c6 !important;
+    border: 1px solid #0c6 !important
+}
+
+.i-tag-border.i-tag-green:after {
+    background: #0c6
+}
+
+.i-tag-border.i-tag-green .zmdi-close {
+    color: #0c6 !important
+}
+
+.i-tag-border.i-tag-yellow {
+    color: #f90 !important;
+    border: 1px solid #f90 !important
+}
+
+.i-tag-border.i-tag-yellow:after {
+    background: #f90
+}
+
+.i-tag-border.i-tag-yellow .zmdi-close {
+    color: #f90 !important
+}
+
+.i-tag-border.i-tag-red {
+    color: #f30 !important;
+    border: 1px solid #f30 !important
+}
+
+.i-tag-border.i-tag-red:after {
+    background: #f30
+}
+
+.i-tag-border.i-tag-red .zmdi-close {
+    color: #f30 !important
+}
+
+.i-tag:hover {
+    opacity: .85
+}
+
+.i-tag, .i-tag a, .i-tag a:hover {
+    color: #657180
+}
+
+.i-tag-text a:first-child:last-child {
+    display: inline-block;
+    margin: 0 -8px;
+    padding: 0 8px
+}
+
+.i-tag .zmdi-close {
+    display: inline-block;
+    font-size: 14px;
+    /*-ms-transform: scale(1.42857143) rotate(0);
+    transform: scale(1.42857143) rotate(0);*/
+    cursor: pointer;
+    margin-left: 8px;
+    color: #666;
+    opacity: .66;
+    position: relative;
+    top: 1px
+}
+
+:root .i-tag .zmdi-close {
+    font-size: 14px
+}
+
+.i-tag .zmdi-close:hover {
+    opacity: 1
+}
+
+.i-tag-blue, .i-tag-green, .i-tag-red, .i-tag-yellow {
+    border: 0
+}
+
+.i-tag-blue, .i-tag-blue .zmdi-close, .i-tag-blue .zmdi-close:hover, .i-tag-blue a, .i-tag-blue a:hover, .i-tag-green,
+.i-tag-green .zmdi-close, .i-tag-green .zmdi-close:hover, .i-tag-green a,
+.i-tag-green a:hover, .i-tag-red, .i-tag-red .zmdi-close, .i-tag-red .zmdi-close:hover,
+.i-tag-red a, .i-tag-red a:hover, .i-tag-yellow, .i-tag-yellow .zmdi-close, .i-tag-yellow .zmdi-close:hover,
+.i-tag-yellow a, .i-tag-yellow a:hover {
+    color: #fff
+}
+
+.i-tag-blue, .i-tag-blue.i-tag-dot .i-tag-dot-inner {
+    background: #39f
+}
+
+.i-tag-green, .i-tag-green.i-tag-dot .i-tag-dot-inner {
+    background: #0c6
+}
+
+.i-tag-yellow, .i-tag-yellow.i-tag-dot .i-tag-dot-inner {
+    background: #f90
+}
+
+.i-tag-red, .i-tag-red.i-tag-dot .i-tag-dot-inner {
+    background: #f30
+}

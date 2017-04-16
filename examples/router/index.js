@@ -27,6 +27,8 @@ import InputNumbers from '../components/InputNumbers';
 import Selects from '../components/Selects';
 import Forms from '../components/Forms.vue';
 import Uploads from '../components/Uploads';
+import Tables from '../components/tables';
+import Tables2 from '../components/tables2';
 
 Vue.use(Router);
 
@@ -144,6 +146,14 @@ export default new Router({
             path:'/uploads',
             name:'Uploads',
             component:Uploads
+        }, {
+            path:'/tables',
+            name:'Tables',
+            component:Tables
+        }, {
+            path:'/tables2',
+            name:'Tables2',
+            component:Tables2
         }
 
     ]

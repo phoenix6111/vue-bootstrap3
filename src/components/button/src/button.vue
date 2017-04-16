@@ -1,7 +1,8 @@
 <template lang="html">
     <button class="btn" :class="classes" :disabled="disabled" v-if="!href"
             :type="htmlType" @click="_click">
-        <Icon :type="icon" v-if="icon"></Icon>
+        <i class="zmdi zmdi-refresh zmdi-hc-spin" v-if="loading"></i>
+        <Icon :type="icon" v-if="icon && !loading"></Icon>
         <slot></slot>
     </button>
 
@@ -25,11 +26,9 @@
         },
         props: {
             type: {
-                /*validator (value) {
-                    return oneOf(value, ['default', 'primary', 'info', 'success', 'warning', 'danger']);
+                validator (value) {
+                    return oneOf(value, ['default', 'primary','secondary', 'info', 'success', 'warning', 'danger','link','text','inverse']);
                 },
-                default:'default'*/
-                type:String
             },
             shape: {
                 validator (value) {
@@ -51,10 +50,18 @@
             },
             icon: String,
             href:String,
+            loading:{
+                type:Boolean,
+                default:false
+            },
             long: {
                 type: Boolean,
                 default: false
             },
+            outline: {//outline样式的按钮
+                type:Boolean,
+                default:false
+            }
         },
         data () {
             return {
@@ -70,6 +77,8 @@
             classes () {
                 return [
                     {
+                        'btn-outline':this.outline,
+                        'is-loading':this.loading,
                         [`${prefixCls}-${this.type}`]: !!this.type,
                         [`${prefixCls}-${this.size}`]: !!this.size,
                         [`${prefixCls}-${this.shape}`]: !!this.shape,

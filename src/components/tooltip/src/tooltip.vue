@@ -1,74 +1,107 @@
 <template>
-    <div :class="[prefixCls]" @mouseenter="handleShowPopper" @mouseleave="handleClosePopper">
-        <div :class="[prefixCls + '-rel']" ref="reference">
+    <div @mouseenter="handleShowPopper" @mouseleave="handleClosePopper" class="tooltip-wrap">
+        <div class="tooltip-rel" ref="reference">
             <slot></slot>
         </div>
-        <transition name="fade">
-            <div :class="[prefixCls + '-popper']" ref="popper" v-show="!disabled && (showPopper || always)">
-                <div :class="[prefixCls + '-content']">
-                    <div :class="[prefixCls + '-arrow']"></div>
-                    <div :class="[prefixCls + '-inner']"><slot name="content">{{ content }}</slot></div>
+        <transition :name="transition" :onAfterLeave="doDestroy">
+            <div :class="classes" role="tooltip" ref="popper" v-show="!disabled && showPopper">
+                <div class="tooltip-arrow" v-if="visibleArrow"></div>
+                <div class="tooltip-inner">
+                    <slot name="content">{{content}}</slot>
                 </div>
             </div>
         </transition>
     </div>
+
 </template>
 <script>
     import Popper from '../../../utils/vue-popper';
-//    import Popper from '../../base/popper';
-    import { oneOf } from '../../../utils/assist';
-
-    const prefixCls = 'i-tooltip';
+    import debounce from 'throttle-debounce/debounce';
+    import {oneOf} from '../../../utils/assist';
 
     export default {
         name: 'Tooltip',
+
         mixins: [Popper],
+
         props: {
             placement: {
                 validator (value) {
-                    return oneOf(value, ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end'
-                        , 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end']);
+                    return oneOf(value, ['top', 'top-start', 'top-end', 'bottom', 'bottom-start',
+                        'bottom-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end']);
                 },
                 default: 'bottom'
             },
-            content: {
-                type: [String, Number],
-                default: ''
-            },
-            delay: {
+            openDelay: {//廷迟显示
                 type: Number,
                 default: 0
             },
-            disabled: {
-                type: Boolean,
-                default: false
+            disabled: Boolean,
+            manual: Boolean,//手动控制显示
+            effect: {//主题：dark 或 light
+                validator(value) {
+                    return oneOf(value,['dark','light']);
+                },
+                default: 'dark'
             },
-            controlled: {    // under this prop,Tooltip will not close when mouseleave
-                type: Boolean,
-                default: false
+            popperClass: String,//为 Tooltip 的 popper 添加类名
+            content: String,//显示的内容
+            visibleArrow: {//是否显示 Tooltip 箭头
+                type:Boolean,
+                default: true
             },
-            always: {
-                type: Boolean,
-                default: false
+            transition: {//定义渐变动画
+                type: String,
+                default: 'fade'
+            },
+            popperOptions: {//popper.js 的参数
+                type:Object,
+                default() {
+                    return {
+                        boundariesPadding: 10,
+                        gpuAcceleration: false
+                    };
+                }
+            },
+            appendToBody:false
+        },
+
+        computed: {
+            classes() {
+                return [
+                    'tooltip',this.popperClass,
+                    {
+                        [`tooltip-${this.effect}`]:!!this.effect,
+                    }
+                ];
             }
         },
-        data () {
-            return {
-                prefixCls: prefixCls
-            };
-        },
+
         methods: {
+            debounceClose() {
+                console.log("debounceClose...outer ");
+                debounce(200, () => {
+                    console.log("debounceClose...");
+                    this.handleClosePopper();
+                });
+            },
             handleShowPopper() {
+                if (this.manual) return;
+                clearTimeout(this.timeout);
                 this.timeout = setTimeout(() => {
                     this.showPopper = true;
-                }, this.delay);
+                }, this.openDelay);
             },
+
             handleClosePopper() {
+                if (this.manual) return;
                 clearTimeout(this.timeout);
-                if (!this.controlled) {
-                    this.showPopper = false;
-                }
+                this.showPopper = false;
+            },
+
+            togglePreventClose() {
+                this.preventClose = !this.preventClose;
             }
         }
-    };
+    }
 </script>

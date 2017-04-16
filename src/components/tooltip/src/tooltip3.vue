@@ -16,7 +16,6 @@
 </template>
 <script>
     import Popper from '../../../utils/vue-popper';
-    //    import Popper from '../../base/popper';
     import {oneOf} from '../../../utils/assist';
 
     const prefixCls = 'i-tooltip';

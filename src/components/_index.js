@@ -37,6 +37,8 @@ import FormItem from './form-item';
 import Upload from './upload';
 
 import {BsSelect,BsOption,OptionGroup} from './select';
+import ElTable from './table';
+import ElTableColumn from './table-column';
 
 export default {
     Alert,
@@ -77,7 +79,9 @@ export default {
     BsSelect,
     BsOption,
     OptionGroup,
-    Upload
+    Upload,
+    ElTable,
+    ElTableColumn
 };
 
 

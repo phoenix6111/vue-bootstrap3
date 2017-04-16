@@ -16,7 +16,7 @@
         },
         watch: {
             value(value) {
-                this.dispatch('FormItem', 'form.change', [value]);
+                this.dispatch('FormItem', 'bs.form.change', [value]);
             }
         }
     }
