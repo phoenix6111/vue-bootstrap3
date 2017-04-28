@@ -47,25 +47,35 @@
     margin: 0
 }
 
-.actions > li {
+.actions > li,
+.actions .dropdown{
     display: inline-block;
     vertical-align: baseline
 }
 
-.actions > a, .actions > li > a {
+.actions > a,
+.actions > li > a,
+.actions .dropdown .dropdown-trigger a{
     width: 30px;
     height: 30px;
     display: inline-block;
-    padding-top: 5px
+    padding-top: 5px;
+    text-align: center;
 }
 
 /****** card header action style *****/
-.actions > a > i, .actions > li > a > i {
+.actions > a > i,
+.actions > li > a > i,
+.actions .dropdown .dropdown-trigger a{
     color: #adadad;
     font-size: 20px
 }
 
-.actions.open > a > i, .actions > a:hover > i, .actions > li.open > a > i, .actions > li > a:hover > i {
+.actions.open > a > i,
+.actions > a:hover > i,
+.actions > li.open > a > i,
+.actions > li > a:hover > i,
+.actions .dropdown .dropdown-trigger a:hover{
     color: #000
 }
 
@@ -868,6 +878,16 @@
 }
 
 @media (max-width: 1279px) {
+    .ie9 #sidebar {
+        display: none
+    }
+
+    .ie9 #sidebar.toggled {
+        display: block
+    }
+}
+
+@media (max-width: 1279px) {
     #sidebar {
         -webkit-transform: translate3d(-288px, 0, 0);
         transform: translate3d(-288px, 0, 0);
@@ -947,7 +967,8 @@
     transform: rotate(180deg)
 }
 
-.main-menu {
+/** left side-bar main-menu style **/
+/*.main-menu {
     list-style: none;
     padding-left: 0;
     margin: 20px 0 0
@@ -1036,7 +1057,7 @@
 
 .sub-menu ul {
     list-style: none;
-    /*display: none;*/
+    !*display: none;*!
     padding: 0
 }
 
@@ -1063,17 +1084,9 @@
 
 .sub-menu.active > ul {
     display: block
-}
+}*/
 
-@media (max-width: 1279px) {
-    .ie9 #sidebar {
-        display: none
-    }
 
-    .ie9 #sidebar.toggled {
-        display: block
-    }
-}
 
 /***** app footer style *****/
 #footer, #footer .f-menu > li > a {

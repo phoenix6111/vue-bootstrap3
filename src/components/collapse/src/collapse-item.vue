@@ -7,19 +7,22 @@
                 </a>
             </h4>
         </div>
-        <transition name="collapse-transition">
+        <CollapseTransition>
             <div :class="bodyClasses" v-show="isActive" aria-labelledby="headingOne">
                 <div class="panel-body">
                     <slot></slot>
                 </div>
             </div>
-        </transition>
+        </CollapseTransition>
 
     </div>
 </template>
 
 <script>
+    import CollapseTransition from '../../../transitions/collapse-transition';
+
     export default {
+        components:{CollapseTransition},
         props: {
             title:String,
             name: {
@@ -49,10 +52,7 @@
             },
             bodyClasses() {
                 return [
-                    'collapse',
-                    {
-                        'in':this.isActive
-                    }
+                    'collapse'
                 ]
             }
         },
@@ -60,6 +60,9 @@
             handleHeadClick() {
                 this.$emit('item-click',this);
             }
+        },
+        mounted() {
+            console.log(this.$slots);
         }
     }
 </script>

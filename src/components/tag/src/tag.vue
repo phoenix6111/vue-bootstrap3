@@ -1,6 +1,6 @@
 <template>
-    <transition name="fade">
-        <div :class="classes">
+    <transition :name="closeTransition?'':'fade'">
+        <div :class="classes" :style="{backgroundColor: color}">
             <span :class="dotClasses" v-if="showDot"></span>
             <span :class="textClasses"><slot></slot></span>
             <Icon v-if="closable" type="close" @click.stop="close"></Icon>
@@ -19,24 +19,29 @@
                 type: Boolean,
                 default: false
             },
-            color: {
-                validator (value) {
-                    return oneOf(value, ['blue', 'green', 'red', 'yellow']);
-                }
+            closeTransition: {//是否禁用关闭时的渐变动画
+                type:Boolean,
+                default:false,
             },
             type: {
                 validator (value) {
+                    return oneOf(value, ['primary','info', 'success', 'danger', 'warning']);
+                }
+            },
+            hit: {
+                validator (value) {
                     return oneOf(value, ['border', 'dot']);
                 }
-            }
+            },
+            color: String//背景色
         },
         computed: {
             classes () {
                 return [
                     `${prefixCls}`,
                     {
-                        [`${prefixCls}-${this.color}`]: !!this.color,
                         [`${prefixCls}-${this.type}`]: !!this.type,
+                        [`${prefixCls}-${this.hit}`]: !!this.hit,
                         [`${prefixCls}-closable`]: this.closable
                     }
                 ];
@@ -48,7 +53,7 @@
                 return `${prefixCls}-dot-inner`;
             },
             showDot () {
-                return !!this.type && this.type === 'dot';
+                return !!this.hit && this.hit === 'dot';
             }
         },
         methods: {

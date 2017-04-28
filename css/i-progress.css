@@ -1,58 +1,85 @@
-/**** i-progress styles ****/
 .i-progress {
-    display: inline-block;
-    width: 100%;
-    font-size: 12px;
-    position: relative
-}
-
-.i-progress-bar {
-    display: inline-block;
-    width: 100%;
-    margin-right: 0;
-    padding-right: 0
-}
-
-.i-progress-show-info .i-progress-bar {
-    padding-right: 60px;
-    margin-right: -60px;
-}
-
-.i-progress-outer {
-    display: inline-block;
-    width: 100%;
-    background-color: #f3f3f3;
-    border-radius: 100px;
-    vertical-align: middle
-}
-
-.i-progress-inner {
-    border-radius: 100px;
-    background-color: #2db7f5;
-    transition: all .2s linear;
     position: relative;
-    text-align: right;
+    line-height: 1
 }
 
-.i-progress-inner-text {
-    display: inline-block;
-    vertical-align: middle;
-    color: #fff;
-    font-size: 12px;
-    margin: 0 5px;
-    line-height: 1em;
+.i-progress.is-exception .i-progress-bar-inner {
+    background-color: #ff4949
+}
+
+.i-progress.is-exception .i-progress-text {
+    color: #ff4949
+}
+
+.i-progress.is-success .i-progress-bar-inner {
+    background-color: #13ce66
+}
+
+.i-progress.is-success .i-progress-text {
+    color: #13ce66
 }
 
 .i-progress-text {
+    font-size: 14px;
+    color: #657180;
     display: inline-block;
+    vertical-align: middle;
     margin-left: 5px;
-    text-align: left;
-    font-size: 1em;
+    line-height: 1
+}
+
+.i-progress-text i {
+    vertical-align: middle;
+    display: block
+}
+
+.i-progress--without-text .i-progress-text {
+    display: none
+}
+
+.i-progress--without-text .i-progress-bar {
+    padding-right: 0;
+    margin-right: 0;
+    display: block
+}
+
+.i-progress--text-inside .i-progress-bar {
+    padding-right: 0;
+    margin-right: 0
+}
+
+.i-progress-bar {
+    padding-right: 55px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    margin-right: -55px;
+    box-sizing: border-box
+}
+
+.i-progress-bar-outer {
+    height: 6px;
+    border-radius: 100px;
+    background-color: #f3f3f3;
+    overflow: hidden;
+    position: relative;
     vertical-align: middle
 }
 
-.i-progress-active .i-progress-inner:before {
-    content: '';
+.i-progress-bar-inner {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: #20a0ff;
+    text-align: right;
+    border-radius: 100px;
+    line-height: 1;
+    transition: all .2s linear;
+}
+
+.i-progress.is-active .i-progress-bar-inner:before {
+    content: "";
     opacity: 0;
     position: absolute;
     top: 0;
@@ -61,7 +88,7 @@
     bottom: 0;
     background: #fff;
     border-radius: 10px;
-    animation: i-progress-active 2s ease-in-out infinite
+    animation: i-progress-active 2s ease-in-out infinite;
 }
 
 @keyframes i-progress-active {
@@ -75,38 +102,25 @@
     }
 }
 
-.i-progress--circle {
-    display: inline-block
-}
-
-.i-progress--circle .i-progress-text {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    margin: 0;
-    -ms-transform: translate(0, -50%);
-    transform: translate(0, -50%)
-}
-
-.i-progress--circle .i-progress-text i {
+.i-progress-bar-innerText {
+    display: inline-block;
     vertical-align: middle;
-    display: inline-block
+    color: #fff;
+    font-size: 12px;
+    margin: 0 5px
 }
 
-.i-progress-wrong .i-progress-inner {
-    background-color: #f30
+@keyframes progress {
+    0% {
+        background-position: 0 0
+    }
+    100% {
+        background-position: 32px 0
+    }
 }
-
-.i-progress-wrong .i-progress-text {
-    color: #f30
-}
-
-.i-progress-success .i-progress-inner {
-    background-color: #0c6
-}
-
-.i-progress-success .i-progress-text {
-    color: #0c6
+.i-progress-bar-inner:after {
+    display: inline-block;
+    content: "";
+    height: 100%;
+    vertical-align: middle
 }

@@ -1,7 +1,7 @@
 <template lang="html">
-    <li :class="{'active':active}">
-        <a href="javascript:void(0)" @click="handleClick">
-            <slot name="title">
+    <li :class="classes">
+        <a href="javascript:void(0)" @click="handleClick" :style="paddingStyle">
+            <slot>
                 <Icon :type="icon" v-if="!!icon"></Icon>
                 {{title}}
             </slot>
@@ -35,6 +35,15 @@
         computed: {
             active() {
                 return this.path === this.rootMenu.activedPath;
+            },
+            classes() {
+                return [
+                    'menu-item',
+                    {
+                        'active':this.active,
+                        'disabled':this.disabled
+                    }
+                ];
             }
         },
         methods: {

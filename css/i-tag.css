@@ -73,55 +73,68 @@
     margin-left: 14px !important
 }
 
-.i-tag-border.i-tag-blue {
+.i-tag-border.i-tag-primary {
     color: #39f !important;
     border: 1px solid #39f !important
 }
 
-.i-tag-border.i-tag-blue:after {
+.i-tag-border.i-tag-primary:after {
     background: #39f
 }
 
-.i-tag-border.i-tag-blue .zmdi-close {
+.i-tag-border.i-tag-primary .zmdi-close {
     color: #39f !important
 }
 
-.i-tag-border.i-tag-green {
+.i-tag-border.i-tag-info {
+    color: #73ccff !important;
+    border: 1px solid #73ccff !important
+}
+
+.i-tag-border.i-tag-info:after {
+    background: #73ccff
+}
+
+.i-tag-border.i-tag-info .zmdi-close {
+    color: #73ccff !important
+}
+
+.i-tag-border.i-tag-success {
     color: #0c6 !important;
     border: 1px solid #0c6 !important
 }
 
-.i-tag-border.i-tag-green:after {
+.i-tag-border.i-tag-success:after {
     background: #0c6
 }
 
-.i-tag-border.i-tag-green .zmdi-close {
+.i-tag-border.i-tag-success .zmdi-close {
     color: #0c6 !important
 }
 
-.i-tag-border.i-tag-yellow {
+.i-tag-border.i-tag-warning {
     color: #f90 !important;
     border: 1px solid #f90 !important
 }
 
-.i-tag-border.i-tag-yellow:after {
+.i-tag-border.i-tag-warning:after {
     background: #f90
 }
 
-.i-tag-border.i-tag-yellow .zmdi-close {
+.i-tag-border.i-tag-warning .zmdi-close {
     color: #f90 !important
 }
 
-.i-tag-border.i-tag-red {
+.i-tag-border.i-tag-danger {
     color: #f30 !important;
     border: 1px solid #f30 !important
 }
 
-.i-tag-border.i-tag-red:after {
+.i-tag-border.i-tag-danger:after {
     background: #f30
 }
 
-.i-tag-border.i-tag-red .zmdi-close {
+.i-tag-border.i-tag-danger .zmdi-close {
     color: #f30 !important
 }
 
@@ -160,30 +173,34 @@
     opacity: 1
 }
 
-.i-tag-blue, .i-tag-green, .i-tag-red, .i-tag-yellow {
+.i-tag-primary, .i-tag-success, .i-tag-danger, .i-tag-warning {
     border: 0
 }
 
-.i-tag-blue, .i-tag-blue .zmdi-close, .i-tag-blue .zmdi-close:hover, .i-tag-blue a, .i-tag-blue a:hover, .i-tag-green,
-.i-tag-green .zmdi-close, .i-tag-green .zmdi-close:hover, .i-tag-green a,
-.i-tag-green a:hover, .i-tag-red, .i-tag-red .zmdi-close, .i-tag-red .zmdi-close:hover,
-.i-tag-red a, .i-tag-red a:hover, .i-tag-yellow, .i-tag-yellow .zmdi-close, .i-tag-yellow .zmdi-close:hover,
-.i-tag-yellow a, .i-tag-yellow a:hover {
+.i-tag-primary, .i-tag-primary .zmdi-close, .i-tag-primary .zmdi-close:hover, .i-tag-primary a, .i-tag-primary a:hover,
+.i-tag-info, .i-tag-info .zmdi-close, .i-tag-info .zmdi-close:hover, .i-tag-info a, .i-tag-info a:hover,
+.i-tag-success, .i-tag-success .zmdi-close, .i-tag-success .zmdi-close:hover, .i-tag-success a, .i-tag-success a:hover,
+.i-tag-danger, .i-tag-danger .zmdi-close, .i-tag-danger .zmdi-close:hover, .i-tag-danger a, .i-tag-danger a:hover,
+.i-tag-warning, .i-tag-warning .zmdi-close, .i-tag-warning .zmdi-close:hover, .i-tag-warning a, .i-tag-warning a:hover {
     color: #fff
 }
 
-.i-tag-blue, .i-tag-blue.i-tag-dot .i-tag-dot-inner {
+.i-tag-primary, .i-tag-primary.i-tag-dot .i-tag-dot-inner {
     background: #39f
 }
 
-.i-tag-green, .i-tag-green.i-tag-dot .i-tag-dot-inner {
+.i-tag-info, .i-tag-info.i-tag-dot .i-tag-dot-inner {
+    background: #50bfff;
+}
+
+.i-tag-success, .i-tag-success.i-tag-dot .i-tag-dot-inner {
     background: #0c6
 }
 
-.i-tag-yellow, .i-tag-yellow.i-tag-dot .i-tag-dot-inner {
+.i-tag-warning, .i-tag-warning.i-tag-dot .i-tag-dot-inner {
     background: #f90
 }
 
-.i-tag-red, .i-tag-red.i-tag-dot .i-tag-dot-inner {
+.i-tag-danger, .i-tag-danger.i-tag-dot .i-tag-dot-inner {
     background: #f30
 }

@@ -1,16 +1,24 @@
 <template lang="html">
-    <ul class="main-menu">
+    <ul :class="classes">
         <slot></slot>
     </ul>
 </template>
 
 <script>
     import Emitter from '../../../mixins/emitter';
+    import {oneOf} from '../../../utils/assist';
 
     export default {
         name:'Menu',
         componentName:'Menu',
+        mixins: [Emitter],
         props: {
+            mode: {
+                validator(value) {
+                    return oneOf(value,['horizontal','vertical']);
+                },
+                default: 'vertical'
+            },
             defaultActive: {
                 type: String,
                 default: ''
@@ -22,6 +30,10 @@
             },
             uniqueOpened: Boolean,
             router: Boolean,
+            menuTrigger: {
+                type: String,
+                default: 'hover'
+            }
         },
         data() {
             return {
@@ -30,6 +42,33 @@
                 items:{},
                 subMenus:{}
             };
+        },
+        computed: {
+            classes() {
+                return [
+                    'nav',
+                    {
+                        'nav-stacked':this.mode === 'vertical',
+                        'nav-tabs':this.mode === 'horizontal',
+                        [`menu-${this.mode}`]:!!this.mode,
+                    }
+                ];
+            }
+        },
+        watch: {
+            defaultActive(value) {
+                const item = this.items[value];
+                if (item) {
+                    this.activedPath = item.index;
+                    this.initOpenedMenu();
+                } else {
+                    this.activedPath = '';
+                }
+
+            },
+            defaultOpeneds(value) {
+                this.openedMenus = value;
+            }
         },
         methods: {
             addItem(item) {
@@ -65,13 +104,17 @@
                 this.activedPath = item.path;
                 this.$emit('select',path,indexPath,item);
 
+                if (this.mode === 'horizontal') {
+                    this.openedMenus = [];
+                }
+
                 if(this.router) {
                     this.routeToItem(item);
                 }
             },
             handleSubMenuClick(subMenu) {
-                let {path,indexPath} = subMenu;
-                let isOpened = (this.openedMenus.indexOf(path) !== -1);
+                const {path,indexPath} = subMenu;
+                const isOpened = (this.openedMenus.indexOf(path) !== -1);
 
                 if(isOpened) {
                     this.closeMenu(path);
@@ -93,7 +136,7 @@
             initOpenedMenu() {
                 const path = this.activedPath;
                 const activeItem = this.items[path];
-                if (!activeItem) return;
+                if (!activeItem || this.mode === 'horizontal') return;
 
                 let indexPath = activeItem.indexPath;
                 // 展开该菜单项的路径上所有子菜单

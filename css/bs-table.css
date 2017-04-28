@@ -5,26 +5,40 @@
     width: 100%;
     max-width: 100%;
 }
-/*.el-table:before {
+.el-table td.is-right,.el-table th.is-right {
+    text-align: right
+}
+
+.el-table td.is-left,.el-table th.is-left {
+    text-align: left
+}
+
+.el-table td.is-center,.el-table th.is-center {
+    text-align: center
+}
+.el-table.el-table--border {
+    border-left: 1px solid #f5f5f5;
+}
+.el-table.el-table--border:before {
     left: 0;
     bottom: 0;
     width: 100%;
     height: 1px
 }
 
-.el-table:after,.el-table:before {
+.el-table.el-table--border:after,.el-table.el-table--border:before {
     content: "";
     position: absolute;
-    background-color: #dfe6ec;
+    background-color: #f5f5f5;
     z-index: 1
 }
 
-.el-table:after {
+.el-table.el-table--border:after {
     top: 0;
     right: 0;
     width: 1px;
     height: 100%
-}*/
+}
 .el-table__fixed-body-wrapper .table > tbody > tr > td,
 .el-table__fixed-body-wrapper .table > tbody > tr > th,
 .el-table__fixed-body-wrapper .table > tfoot > tr > td,
@@ -33,6 +47,20 @@
 .el-table__fixed-body-wrapper .table > thead > tr > th {
     background-color: #fff;
 }
+.table > tbody > tr > td:first-child {
+
+}
+.table > tbody > tr > td.el-table-column--selection:first-child,
+.table > tbody > tr > th.el-table-column--selection:first-child,
+.table > tfoot > tr > td.el-table-column--selection:first-child,
+.table > tfoot > tr > th.el-table-column--selection:first-child,
+.table > thead > tr > td.el-table-column--selection:first-child,
+.table > thead > tr > th.el-table-column--selection:first-child {
+    padding-left: 20px;
+}
+/*.table-bordered, .table-bordered > tbody > tr > td:last-child, .table-bordered > tbody > tr > th:last-child, .table-bordered > thead > tr > th:last-child {
+     border-right: 1px solid #f5f5f5;
+}*/
 
 
 .el-table__body-wrapper,.el-table__header-wrapper {
@@ -73,8 +101,9 @@
 
 
 
-.el-table th.is-leaf {
-    border-bottom: 1px solid #f5f5f5;
+.el-table thead>tr>th.is-leaf {
+    /*border-bottom: 1px solid #f5f5f5;*/
+    border-bottom: none;
 }
 
 .el-table td.is-hidden>*,.el-table th.is-hidden>* {
@@ -364,10 +393,11 @@
     color: #97a8be;
 }
 .el-table-filter {
-    border: 1px solid #d1dbe5;
+    /*border: 1px solid #d1dbe5;*/
     border-radius: 2px;
     background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,.12),0 0 6px rgba(0,0,0,.12);
+    /*box-shadow: 0 2px 4px rgba(0,0,0,.12),0 0 6px rgba(0,0,0,.12);*/
+    box-shadow:0 2px 6px rgba(0,0,0,.2);
     box-sizing: border-box;
     margin: 2px 0
 }
@@ -395,7 +425,7 @@
     min-width: 100px
 }
 .el-table-filter__bottom {
-    border-top: 1px solid #d1dbe5;
+    border-top: 1px solid #f0f0f0;
     padding: 8px
 }
 .el-table-filter__bottom button {

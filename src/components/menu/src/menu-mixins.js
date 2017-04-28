@@ -31,6 +31,19 @@ export default {
             }
 
             return parent;
+        },
+        paddingStyle() {
+            if (this.rootMenu.mode !== 'vertical') return {};
+
+            let padding = 20;
+            let parent = this.$parent;
+            while (parent && parent.$options.componentName !== 'Menu') {
+                if (parent.$options.componentName === 'SubMenu') {
+                    padding += 20;
+                }
+                parent = parent.$parent;
+            }
+            return {paddingLeft: padding + 'px'};
         }
     }
 };

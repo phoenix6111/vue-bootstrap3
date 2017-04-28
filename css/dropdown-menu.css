@@ -111,9 +111,11 @@
 
 .dropup .dropdown-menu,.navbar-fixed-bottom .dropdown .dropdown-menu {
     top: auto;
-    bottom: 100%;
+    /*bottom: 100%;*/
+    bottom: -1px;
     margin-bottom: 2px
 }
+
 
 @media (min-width: 768px) {
     .navbar-right .dropdown-menu {
@@ -149,6 +151,10 @@
     /*margin:0;*/
     margin: 2px 0 0;
     border: 0
+}
+
+.i-select .dropdown-menu {
+    top:100%;
 }
 
 .btn-group.open .dropdown-toggle,.progress,.progress .progress-bar {

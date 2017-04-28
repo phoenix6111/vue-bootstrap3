@@ -1,66 +1,49 @@
 <template>
     <div :class="wrapClasses">
-
-        <div :class="barClasses" v-if="type === 'line'">
-            <div :class="outerClasses">
-                <div :class="innerClasses" :style="innerStyle">
-                    <div :class="innerTextClasses" v-if="!hideInfo && textInside">
+        <div :class="[prefixCls + '-bar']">
+            <div :class="[prefixCls + '-bar-outer']" :style="{height: strokeWidth + 'px'}">
+                <div :class="[prefixCls + '-bar-inner']" :style="barStyle">
+                    <div :class="[prefixCls + '-bar-innerText']" v-if="showText && textInside">
                         {{percent}}%
                     </div>
                 </div>
             </div>
         </div>
-
-        <div :class="cycleClasses" :style="{height: width + 'px', width: width + 'px'}" v-else>
-            <svg viewBox="0 0 100 100">
-                <path :d="trackPath" stroke="#e5e9f2"
-                      :stroke-width="relativeStrokeWidth" fill="none"></path>
-                <path :d="trackPath" stroke-linecap="round"
-                      :stroke="stroke" :stroke-width="relativeStrokeWidth" fill="none"
-                      :style="circlePathStyle"></path>
-            </svg>
-        </div>
-
-        <span v-if="!hideInfo && !textInside" :class="textClasses" :style="{fontSize: progressTextSize + 'px'}">
+        <div
+                :class="[prefixCls + '-text']"
+                v-if="showText && !textInside"
+                :style="{fontSize: progressTextSize + 'px'}">
             <slot>
-                <span v-if="isStatus" :class="textInnerClasses">
-                    <Icon :type="statusIcon"></Icon>
-                </span>
-                <span v-else :class="textInnerClasses">
-                    {{ percent }}%
-                </span>
+                <Icon :type="statusIcon" v-if="isStatus"></Icon>
+                <template v-else>{{percent}}%</template>
             </slot>
-        </span>
+        </div>
     </div>
 </template>
 <script>
     import Icon from '../../icon';
     import { oneOf } from '../../../utils/assist';
+
     const prefixCls = 'i-progress';
 
     export default {
-        components: { Icon },
+        name: 'Progress',
+        components:[Icon],
         props: {
-            type: {
-                type: String,
-                default: 'line',
-                validator(value) {
-                    return oneOf(value, ['line', 'circle']);
-                }
-            },
             percent: {
                 type: Number,
-                default: 0
+                default: 0,
+                required: true,
+                validator: val => val >= 0 && val <= 100
             },
             status: {
-                validator (value) {
-                    return oneOf(value, ['normal', 'active', 'wrong', 'success']);
-                },
-                default: 'normal'
+                type: String,
+                default:'normal',
+                validator: val => oneOf(val, ['normal','exception', 'success'])
             },
-            hideInfo: {
-                type: Boolean,
-                default: false
+            strokeWidth: {
+                type: Number,
+                default: 6
             },
             textInside: {
                 type: Boolean,
@@ -70,102 +53,62 @@
                 type: Number,
                 default: 126
             },
-            strokeWidth: {
-                type: Number,
-                default: 10
+            showText: {
+                type: Boolean,
+                default: true
+            },
+            active: {
+                type: Boolean,
+                default: false
+            },
+            autoStatus: {
+                type:Boolean,
+                default:true
+            }
+        },
+        data() {
+            return {
+                prefixCls: prefixCls,
+                curStatus:this.status
             }
         },
         computed: {
-            isStatus () {
-                return this.status == 'wrong' || this.status == 'success';
+            wrapClasses() {
+                return [
+                    `${prefixCls}`,
+                    {
+//                        'is-active':this.active,
+                        [`is-${this.curStatus}`]: !!this.curStatus,
+                        [`${prefixCls}-show-info`]: !this.hideInfo,
+                        [`${prefixCls}--without-text`]: !this.showText,
+                        [`${prefixCls}--text-inside`]: this.textInside,
+                    }
+                ];
             },
-            statusIcon () {
+            barStyle() {
+                var style = {};
+                style.width = this.percent + '%';
+                return style;
+            },
+            statusIcon() {
                 let type = '';
-                switch (this.status) {
-                    case 'wrong':
+                switch (this.curStatus) {
+                    case 'exception':
                         type = 'close-circle';
                         break;
                     case 'success':
                         type = 'check-circle';
                         break;
                 }
+
                 return type;
             },
-            innerStyle () {
-                return {
-                    width: `${this.percent}%`,
-                    height: `${this.strokeWidth}px`
-                };
-            },
-            wrapClasses () {
-                return [
-                    `${prefixCls}`,
-                    `${prefixCls}-${this.status}`,
-                    {
-                        [`${prefixCls}-show-info`]: !this.hideInfo,
-                    }
-                ];
-            },
-            textClasses () {
-                return `${prefixCls}-text`;
-            },
-            textInnerClasses () {
-                return `${prefixCls}-text-inner`;
-            },
-            barClasses () {
-                return `${prefixCls}-bar`;
-            },
-            outerClasses () {
-                return `${prefixCls}-outer`;
-            },
-            innerClasses () {
-                return `${prefixCls}-inner`;
-            },
-            innerTextClasses () {
-                return `${prefixCls}-inner-text`;
-            },
-            cycleClasses() {
-                return `${prefixCls}-circle`;
-            },
-            stroke() {
-                var ret;
-                switch (this.status) {
-                    case 'success':
-                        ret = '#13ce66';
-                        break;
-                    case 'exception':
-                        ret = '#ff4949';
-                        break;
-                    default:
-                        ret = '#20a0ff';
-                }
-                return ret;
-            },
-            relativeStrokeWidth() {
-                return (this.strokeWidth / this.width * 100).toFixed(1);
-            },
-            trackPath() {
-                var radius = parseInt(50 - parseFloat(this.relativeStrokeWidth) / 2, 10);
-                return `M 50 50 m 0 -${radius} a ${radius} ${radius} 0 1 1 0 ${radius * 2} a ${radius} ${radius} 0 1 1 0 -${radius * 2}`;
-            },
-            perimeter() {
-                var radius = 50 - parseFloat(this.relativeStrokeWidth) / 2;
-                return 2 * Math.PI * radius;
-            },
-            circlePathStyle() {
-                var perimeter = this.perimeter;
-                return {
-                    strokeDasharray: `${perimeter}px,${perimeter}px`,
-                    strokeDashoffset: (1 - this.percent / 100) * perimeter + 'px',
-                    transition: 'stroke-dashoffset 0.6s ease 0s, stroke 0.6s ease'
-                };
-            },
             progressTextSize() {
-                return 10 + this.strokeWidth * 0.3;
-                /*return this.type === 'line'
-                    ? 14 + this.strokeWidth * 0.4
-                    : this.width * 0.111111 + 6;*/
-            }
+                return 10 + this.strokeWidth * 0.4;
+            },
+            isStatus () {
+                return this.curStatus == 'exception' || this.curStatus == 'success';
+            },
         },
         mounted () {
             this.handleStatus();
@@ -173,10 +116,10 @@
         methods: {
             handleStatus (isDown) {
                 if (isDown) {
-                    this.status = 'normal';
+                    this.curStatus = 'normal';
                 } else {
-                    if (parseInt(this.percent, 10) == 100) {
-                        this.status = 'success';
+                    if (this.autoStatus && parseInt(this.percent, 10) == 100) {
+                        this.curStatus = 'success';
                     }
                 }
             }
@@ -188,6 +131,9 @@
                 } else {
                     this.handleStatus();
                 }
+            },
+            status(val) {
+                this.curStatus = val;
             }
         }
     };

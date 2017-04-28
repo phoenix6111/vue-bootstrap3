@@ -1,14 +1,40 @@
 <template lang="html">
-    <li :class="classes">
-        <a href="javascript:void(0)" @click="handleClick">
-            <slot name="title">
-                <Icon :type="icon" v-if="!!icon"></Icon>
-                {{title}}
-            </slot>
-        </a>
-        <ul v-show="toggled">
-            <slot></slot>
-        </ul>
+    <li :class="classes" v-clickoutside="handleClose">
+        <template v-if="rootMenu.mode === 'horizontal'">
+            <a class="dropdown-toggle"
+               ref="submenu-title"
+               href="javascript:void(0)"
+               aria-haspopup="true"
+               aria-expanded="false">
+                <slot name="title">
+                    <Icon :type="icon" v-if="!!icon"></Icon>
+                    {{title}}
+                </slot>
+            </a>
+            <transition name="slide-up">
+                <ul v-show="opened" class="dropdown-menu">
+                    <slot></slot>
+                </ul>
+            </transition>
+        </template>
+
+        <template v-else>
+            <a class="sub-menu-title"
+               ref="submenu-title"
+               :style="paddingStyle"
+               href="javascript:void(0)">
+                <slot name="title">
+                    <Icon :type="icon" v-if="!!icon"></Icon>
+                    {{title}}
+                </slot>
+            </a>
+            <CollapseTransition>
+                <ul v-show="opened" class="nav nav-stacked">
+                    <slot></slot>
+                </ul>
+            </CollapseTransition>
+        </template>
+
     </li>
 </template>
 
@@ -16,12 +42,16 @@
     import Icon from '../../icon';
     import Emitter from '../../../mixins/emitter';
     import MenuMixins from './menu-mixins';
+    import {addClass, removeClass} from '../../../utils/dom';
+    import CollapseTransition from '../../../transitions/collapse-transition';
+    import clickoutside from '../../../directives/clickoutside';
 
     export default {
         name: 'SubMenu',
         componentName: 'SubMenu',
         mixins: [Emitter, MenuMixins],
-        components: {Icon},
+        components: {Icon,CollapseTransition},
+        directives: {clickoutside},
         props: {
             icon: String,
             title: String,
@@ -32,6 +62,7 @@
         },
         data() {
             return {
+                timeout: null,
                 items: {},
                 subMenus: {}
             };
@@ -40,34 +71,36 @@
             active: {
                 cache: false,
                 get() {
+                    let isActive = false;
                     const items = this.items;
 
                     Object.keys(items).forEach(_path => {
                         if (items[_path].active) {
-                            return true;
+                            isActive = true;
                         }
                     });
 
                     const submenus = this.subMenus;
                     Object.keys(submenus).forEach(_path => {
                         if (submenus[_path].active) {
-                            return true;
+                            isActive = true;
                         }
                     });
 
-                    return false;
+                    return isActive;
 
                 }
             },
-            toggled() {
+            opened() {
                 return this.rootMenu.openedMenus.indexOf(this.path) > -1;
             },
             classes() {
                 return [
-                    'sub-menu',
                     {
+                        'sub-menu':this.rootMenu.mode === 'vertical',
+                        'dropdown':this.rootMenu.mode === 'horizontal',
                         'active': this.active,
-                        'toggled': this.toggled
+                        'open': this.opened
                     }
                 ];
             }
@@ -88,6 +121,42 @@
             handleClick() {
                 this.dispatch('Menu', 'submenu-click', this);
             },
+            handleClose() {
+                if(this.rootMenu.mode === 'horizontal') {
+                    clearTimeout(this.timeout);
+                    this.rootMenu.closeMenu(this.path, this.indexPath);
+                }
+            },
+            handleMouseenter() {
+                clearTimeout(this.timeout);
+                this.timeout = setTimeout(() => {
+                    this.rootMenu.openMenu(this.path, this.indexPath);
+                }, 300);
+            },
+            handleMouseleave() {
+                clearTimeout(this.timeout);
+                this.timeout = setTimeout(() => {
+                    this.rootMenu.closeMenu(this.path, this.indexPath);
+                }, 300);
+            },
+            initEvents() {
+                let {
+                    rootMenu,
+                    handleMouseenter,
+                    handleMouseleave,
+                    handleClick
+                } = this;
+                let triggerElm;
+
+                if (rootMenu.mode === 'horizontal' && rootMenu.menuTrigger === 'hover') {
+                    triggerElm = this.$el;
+                    triggerElm.addEventListener('mouseenter', handleMouseenter);
+                    triggerElm.addEventListener('mouseleave', handleMouseleave);
+                } else {
+                    triggerElm = this.$refs['submenu-title'];
+                    triggerElm.addEventListener('click', handleClick);
+                }
+            },
         },
         created() {
             this.parentMenu.addSubMenu(this);
@@ -96,6 +165,9 @@
         beforeDestroy() {
             this.parentMenu.removeSubMenu(this);
             this.rootMenu.removeSubMenu(this);
+        },
+        mounted() {
+            this.initEvents();
         }
     }
 </script>

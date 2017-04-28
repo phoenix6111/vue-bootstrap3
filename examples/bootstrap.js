@@ -1,6 +1,11 @@
 require('material-design-iconic-font/dist/css/material-design-iconic-font.css');
 require('../css/sweetalert2.css');
 require('../css/app_1.min.css');
+require('../css/grid-12.css');
+require('../css/card.css');
+require('../css/i-tag.css');
+require('../css/i-progress.css');
+require('../css/pagination.css');
 require('../css/popover.css');
 // require('../css/i-popover.css');
 require('../css/btn.css');
@@ -25,6 +30,8 @@ require('../css/transition.css');
 require('../css/app_2.min.css');
 require('../css/app_3.min.css');
 require('../css/demo.css');
+
+import 'highlight.js/styles/solarized-dark.css'
 
 
 

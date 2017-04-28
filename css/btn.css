@@ -528,6 +528,17 @@ fieldset[disabled] .btn-success:active, fieldset[disabled] .btn-success:focus, f
     font-weight: 400
 }
 
+.btn-link {
+    color: #03A9F4;
+    text-decoration: none;
+    border-radius: 2px
+}
+
+.btn-link:hover {
+    color: #0275a8;
+}
+
+
 .btn-link, .btn-link.active, .btn-link:active, .btn-link[disabled], fieldset[disabled] .btn-link {
     background-color: transparent;
     -webkit-box-shadow: none;
@@ -549,15 +560,6 @@ fieldset[disabled] .btn-success:active, fieldset[disabled] .btn-success:focus, f
     text-decoration: none
 }
 
-.btn-link {
-    color: #797979;
-    text-decoration: none;
-    border-radius: 2px
-}
-
-.btn-link:hover {
-    color: #26A2FF;
-}
 
 .btn-icon {
     border-radius: 50%;

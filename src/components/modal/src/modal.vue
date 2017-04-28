@@ -19,7 +19,7 @@
                         </div>
                         <div class="modal-footer" v-show="!hideFooter">
                             <slot name="footer">
-                                <i-button type="default" @click="cancel">{{cancelText}}
+                                <i-button type="link" @click="cancel">{{cancelText}}
                                 </i-button>
                                 <i-button type="primary" @click="ok">{{okText}}</i-button>
                             </slot>
@@ -91,7 +91,7 @@
                 type:Boolean,
                 default:true
             },
-            closable: {//是否可关闭
+            showClose: {//是否可关闭
                 type: Boolean,
                 default: true,
             },
@@ -270,6 +270,7 @@
             }
         },
         mounted() {
+
             this.$nextTick(() => {
                 if(this.dataModalColor !== 'normal') {
                     let modal = this.$el.querySelector('.modal');

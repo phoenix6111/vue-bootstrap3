@@ -1,159 +1,214 @@
 <template>
-  <div id="app">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3">
-          <div class="side-nav m-t-30">
-            <ul>
-              <li class="nav-item"><a>基础组件</a><!---->
-                <div class="nav-group">
-                  <div class="nav-group__title">Basic</div>
-                  <ul class="pure-menu-list" style="height: auto;">
-                    <li class="nav-item"><a href="#/zh-CN/component/layout" class="active">Layout 布局</a>
-                    </li>
-                    <li class="nav-item"><a href="#/zh-CN/component/color" class="">Color 色彩</a></li>
-                    <li class="nav-item"><a href="#/zh-CN/component/typography" class="">Typography字体</a></li>
-                    <li class="nav-item"><router-link to="/icons">Icon 图标</router-link></li>
-                    <li class="nav-item"><router-link to="/buttons">Button 按钮</router-link></li>
-                    <li class="nav-item"><router-link to="/alerts">Alert 警告提示</router-link></li>
-                    <li class="nav-item"><router-link to="/carousels">Carousel 走马灯</router-link></li>
-                    <li class="nav-item"><router-link to="/switchs">Switch 开关</router-link></li>
-                    <li class="nav-item"><router-link to="/rates">Rate 评分</router-link></li>
-                    <li class="nav-item"><router-link to="/tags">Tag 标签</router-link></li>
-                    <li class="nav-item"><router-link to="/tooltips">Tooltip 文字提示</router-link></li>
-                    <li class="nav-item"><router-link to="/popovers">Popover 气泡提示</router-link></li>
-                    <li class="nav-item"><router-link to="/progresses">Progress 进度条</router-link></li>
-                    <li class="nav-item"><router-link to="/collapses">Collapse 折叠面板</router-link></li>
-                    <li class="nav-item"><router-link to="/tabsdemo">Tabs 标签页</router-link></li>
-                    <li class="nav-item"><router-link to="/menus">Menu 导航菜单</router-link></li>
-                    <li class="nav-item"><router-link to="/modals">Modal 对话框</router-link></li>
-                    <li class="nav-item"><router-link to="/swals">Sweetalert 对话框</router-link></li>
-                    <li class="nav-item"><router-link to="/radios">Radio 单选框</router-link></li>
-                    <li class="nav-item"><router-link to="/checkboxs">Checkbox 多选框</router-link></li>
-                    <li class="nav-item"><router-link to="/dropdowns">Dropdown 下拉菜单</router-link></li>
-                    <li class="nav-item"><router-link to="/sliders">Slider 滑块</router-link></li>
-                    <li class="nav-item"><router-link to="/notices">Message 通知提醒</router-link></li>
-                    <li class="nav-item"><router-link to="/snackbars">Snackbars 顶部通知提醒</router-link></li>
-                    <li class="nav-item"><router-link to="/loadings">Loading 加载</router-link></li>
-                    <li class="nav-item"><router-link to="/inputs">Input 输入框</router-link></li>
-                    <li class="nav-item"><router-link to="/input_numbers">InputNumber 数字输入框</router-link></li>
-                    <li class="nav-item"><router-link to="/selects">Select 选择器</router-link></li>
-                    <li class="nav-item"><router-link to="/forms">Form 表单</router-link></li>
-                    <li class="nav-item"><router-link to="/uploads">Upload 文件上传</router-link></li>
-                    <li class="nav-item"><router-link to="/tables">Table 表格</router-link></li>
-                    <li class="nav-item"><router-link to="/tables2">Table 表格</router-link></li>
-                  </ul>
+    <div id="app">
+        <nav class="navbar navbar-primary">
+            <div class="container">
+                <div class="navbar-head">
+                    <button type="button"
+                            class="navbar-toggle collapsed">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Vue Bootstrap3</a>
                 </div>
-              </li>
-            </ul>
-          </div>
+
+                <div class="collapse navbar-collapse">
+                    <Menu class="navbar-nav navbar-right" mode="horizontal">
+                        <MenuItem title="指南" path="/references"></MenuItem>
+                        <MenuItem title="组件" path="/components"></MenuItem>
+                        <MenuItem title="Github" path="/github"></MenuItem>
+                    </Menu>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="side-nav">
+                        <Menu class="navbar-nav" mode="vertical" default-active="1" :router="true">
+                            <MenuItemGroup title="组件">
+                                <MenuItemGroup title="Basic">
+                                    <MenuItem title="Color 色彩" path="/colors"></MenuItem>
+                                    <MenuItem title="Icon 图标" path="/icons"></MenuItem>
+                                    <MenuItem title="Button 按钮" path="/buttons"></MenuItem>
+                                </MenuItemGroup>
+                                <MenuItemGroup title="Form">
+                                    <MenuItem title="Input 输入框" path="/inputs"></MenuItem>
+                                    <MenuItem title="InputNumber 数字输入框" path="/input_numbers"></MenuItem>
+                                    <MenuItem title="Radio 单选框" path="/radios"></MenuItem>
+                                    <MenuItem title="Checkbox 多选框" path="/checkboxs"></MenuItem>
+                                    <MenuItem title="Switch 开关" path="/switchs"></MenuItem>
+                                    <MenuItem title="Select 选择器" path="/selects"></MenuItem>
+                                    <MenuItem title="Slider 滑块" path="/sliders"></MenuItem>
+                                    <MenuItem title="Rate 评分" path="/rates"></MenuItem>
+                                    <MenuItem title="Upload 上传" path="/uploads"></MenuItem>
+                                    <MenuItem title="Form 表单" path="/forms"></MenuItem>
+                                </MenuItemGroup>
+                                <MenuItemGroup title="View">
+                                    <MenuItem title="Alert 警告提示" path="/alerts"></MenuItem>
+                                    <MenuItem title="Card 卡片" path="/cards"></MenuItem>
+                                    <MenuItem title="Message 全局提示" path="/messages"></MenuItem>
+                                    <MenuItem title="Snackbar 顶部通知" path="/snackbars"></MenuItem>
+                                    <MenuItem title="Notice 通知提醒" path="/notices"></MenuItem>
+                                    <MenuItem title="Modal 对话框" path="/modals"></MenuItem>
+                                    <MenuItem title="Progress 进度条" path="/progresses"></MenuItem>
+                                    <MenuItem title="Collapse 折叠面板" path="/collapses"></MenuItem>
+                                    <MenuItem title="Tag 标签" path="/tags"></MenuItem>
+                                    <MenuItem title="Tooltip 文字提示" path="/tooltips"></MenuItem>
+                                    <MenuItem title="Popover 气泡提示" path="/popovers"></MenuItem>
+                                    <MenuItem title="Carousel 轮播" path="/carousels"></MenuItem>
+                                </MenuItemGroup>
+                                <MenuItemGroup title="Navigation">
+                                    <MenuItem title="Menu 导航菜单" path="/menus"></MenuItem>
+                                    <MenuItem title="Tabs 标签页" path="/tabsdemo"></MenuItem>
+                                    <MenuItem title="Dropdown 下拉菜单" path="/dropdowns"></MenuItem>
+                                    <MenuItem title="Page 分页" path="/paginations"></MenuItem>
+                                    <MenuItem title="Breadcrumb 面包屑" path="/breadcrumbs"></MenuItem>
+                                    <MenuItem title="LoadingBar 加载进度条" path="/loadings"></MenuItem>
+                                </MenuItemGroup>
+                                <MenuItemGroup title="Chart">
+                                    <MenuItem title="Circle 进度环" path="/circles"></MenuItem>
+                                </MenuItemGroup>
+                                <MenuItemGroup title="Other">
+                                    <MenuItem title="Affix 图盯" path="/affixs"></MenuItem>
+                                    <MenuItem title="Backtop 返回顶部" path="/backtops"></MenuItem>
+                                </MenuItemGroup>
+                                <MenuItemGroup title="文档组件">
+                                    <MenuItem title="CodeBox 代码示例" path="/codeboxs"></MenuItem>
+                                </MenuItemGroup>
+                            </MenuItemGroup>
+                        </Menu>
+
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <router-view></router-view>
+                </div>
+            </div>
+
         </div>
-        <div class="col-md-9">
-          <router-view></router-view>
-        </div>
-      </div>
 
     </div>
-
-  </div>
 </template>
 
 <script>
-  import './bootstrap';
-export default {
-  name: 'app'
-}
+    import './bootstrap';
+    export default {
+        name: 'app'
+    }
 </script>
 
 <style>
+    #app {
+        background-color: #fff;
+    }
+    #app .navbar-primary {
+        height: 80px;
+    }
+    @media (min-width: 768px) {
+        #app  .navbar-nav > li > a,
+        #app .navbar-brand{
+            padding-top: 30px;
+            padding-bottom: 30px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+    }
 
+    .side-nav .menu-vertical {
+        width:100%;
+        border-right:1px solid #e5e5e5;
+    }
 
+    .page-block {
+        padding: 60px 35px;
+    }
 
+    /*.side-nav {
+        width: 100%;
+        box-sizing: border-box;
+        padding-right: 30px
+    }
 
-  .side-nav {
-    width: 100%;
-    box-sizing: border-box;
-    padding-right: 30px
-  }
+    .side-nav li {
+        list-style: none
+    }
 
-  .side-nav li {
-    list-style: none
-  }
+    .side-nav ul {
+        padding: 0;
+        margin: 0;
+        overflow: hidden
+    }
 
-  .side-nav ul {
-    padding: 0;
-    margin: 0;
-    overflow: hidden
-  }
+    .side-nav .nav-dropdown {
+        margin-bottom: 6px;
+        width: 100%
+    }
 
-  .side-nav .nav-dropdown {
-    margin-bottom: 6px;
-    width: 100%
-  }
+    .side-nav .nav-dropdown span {
+        display: block;
+        width: 100%;
+        font-size: 16px;
+        color: #5e6d82;
+        line-height: 40px;
+        transition: .2s;
+        padding-bottom: 6px;
+        border-bottom: 1px solid #eaeefb
+    }
 
-  .side-nav .nav-dropdown span {
-    display: block;
-    width: 100%;
-    font-size: 16px;
-    color: #5e6d82;
-    line-height: 40px;
-    transition: .2s;
-    padding-bottom: 6px;
-    border-bottom: 1px solid #eaeefb
-  }
+    .side-nav .nav-dropdown span:hover {
+        cursor: pointer
+    }
 
-  .side-nav .nav-dropdown span:hover {
-    cursor: pointer
-  }
+    .side-nav .nav-dropdown i {
+        transition: .2s;
+        font-size: 12px;
+        color: #d3dce6
+    }
 
-  .side-nav .nav-dropdown i {
-    transition: .2s;
-    font-size: 12px;
-    color: #d3dce6
-  }
+    .side-nav .nav-dropdown.is-active i, .side-nav .nav-dropdown.is-active span, .side-nav .nav-dropdown:hover i, .side-nav .nav-dropdown:hover span {
+        color: #20a0ff
+    }
 
-  .side-nav .nav-dropdown.is-active i,.side-nav .nav-dropdown.is-active span,.side-nav .nav-dropdown:hover i,.side-nav .nav-dropdown:hover span {
-    color: #20a0ff
-  }
+    .side-nav .nav-dropdown.is-active i {
+        transform: rotate(180deg) translateY(2px)
+    }
 
-  .side-nav .nav-dropdown.is-active i {
-    transform: rotate(180deg) translateY(2px)
-  }
+    .side-nav .nav-item a {
+        font-size: 16px;
+        color: #5e6d82;
+        line-height: 40px;
+        height: 40px;
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+        display: block;
+        position: relative;
+        transition: all .3s
+    }
 
-  .side-nav .nav-item a {
-    font-size: 16px;
-    color: #5e6d82;
-    line-height: 40px;
-    height: 40px;
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
-    display: block;
-    position: relative;
-    transition: all .3s
-  }
+    .side-nav .nav-item a.active {
+        color: #20a0ff
+    }
 
-  .side-nav .nav-item a.active {
-    color: #20a0ff
-  }
+    .side-nav .nav-item .nav-item a {
+        display: block;
+        height: 40px;
+        line-height: 40px;
+        font-size: 13px;
+        padding-left: 24px
+    }
 
-  .side-nav .nav-item .nav-item a {
-    display: block;
-    height: 40px;
-    line-height: 40px;
-    font-size: 13px;
-    padding-left: 24px
-  }
+    .side-nav .nav-item .nav-item a:hover {
+        color: #20a0ff
+    }
 
-  .side-nav .nav-item .nav-item a:hover {
-    color: #20a0ff
-  }
-
-  .side-nav .nav-group__title {
-    font-size: 12px;
-    color: #99a9bf;
-    padding-left: 8px;
-    line-height: 26px;
-    margin-top: 10px
-  }
+    .side-nav .nav-group__title {
+        font-size: 12px;
+        color: #99a9bf;
+        padding-left: 8px;
+        line-height: 26px;
+        margin-top: 10px
+    }*/
 </style>

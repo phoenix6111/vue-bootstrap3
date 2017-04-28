@@ -1,47 +1,40 @@
 <template>
     <div :class="wrapClasses">
-        <div :class="[prefixCls + '-bar']" v-if="type === 'line'">
-            <div :class="[prefixCls + '-bar__outer']" :style="{height: strokeWidth + 'px'}">
-                <div :class="[prefixCls + '-bar__inner']" :style="barStyle">
-                    <div :class="[prefixCls + '-bar__innerText']" v-if="showText && textInside">
+        <div class="progress-outer">
+            <div :class="progressClasses" :style="{height: strokeWidth + 'px'}">
+                <div :class="barClasses"
+                     :style="barStyle"
+                     role="progressbar"
+                     :aria-valuenow="percent"
+                     aria-valuemin="0"
+                     aria-valuemax="100" >
+                    <div class="progress-bar-innertext" v-if="showText && textInside">
                         {{percent}}%
                     </div>
                 </div>
+
             </div>
         </div>
-        <div :class="[prefixCls + '-circle']" :style="{height: width + 'px', width: width + 'px'}" v-else>
-            <svg viewBox="0 0 100 100">
-                <path :d="trackPath" stroke="#e5e9f2"
-                      :stroke-width="relativeStrokeWidth" fill="none"></path>
-                <path :d="trackPath" stroke-linecap="round"
-                      :stroke="stroke" :stroke-width="relativeStrokeWidth" fill="none"
-                      :style="circlePathStyle"></path>
-            </svg>
-        </div>
-        <div
-                :class="[prefixCls + '__text']"
+
+        <div class="progress-bar-text"
                 v-if="showText && !textInside"
                 :style="{fontSize: progressTextSize + 'px'}">
             <slot>
-                <template v-if="!curStatus">{{percent}}%</template>
-                <Icon :type="statusIcon" :style="circleIconStyle" v-else></Icon>
+                <template v-if="!isStatus">{{percent}}%</template>
+                <Icon :type="statusIcon" v-else></Icon>
             </slot>
         </div>
     </div>
+
 </template>
+
 <script>
-    import Icon from '../../icon';
-    import { oneOf } from '../../../utils/assist';
-    const prefixCls = 'i-progress';
+    import {oneOf} from '../../../utils/assist';
+
+    const prefixCls = 'progress';
 
     export default {
-        name: 'Progress',
         props: {
-            type: {
-                type: String,
-                default: 'line',
-                validator: val => oneOf(val, ['line', 'circle'])
-            },
             percent: {
                 type: Number,
                 default: 0,
@@ -49,52 +42,63 @@
                 validator: val => val >= 0 && val <= 100
             },
             status: {
-                type: String,
-                default:'normal',
-                validator: val => oneOf(val, ['normal','error', 'success'])
+                validator (value) {
+                    return oneOf(value, ['normal', 'success','info','warning','danger' ]);
+                },
+                default: 'normal'
             },
             strokeWidth: {
                 type: Number,
-                default: 6
+                default: 10
             },
             textInside: {
                 type: Boolean,
                 default: false
             },
-            width: {
-                type: Number,
-                default: 126
-            },
             showText: {
                 type: Boolean,
                 default: true
             },
-            active: {
-                type: Boolean,
-                default: false
-            },
             autoStatus: {
                 type:Boolean,
                 default:true
-            }
+            },
+            striped:Boolean,  //有条纹的，
+            active:Boolean   //活动状态，进度条动画
         },
-        data() {
+        data () {
             return {
-                prefixCls: prefixCls,
-                curStatus:this.status
-            }
+                curStatus: this.status
+            };
         },
         computed: {
             wrapClasses() {
                 return [
+                    'progress-wrap',
+                    {
+                        [`progress-${this.curStatus}`]:!!this.curStatus,
+                        [`${prefixCls}-show-info`]: !!this.showText,
+                    }
+                ];
+            },
+            progressClasses() {
+                return [
                     `${prefixCls}`,
                     {
-                        'is-active':this.active,
-                        [`is-${this.curStatus}`]: !!this.curStatus,
-                        [`${prefixCls}--${this.type}`]:!!this.type,
-                        [`${prefixCls}-show-info`]: !this.hideInfo,
-                        [`${prefixCls}--without-text`]: !this.showText,
-                        [`${prefixCls}--text-inside`]: this.textInside,
+                        'active':this.active,
+                        [`${prefixCls}-striped`]:this.striped,
+                        [`${prefixCls}-text-inside`]: this.textInside,
+                    }
+                ];
+            },
+            wrapStyle() {
+
+            },
+            barClasses() {
+                return [
+                    `progress-bar`,
+                    {
+                        [`progress-bar-${this.curStatus}`]:!!this.curStatus,
                     }
                 ];
             },
@@ -103,48 +107,25 @@
                 style.width = this.percent + '%';
                 return style;
             },
-            relativeStrokeWidth() {
-                return (this.strokeWidth / this.width * 100).toFixed(1);
-            },
-            trackPath() {
-                var radius = parseInt(50 - parseFloat(this.relativeStrokeWidth) / 2, 10);
-                return `M 50 50 m 0 -${radius} a ${radius} ${radius} 0 1 1 0 ${radius * 2} a ${radius} ${radius} 0 1 1 0 -${radius * 2}`;
-            },
-            perimeter() {
-                var radius = 50 - parseFloat(this.relativeStrokeWidth) / 2;
-                return 2 * Math.PI * radius;
-            },
-            circlePathStyle() {
-                var perimeter = this.perimeter;
-                return {
-                    strokeDasharray: `${perimeter}px,${perimeter}px`,
-                    strokeDashoffset: (1 - this.percent / 100) * perimeter + 'px',
-                    transition: 'stroke-dashoffset 0.6s ease 0s, stroke 0.6s ease'
-                };
-            },
-            stroke() {
-                var ret;
-                switch (this.curStatus) {
-                    case 'success':
-                        ret = '#13ce66';
-                        break;
-                    case 'error':
-                        ret = '#ff4949';
-                        break;
-                    default:
-                        ret = '#20a0ff';
-                }
-                return ret;
+            isStatus () {
+                return this.curStatus == 'danger' || this.curStatus == 'success' || this.curStatus === 'info' || this.curStatus === 'warning';
             },
             statusIcon() {
                 let type = '';
                 switch (this.curStatus) {
-                    case 'error':
-                        type = (this.type === 'line')?'close-circle' : 'close';
-                        break;
                     case 'success':
-                        type = (this.type === 'line')?'check-circle' : 'check';
+                        type = 'check-circle';
                         break;
+                    case 'info':
+                        type = 'info';
+                        break;
+                    case 'warning':
+                        type = 'alert';
+                        break;
+                    case 'danger':
+                        type = 'close-circle';
+                        break;
+
                 }
 
                 console.log('type '+type);
@@ -156,14 +137,6 @@
                     ? 10 + this.strokeWidth * 0.4
                     : this.width * 0.111111 + 6;
             },
-            circleIconStyle() {
-                if(this.type === 'line') return;
-                return {
-                    fontSize: this.width * 0.111111 + 12+"px",
-                    fontWeight: 'bold'
-                };
-
-            }
         },
         mounted () {
             this.handleStatus();
@@ -172,16 +145,17 @@
             handleStatus (isDown) {
                 if (isDown) {
                     this.curStatus = 'normal';
+                    this.$emit('on-status-change', 'normal');
                 } else {
                     if (this.autoStatus && parseInt(this.percent, 10) == 100) {
                         this.curStatus = 'success';
+                        this.$emit('on-status-change', 'success');
                     }
                 }
             }
         },
         watch: {
             percent (val, oldVal) {
-                console.log("progress status "+this.curStatus);
                 if (val < oldVal) {
                     this.handleStatus(true);
                 } else {
@@ -192,5 +166,5 @@
                 this.curStatus = val;
             }
         }
-    };
+    }
 </script>

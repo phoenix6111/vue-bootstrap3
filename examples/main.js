@@ -5,9 +5,14 @@ import App from './App'
 import router from './router'
 import iview from '../src';
 
-Vue.use(iview);
+import CodeTransform from './directives/code-transform';
+import BeautyCode from './directives/beauty-code';
 
-Vue.config.productionTip = false
+Vue.use(iview);
+Vue.use(CodeTransform);
+Vue.use(BeautyCode);
+
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({

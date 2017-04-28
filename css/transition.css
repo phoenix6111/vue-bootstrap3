@@ -636,3 +636,8 @@
     }
 }
 
+
+/*** vertical menu collapse animation***/
+.collapse-transition {
+    transition: height .3s ease-in-out,padding-top .3s ease-in-out,padding-bottom .3s ease-in-out
+}
