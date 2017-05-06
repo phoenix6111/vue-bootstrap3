@@ -1,7 +1,7 @@
-import MenuItem from '../menu/src/menu-item';
+import IMenuItem from '../menu/src/menu-item';
 
-MenuItem.install = (Vue) => {
-    Vue.component(MenuItem.name,MenuItem);
+IMenuItem.install = (Vue) => {
+    Vue.component(IMenuItem.name,IMenuItem);
 }
 
-export default MenuItem;
+export default IMenuItem;

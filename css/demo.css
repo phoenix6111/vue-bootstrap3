@@ -81,7 +81,7 @@
     Colors
 --------------------------------------*/
 .color-block {
-    height: 100px;
+    /*height: 100px;*/
     color: rgba(255,255,255,0.9);
     text-align: center;
     padding: 15px 0;
@@ -94,18 +94,28 @@
 }
 
 .color-block .color {
+    color:#fff;
     font-size: 14px;
     text-transform: uppercase;
 }
 
 .color-block .code {
     margin: 5px 0;
+    color: rgba(255,255,255,0.9);
+    text-transform: uppercase;
 }
 
 .color-block .less {
     font-size: 11px;
+    color: rgba(255,255,255,0.9);
+    text-transform: uppercase;
 }
 
+.color-block.dark .color,
+.color-block.dark .code,
+.color-block.dark .less {
+    color:#657180;
+}
 
 /*-------------------------------------
     Components

@@ -10,9 +10,9 @@
 </template>
 <script>
     export default {
-        name: 'MenuItemGroup',
+        name: 'IMenuItemGroup',
 
-        componentName: 'MenuItemGroup',
+        componentName: 'IMenuItemGroup',
 
         props: {
             title: {
@@ -28,8 +28,8 @@
             levelPadding() {
                 let padding = 10;
                 let parent = this.$parent;
-                while (parent && parent.$options.componentName !== 'Menu') {
-                    if (parent.$options.componentName === 'SubMenu') {
+                while (parent && parent.$options.componentName !== 'IMenu') {
+                    if (parent.$options.componentName === 'ISubMenu' || parent.$options.componentName === 'IMenuItemGroup') {
                         padding += 20;
                     }
                     parent = parent.$parent;

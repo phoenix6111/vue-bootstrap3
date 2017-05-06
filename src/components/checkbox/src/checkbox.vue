@@ -55,6 +55,7 @@
                 return [
                     'checkbox checkbox-inline',
                     {
+                        'checked':this.isChecked,
                         'disabled':this.disabled,
                         'indeterminate':this.indeterminate
                     }
@@ -69,7 +70,14 @@
 
                 set(val) {
                     if (this.isGroup) {
-                        this.dispatch('CheckboxGroup', 'input', [val]);
+                        let isLimitExceeded = false;
+                        (this._checkboxGroup.min !== undefined && val.length < this._checkboxGroup.min && (isLimitExceeded = true));
+
+                        (this._checkboxGroup.max !== undefined && val.length > this._checkboxGroup.max && (isLimitExceeded = true));
+
+                        console.log("isLimitExceeded === "+isLimitExceeded);
+
+                        isLimitExceeded === false && this.dispatch('CheckboxGroup', 'input', [val]);
                     } else if (this.value !== undefined) {
                         this.$emit('input', val);
                     } else {
@@ -119,7 +127,7 @@
             handleChange(ev) {
                 this.$emit('change', ev);
                 if (this.isGroup) {
-                    this.$nextTick(_ => {
+                    this.$nextTick( _ => {
                         this.dispatch('CheckboxGroup', 'change', [this._checkboxGroup.value]);
                     });
                 }

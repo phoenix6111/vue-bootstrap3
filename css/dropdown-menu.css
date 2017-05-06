@@ -1,7 +1,8 @@
 /****** dropdown style *****/
 
 .dropdown, .dropup {
-    position: relative
+    position: relative;
+    display: inline-block;
 }
 
 .dropdown-toggle:focus {

@@ -63,12 +63,12 @@
                   @click.native="handleRemove(file)"></Icon>
 
             <transition name="fade">
-                <Progress
+                <i-progress
                         v-if="file.showProgress"
                         :stroke-width="2"
                         :percent="parsePercentage(file.percentage)"
                         :status="status(file)"
-                        :auto-status="false"></Progress>
+                        :auto-status="false"></i-progress>
             </transition>
         </li>
     </ul>
@@ -76,10 +76,11 @@
 
 <script>
     import Icon from '../../icon/src/icon.vue';
-    import Progress from '../../progress/src/progress.vue';
+    import IProgress from '../../progress/src/progress.vue';
 
     export default {
         name:'UploadList',
+        components:{IProgress,Icon},
         props: {
             files: {
                 type:Array,

@@ -34,6 +34,7 @@
     const prefixCls = 'progress';
 
     export default {
+        name:'IProgress',
         props: {
             percent: {
                 type: Number,

@@ -670,6 +670,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     font-weight: 400;
     line-height: 1;
     color: #2e353b;
+    /*color:#999;*/
     text-align: center;
     background-color: transparent;
     border: 1px solid transparent;
@@ -934,7 +935,9 @@ input:active, input:focus {
     margin-bottom: 25px
 }
 
-.checkbox label:before, .checkbox-inline:before, .input-helper:after, .input-helper:before, .radio label:before, .radio-inline:before {
+.checkbox label:before, .checkbox-inline:before,
+.input-helper:after, .input-helper:before,
+.radio label:before, .radio-inline:before {
     -webkit-transition: all;
     -o-transition: all;
     transition: all;
@@ -962,8 +965,14 @@ input:active, input:focus {
     margin-top: 0
 }
 
-.checkbox input:checked + .input-helper:before, .radio input:checked + .input-helper:before {
-    border-color: #009688
+/*.checkbox input:checked + .input-helper:before, .radio input:checked + .input-helper:before {
+    border-color: #009688;
+    border-color: #39bbb0;
+}*/
+
+.checkbox.checked .input-helper:before, .radio input:checked + .input-helper:before {
+    border-color: #009688;
+    border-color: #39bbb0;
 }
 
 .checkbox .input-helper:after, .checkbox .input-helper:before, .radio .input-helper:after, .radio .input-helper:before {
@@ -973,7 +982,8 @@ input:active, input:focus {
 
 .checkbox .input-helper:before, .radio .input-helper:before {
     left: 0;
-    border: 2px solid #7a7a7a
+    border: 2px solid #7a7a7a;
+    border: 2px solid #39bbb0;
 }
 
 .checkbox.disabled, .radio.disabled {
@@ -986,8 +996,14 @@ input:active, input:focus {
     height: 17px
 }
 
-.checkbox input:checked + .input-helper:before {
-    background-color: #009688
+/*.checkbox input:checked + .input-helper:before {
+    background-color: #009688;
+    background-color: #39bbb0;
+}*/
+
+.checkbox.checked .input-helper:before {
+    background-color: #009688;
+    background-color: #39bbb0;
 }
 
 .checkbox input:checked + .input-helper:after {

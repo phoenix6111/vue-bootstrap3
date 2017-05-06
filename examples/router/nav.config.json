@@ -1,0 +1,153 @@
+{
+  "zh-CN": [
+    {
+      "name": "基础组件",
+      "groups": [
+        {
+          "groupName": "Basic",
+          "list": [
+            {
+              "path":"/colors",
+              "title":"Color 颜色"
+            },{
+              "path": "/icons",
+              "title": "Icon 图标"
+            }, {
+              "path":"/buttons",
+              "title":"Button 按钮"
+            }
+          ]
+        },
+        {
+          "groupName":"Form",
+          "list": [
+            {
+              "path":"/inputs",
+              "title":"Input 输入框"
+            }, {
+              "path":"/input-numbers",
+              "title":"InputNumber 数字输入框"
+            },{
+              "path":"/checkboxs",
+              "title":"Checkboxs 多选框"
+            }, {
+              "path":"/radios",
+              "title":"Radio 单选框"
+            }, {
+              "path":"/selects",
+              "title":"Select 选择框"
+            }, {
+              "path":"/switchs",
+              "title":"Switch 开关"
+            },{
+              "path":"/rates",
+              "title":"Rate 评分"
+            }, {
+              "path":"/sliders",
+              "title":"Slider 滑动条"
+            }, {
+              "path":"/uploads",
+              "title":"Upload 文件上传"
+            }, {
+              "path":"/forms",
+              "title":"Form 表单"
+            }
+          ]
+        },
+        {
+          "groupName":"View",
+          "list": [
+            {
+              "path":"/tables",
+              "title":"Table 表格"
+            }, {
+              "path": "/tooltips",
+              "title": "Tooltip 文字提示"
+            },{
+              "path": "/popovers",
+              "title": "Popover 气泡提示"
+            }, {
+              "path":"/alerts",
+              "title":"Alerts 警告提示"
+            }, {
+              "path":"/cards",
+              "title":"Card 卡片"
+            }, {
+              "path":"/carousels",
+              "title":"Carousels 轮播图"
+            }, {
+              "path":"/circles",
+              "title":"Circles 圆环"
+            }, {
+              "path":"/collapses",
+              "title":"Collapse 折叠面板"
+            }, {
+              "path":"/loadings",
+              "title":"Loading 加载"
+            }, {
+              "path":"/modals",
+              "title":"Modal 模态框"
+            }, {
+              "path":"/notices",
+              "title":"Notice 系统通知"
+            }, {
+              "path":"/progresses",
+              "title":"Progress 进度条"
+            }, {
+              "path":"/snackbars",
+              "title":"Snackbar 通知提醒"
+            }, {
+              "path":"/swals",
+              "title":"Sweetalert 弹出框"
+            }, {
+              "path":"/tags",
+              "title":"Tag 标签"
+            }, {
+              "path":"/badges",
+              "title":"Badge 徽标数"
+            }, {
+              "path":"/breadcrumbs",
+              "title":"Breadcrumb 面包屑"
+            }, {
+              "path":"/timelines",
+              "title":"Timeline 时间轴"
+            }
+          ]
+        },
+        {
+          "groupName":"Navigation",
+          "list": [
+            {
+              "path":"/menus",
+              "title":"Menu 导航菜单"
+            }, {
+              "path":"/dropdowns",
+              "title":"Dropdown 下拉菜单"
+            }, {
+              "path":"/paginations",
+              "title":"Pagination 分页"
+            }, {
+              "path":"/tabs-demo",
+              "title":"Tabs 标签页"
+            }, {
+              "path":"/steps-demo",
+              "title":"Step 步骤条"
+            }
+          ]
+        }, {
+          "groupName":"Other",
+          "list": [
+            {
+              "path":"/affixs",
+              "title":"Affix 图盯"
+            },{
+              "path":"/backtops",
+              "title":"Backtop 返回顶部"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+
+}

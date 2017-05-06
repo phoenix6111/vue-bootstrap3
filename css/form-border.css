@@ -65,6 +65,20 @@ html:not(.ie9) .select:before {
     border-color: #bfcbd9;
 }
 
+.input-group-btn .btn.disabled:focus,
+.input-group-btn .btn.disabled:hover,
+.input-group-btn .btn:disabled:focus,
+.input-group-btn .btn:disabled:hover {
+    cursor: not-allowed;
+    opacity: .65;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #c3cbd6;
+    background-color: #f7f7f7;
+    border-color: #d7dde4;
+}
+
 .bootstrap-select>.btn-default,
 .bootstrap-select>.btn-default:hover,
 .bootstrap-select>.btn-default:focus,

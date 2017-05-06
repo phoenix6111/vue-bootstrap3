@@ -23,7 +23,7 @@
                 type: [Number, String],
                 default: 99
             },
-            class: String
+            className: String
         },
         computed: {
             classes () {
@@ -36,7 +36,7 @@
                 return [
                     `${prefixCls}-count`,
                     {
-                        [`${this.class}`]: !!this.class,
+                        [`${this.className}`]: !!this.className,
                         [`${prefixCls}-count-alone`]: this.alone
                     }
                 ];

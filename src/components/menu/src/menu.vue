@@ -9,8 +9,8 @@
     import {oneOf} from '../../../utils/assist';
 
     export default {
-        name:'Menu',
-        componentName:'Menu',
+        name:'IMenu',
+        componentName:'IMenu',
         mixins: [Emitter],
         props: {
             mode: {
@@ -59,7 +59,7 @@
             defaultActive(value) {
                 const item = this.items[value];
                 if (item) {
-                    this.activedPath = item.index;
+                    this.activedPath = item.path;
                     this.initOpenedMenu();
                 } else {
                     this.activedPath = '';
@@ -100,6 +100,7 @@
                 this.openedMenus.splice(this.openedMenus.indexOf(path),1);
             },
             handleItemClick(item) {
+                console.log("handle item click");
                 let {path,indexPath} = item;
                 this.activedPath = item.path;
                 this.$emit('select',path,indexPath,item);
@@ -134,9 +135,10 @@
             },
             //初始化展开菜单
             initOpenedMenu() {
+                if(this.mode === 'horizontal') return;
                 const path = this.activedPath;
                 const activeItem = this.items[path];
-                if (!activeItem || this.mode === 'horizontal') return;
+                if (!activeItem) return;
 
                 let indexPath = activeItem.indexPath;
                 // 展开该菜单项的路径上所有子菜单
@@ -147,9 +149,11 @@
             }
         },
         mounted() {
-            this.initOpenedMenu();
-            this.$on('item-click', this.handleItemClick);
-            this.$on('submenu-click', this.handleSubMenuClick);
+            this.$nextTick(() => {
+                this.initOpenedMenu();
+                this.$on('item-click', this.handleItemClick);
+                this.$on('submenu-click', this.handleSubMenuClick);
+            });
         }
     }
 </script>

@@ -63,7 +63,7 @@
                     };
                 }
             },
-            appendToBody:false
+            appendToBody:true
         },
 
         computed: {

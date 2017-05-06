@@ -5,6 +5,7 @@ Breadcrumb.item = BreadcrumbItem;
 
 Breadcrumb.install = (Vue) => {
     Vue.component(Breadcrumb.name,Breadcrumb);
+    Vue.component(BreadcrumbItem.name,BreadcrumbItem);
 }
 
 export default Breadcrumb;

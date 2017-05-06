@@ -5,7 +5,7 @@ const iconPrefixCls = 'zmdi';
 const prefixKey = 'i_snackbar_key_';
 
 let top = 24;
-let defaultDuration = 4500;
+let defaultDuration = 3000;
 let noticeInstance;
 let name = 1;
 

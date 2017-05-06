@@ -335,7 +335,7 @@
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
-    top: 4px
+    top: 1px
 }
 
 .panel-collapse .panel-heading:before {

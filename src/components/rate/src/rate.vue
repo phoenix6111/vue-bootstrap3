@@ -1,120 +1,275 @@
 <template>
-    <div :class="classes" @mouseleave="handleMouseleave">
-        <div
-                v-for="item in count"
-                :class="starCls(item)"
-                @mousemove="handleMousemove(item, $event)"
-                @click="handleClick(item)">
-            <span :class="[prefixCls + '-star-content']" type="half"></span>
-        </div>
-        <div :class="[prefixCls + '-text']" v-if="showText" v-show="curValue > 0">
-            <slot>
-                {{ curValue }}星
-            </slot>
-        </div>
+    <div class="el-rate">
+    <span
+            v-for="item in max"
+            class="el-rate__item"
+            @mousemove="setCurrentValue(item, $event)"
+            @mouseleave="resetCurrentValue"
+            @click="selectValue(item)"
+            :style="{ cursor: disabled ? 'auto' : 'pointer' }">
+      <i
+              :class="[classes[item - 1], { 'hover': hoverIndex === item }]"
+              class="el-rate__icon"
+              :style="getIconStyle(item)">
+        <i
+                v-if="showDecimalIcon(item)"
+                :class="decimalIconClass"
+                :style="decimalStyle"
+                class="el-rate__decimal">
+        </i>
+      </i>
+    </span>
+        <span v-if="showText" class="el-rate__text" :style="{ color: textColor }">{{ text }}</span>
     </div>
 </template>
-<script>
-    const prefixCls = 'rate';
+
+<script type="text/babel">
+    import {hasClass} from '../../../utils/dom';
+
     export default {
+        name: 'ElRate',
+
+        data() {
+            return {
+                classMap: {},
+                colorMap: {},
+                pointerAtLeftHalf: false,
+                currentValue: this.value,
+                hoverIndex: -1
+            };
+        },
+
         props: {
-            count: {
-                type: Number,
-                default: 5
-            },
             value: {
                 type: Number,
                 default: 0
             },
-            allowHalf: {
+            lowThreshold: {
+                type: Number,
+                default: 2
+            },
+            highThreshold: {
+                type: Number,
+                default: 4
+            },
+            max: {
+                type: Number,
+                default: 5
+            },
+            colors: {
+                type: Array,
+                default() {
+                    return ['#F7BA2A', '#F7BA2A', '#F7BA2A'];
+                }
+            },
+            voidColor: {
+                type: String,
+                default: '#C6D1DE'
+            },
+            disabledVoidColor: {
+                type: String,
+                default: '#EFF2F7'
+            },
+            iconClasses: {
+                type: Array,
+                default() {
+                    return ['zmdi zmdi-star', 'zmdi zmdi-star', 'zmdi zmdi-star'];
+                }
+            },
+            voidIconClass: {
+                type: String,
+                default: 'zmdi zmdi-star-outline'
+            },
+            disabledVoidIconClass: {
+                type: String,
+                default: 'zmdi zmdi-star'
+            },
+            disabled: {
                 type: Boolean,
                 default: false
             },
-            disabled: {
+            allowHalf: {
                 type: Boolean,
                 default: false
             },
             showText: {
                 type: Boolean,
                 default: false
-            }
-        },
-        data () {
-            return {
-                prefixCls: prefixCls,
-                hoverIndex: -1,
-                isHover: false,
-                isHalf: false,
-                curValue:this.value
-            };
-        },
-        computed: {
-            classes () {
-                return [
-                    `${prefixCls}`,
-                    {
-                        [`${prefixCls}-disabled`]: this.disabled
-                    }
-                ];
-            }
-        },
-        watch: {
-            curValue: {
-                immediate: true,
-                handler (val) {
-                    this.setHalf(val);
-                }
-            }
-        },
-        methods: {
-            starCls (value) {
-                const hoverIndex = this.hoverIndex;
-                const currentIndex = this.isHover ? hoverIndex : this.curValue;
-                let full = false;
-                let isLast = false;
-                if (currentIndex > value) full = true;
-                if (this.isHover) {
-                    isLast = currentIndex === value;
-                } else {
-                    isLast = Math.ceil(this.curValue) === value ;
-                }
-                return [
-                    `${prefixCls}-star`,
-                    {
-                        [`${prefixCls}-star-full`]: (!isLast && full) || (isLast && !this.isHalf),
-                        [`${prefixCls}-star-half`]: isLast && this.isHalf,
-                        [`${prefixCls}-star-zero`]: !full
-                    }
-                ];
             },
-            handleMousemove(value, event) {
-                if (this.disabled) return;
-                this.isHover = true;
-                if (this.allowHalf) {
-                    const type = event.target.getAttribute('type') || false;
-                    this.isHalf = type === 'half';
+            textColor: {
+                type: String,
+                default: '#1f2d3d'
+            },
+            texts: {
+                type: Array,
+                default() {
+                    return ['极差', '失望', '一般', '满意', '惊喜'];
+                }
+            },
+            textTemplate: {
+                type: String,
+                default: '{value}'
+            }
+        },
+
+        computed: {
+            text() {
+                let result = '';
+                if (this.disabled) {
+                    result = this.textTemplate.replace(/\{\s*value\s*\}/, this.value);
                 } else {
-                    this.isHalf = false;
+                    result = this.texts[Math.ceil(this.currentValue) - 1];
+                }
+                return result;
+            },
+
+            decimalStyle() {
+                let width = '';
+                if (this.disabled) {
+                    width = `${ this.valueDecimal < 50 ? 0 : 50 }%`;
+                }
+                if (this.allowHalf) {
+                    width = '50%';
+                }
+                return {
+                    color: this.activeColor,
+                    width
+                };
+            },
+
+            valueDecimal() {
+                return this.value * 100 - Math.floor(this.value) * 100;
+            },
+
+            decimalIconClass() {
+                return this.getValueFromMap(this.value, this.classMap);
+            },
+
+            voidClass() {
+                return this.disabled ? this.classMap.disabledVoidClass : this.classMap.voidClass;
+            },
+
+            activeClass() {
+                return this.getValueFromMap(this.currentValue, this.classMap);
+            },
+
+            activeColor() {
+                return this.getValueFromMap(this.currentValue, this.colorMap);
+            },
+
+            classes() {
+                let result = [];
+                let i = 0;
+                let threshold = this.currentValue;
+                if (this.allowHalf && this.currentValue !== Math.floor(this.currentValue)) {
+                    threshold--;
+                }
+                for (; i < threshold; i++) {
+                    result.push(this.activeClass);
+                }
+                for (; i < this.max; i++) {
+                    result.push(this.voidClass);
+                }
+                return result;
+            }
+        },
+
+        watch: {
+            value(val) {
+                this.$emit('change', val);
+                this.currentValue = val;
+            }
+        },
+
+        methods: {
+            getValueFromMap(value, map) {
+                let result = '';
+                if (value <= this.lowThreshold) {
+                    result = map.lowColor || map.lowClass;
+                } else if (value >= this.highThreshold) {
+                    result = map.highColor || map.highClass;
+                } else {
+                    result = map.mediumColor || map.mediumClass;
+                }
+                return result;
+            },
+
+            showDecimalIcon(item) {
+                let showWhenDisabled = this.disabled && this.valueDecimal > 0 && item - 1 < this.value && item > this.value;
+                /* istanbul ignore next */
+                let showWhenAllowHalf = this.allowHalf && this.pointerAtLeftHalf && ((item - 0.5).toFixed(1) === this.currentValue.toFixed(1));
+                return showWhenDisabled || showWhenAllowHalf;
+            },
+
+            getIconStyle(item) {
+                const voidColor = this.disabled ? this.colorMap.disabledVoidColor : this.colorMap.voidColor;
+                return {
+                    color: item <= this.currentValue ? this.activeColor : voidColor
+                };
+            },
+
+            selectValue(value) {
+                if (this.disabled) {
+                    return;
+                }
+                if (this.allowHalf && this.pointerAtLeftHalf) {
+                    this.$emit('input', this.currentValue);
+                } else {
+                    this.$emit('input', value);
+                }
+            },
+
+            setCurrentValue(value, event) {
+                if (this.disabled) {
+                    return;
+                }
+                /* istanbul ignore if */
+                if (this.allowHalf) {
+                    let target = event.target;
+                    if (hasClass(target, 'el-rate__item')) {
+                        target = target.querySelector('.el-rate__icon');
+                    }
+                    if (hasClass(target, 'el-rate__decimal')) {
+                        target = target.parentNode;
+                    }
+                    this.pointerAtLeftHalf = event.offsetX * 2 <= target.clientWidth;
+                    this.currentValue = this.pointerAtLeftHalf ? value - 0.5 : value;
+                } else {
+                    this.currentValue = value;
                 }
                 this.hoverIndex = value;
             },
-            handleMouseleave () {
-                if (this.disabled) return;
-                this.isHover = false;
-                this.setHalf(this.curValue);
+
+            resetCurrentValue() {
+                if (this.disabled) {
+                    return;
+                }
+                if (this.allowHalf) {
+                    this.pointerAtLeftHalf = this.value !== Math.floor(this.value);
+                }
+                this.currentValue = this.value;
                 this.hoverIndex = -1;
-            },
-            setHalf (val) {
-                this.isHalf = val.toString().indexOf('.') >= 0;
-            },
-            handleClick (value) {
-                console.log("handleclick value "+value);
-                if (this.disabled) return;
-                if (this.isHalf) value -= 0.5;
-                this.curValue = value;
-                this.$emit('on-change', value);
-//                this.$dispatch('on-form-change', value);
             }
+        },
+
+        created() {
+            if (!this.value) {
+                this.$emit('input', 0);
+            }
+            this.classMap = {
+                lowClass: this.iconClasses[0],
+                mediumClass: this.iconClasses[1],
+                highClass: this.iconClasses[2],
+                voidClass: this.voidIconClass,
+                disabledVoidClass: this.disabledVoidIconClass
+            };
+            this.colorMap = {
+                lowColor: this.colors[0],
+                mediumColor: this.colors[1],
+                highColor: this.colors[2],
+                voidColor: this.voidColor,
+                disabledVoidColor: this.disabledVoidColor
+            };
         }
     };
 </script>

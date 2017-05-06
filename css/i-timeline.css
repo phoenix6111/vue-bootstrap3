@@ -1,0 +1,105 @@
+.i-timeline {
+    margin:0;
+    padding:0;
+}
+
+.i-timeline-item {
+    position: relative;
+    padding-left: 80px;
+    margin-bottom: 75px
+    /*margin-bottom: 35px;*/
+}
+
+.i-timeline-item [data-src] {
+    float: left;
+    width: 70px;
+    height: 70px;
+    margin: 0 3px 3px 0
+}
+
+.i-timeline-item-title {
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    margin-bottom: 20px;
+    line-height: inherit;
+}
+
+.i-timeline-item-time {
+    position: absolute;
+    left: 0;
+    top: 0;
+    line-height: 14px;
+    color: #9E9E9E;
+    text-align: right;
+    height: 100%
+}
+
+.i-timeline-item-tag, .i-timeline-item-tail {
+    content: "";
+    position: absolute
+}
+
+.i-timeline-item-tail {
+    height: calc(100% + 63px);
+    top: 14px;
+    left:53px;
+    border-left: 1px solid #E2E2E2;
+}
+
+.i-timeline-item:last-child .i-timeline-item-tail {
+    display: none;
+}
+
+.i-timeline.i-timeline-pending .i-timeline-item:nth-last-of-type(2) .i-timeline-item-tail {
+    border-left: 1px dotted #E2E2E2;
+}
+
+.i-timeline-item-tag {
+    top: 2px;
+    left:47px;
+    width: 13px;
+    height: 13px;
+    background-color: #fff;
+    border: 1px solid #C1C1C1;
+    border-radius: 50%;
+}
+
+.i-timeline-item-tag.i-timeline-item-tag-custom {
+    width: 30px;
+    height: auto;
+    margin-top: 6px;
+    padding: 3px 0;
+    text-align: center;
+    line-height: 1;
+    border: 0;
+    border-radius: 0;
+    font-size: 14px;
+    position: absolute;
+    left: 38px;
+    transform: translateY(-50%);
+}
+
+.i-timeline-item-tag.i-timeline-item-tag-primary {
+    border-color: #2196f3;
+    color: #2196f3;
+}
+
+.i-timeline-item-tag.i-timeline-item-tag-success {
+    border-color: #32c787;
+    color: #32c787;
+}
+
+.i-timeline-item-tag.i-timeline-item-tag-info {
+    border-color: #00BCD4;
+    color: #00BCD4;
+}
+
+.i-timeline-item-tag.i-timeline-item-tag-warning {
+    border-color: #f5c942;
+    color: #f5c942;
+}
+
+.i-timeline-item-tag.i-timeline-item-tag-danger {
+    border-color: #ff6b68;
+    color: #ff6b68;
+}

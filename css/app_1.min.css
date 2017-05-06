@@ -891,8 +891,11 @@ pre code, table {
 }
 
 dl, ol, ul {
-    margin-top: 0
+    margin-top: 0;
+    margin:0;
+    padding:0;
 }
+
 
 blockquote ol:last-child, blockquote p:last-child, blockquote ul:last-child, ol ol, ol ul, ul ol, ul ul {
     margin-bottom: 0
@@ -1078,6 +1081,12 @@ pre code {
     }
 }
 
+.container-fluid {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
 
 
 
@@ -1142,11 +1151,11 @@ tbody.collapse.in {
     background-color: transparent
 }
 
-.breadcrumb > li + li:before {
+/*.breadcrumb > li + li:before {
     content: "/\00a0";
     padding: 0 5px;
     color: #ccc
-}
+}*/
 
 .breadcrumb > .active {
     color: #7c7c7c
@@ -1160,8 +1169,8 @@ tbody.collapse.in {
 .breadcrumb {
     border-bottom: 1px solid #E5E5E5;
     border-radius: 0;
-    margin-top: -27px;
-    margin-bottom: 50px
+    /*margin-top: -27px;*/
+    /*margin-bottom: 50px*/
 }
 
 @media (min-width: 1280px) {
@@ -1183,6 +1192,12 @@ tbody.collapse.in {
 .breadcrumb > li > a:hover {
     color: #7c7c7c;
     color: #20A0FF;
+    cursor: pointer;
+}
+
+.breadcrumb-item-separator {
+    margin: 0 8px;
+    color: #ccc;
 }
 
 
@@ -1315,7 +1330,8 @@ a.badge:focus, a.badge:hover {
 .i-badge {
     position: relative;
     display: inline-block;
-    vertical-align: middle;
+    line-height: 1;
+    vertical-align: middle
 }
 
 .i-badge-count {
@@ -1327,25 +1343,46 @@ a.badge:focus, a.badge:hover {
     height: 20px;
     border-radius: 10px;
     min-width: 20px;
+    background: #f30;
     border: 1px solid transparent;
     color: #fff;
     line-height: 18px;
+    text-align: center;
     padding: 0 6px;
     font-size: 12px;
     white-space: nowrap;
     -ms-transform-origin: -10% center;
     transform-origin: -10% center;
-    font-style: normal;
-}
-
-.i-badge-count, .i-badge-dot {
-    background: #F44336;
     z-index: 10;
-    box-shadow: none;
+    box-shadow: 0 0 0 1px #fff
 }
 
-.i-badge-count {
-    text-align: center;
+.i-badge-count a, .i-badge-count a:hover {
+    color: #fff
+}
+
+.i-badge-count-alone {
+    top: auto;
+    display: block;
+    position: relative;
+    -ms-transform: translateX(0);
+    transform: translateX(0)
+}
+
+.i-badge-dot {
+    position: absolute;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    -ms-transform-origin: 0 center;
+    transform-origin: 0 center;
+    top: -4px;
+    right: -8px;
+    height: 8px;
+    width: 8px;
+    border-radius: 100%;
+    background: #f30;
+    z-index: 10;
+    box-shadow: 0 0 0 1px #fff
 }
 
 /***** jumbotron style ****/

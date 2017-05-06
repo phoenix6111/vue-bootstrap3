@@ -4,7 +4,7 @@ export default {
         indexPath() {
             let pathArr = [this.path];
             let parent = this.$parent;
-            while (parent.$options.componentName !== 'Menu') {
+            while (parent.$options.componentName !== 'IMenu') {
                 if(parent.path) {
                     pathArr.unshift(parent.path);
                 }
@@ -17,7 +17,7 @@ export default {
         //寻找顶级Menu
         rootMenu() {
             let parent = this.$parent;
-            while(parent && parent.$options.componentName !== 'Menu') {
+            while(parent && parent.$options.componentName !== 'IMenu') {
                 parent = parent.$parent;
             }
 
@@ -26,7 +26,7 @@ export default {
         //寻找直接父级Menu或SubMenu
         parentMenu() {
             let parent = this.$parent;
-            while(parent && (['Menu','SubMenu'].indexOf(parent.$options.componentName) === -1)) {
+            while(parent && (['IMenu','ISubMenu'].indexOf(parent.$options.componentName) === -1)) {
                 parent = parent.$parent;
             }
 
@@ -37,8 +37,8 @@ export default {
 
             let padding = 20;
             let parent = this.$parent;
-            while (parent && parent.$options.componentName !== 'Menu') {
-                if (parent.$options.componentName === 'SubMenu') {
+            while (parent && parent.$options.componentName !== 'IMenu') {
+                if (parent.$options.componentName === 'ISubMenu') {
                     padding += 20;
                 }
                 parent = parent.$parent;

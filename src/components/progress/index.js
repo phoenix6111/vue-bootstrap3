@@ -1,7 +1,7 @@
-import Progress from './src/progress';
+import IProgress from './src/progress';
 
-Progress.install = (Vue) => {
-    Vue.component(Progress.name,Progress);
+IProgress.install = (Vue) => {
+    Vue.component(IProgress.name,IProgress);
 }
 
-export default Progress;
+export default IProgress;

@@ -1,0 +1,50 @@
+.bgm-primary {
+    background-color:#2196f3;
+}
+.bgm-primary-light {
+    background-color:#4db3ff;
+}
+.bgm-primary-dark {
+    background-color: #0D8AEE;
+}
+
+.bgm-info {
+    background-color: #50bfff;
+}
+.bgm-success {
+    background-color: #4CAF50;
+}
+.bgm-warning {
+    background-color: #FF9800;
+}
+.bgm-danger {
+    background-color: #F44336;
+}
+
+.bgm-title {
+    background-color: #333;
+}
+
+.bgm-content {
+    background-color: #5E5E5E;
+}
+
+.bgm-sub-color {
+    background-color: #AEAEAE;
+}
+
+.bgm-disabled {
+    background-color: #c3cbd6;
+}
+
+.bgm-border {
+    background-color: #d9d9d9;
+}
+
+.bgm-divider {
+    background-color: #EBEBEB;
+}
+
+.bgm-background {
+    background-color: #f3f3f3;
+}

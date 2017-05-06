@@ -47,8 +47,8 @@
     import clickoutside from '../../../directives/clickoutside';
 
     export default {
-        name: 'SubMenu',
-        componentName: 'SubMenu',
+        name: 'ISubMenu',
+        componentName: 'ISubMenu',
         mixins: [Emitter, MenuMixins],
         components: {Icon,CollapseTransition},
         directives: {clickoutside},
@@ -119,7 +119,7 @@
                 delete this.subMenus[item.path];
             },
             handleClick() {
-                this.dispatch('Menu', 'submenu-click', this);
+                this.dispatch('IMenu', 'submenu-click', this);
             },
             handleClose() {
                 if(this.rootMenu.mode === 'horizontal') {

@@ -1,7 +1,7 @@
-import MenuItemGroup from '../menu/src/menu-item-group';
+import IMenuItemGroup from '../menu/src/menu-item-group';
 
-MenuItemGroup.install = Vue => {
-    Vue.component(MenuItemGroup.name,MenuItemGroup);
+IMenuItemGroup.install = Vue => {
+    Vue.component(IMenuItemGroup.name,IMenuItemGroup);
 }
 
-export default MenuItemGroup;
+export default IMenuItemGroup;

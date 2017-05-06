@@ -9,6 +9,8 @@ var opn = require('opn')
 var path = require('path')
 var express = require('express')
 var webpack = require('webpack')
+var fs = require('fs')
+var formidable = require('formidable')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
 
@@ -66,6 +68,31 @@ var uri = 'http://localhost:' + port
 
 devMiddleware.waitUntilValid(function () {
   console.log('> Listening at ' + uri + '\n')
+})
+
+app.post('/upload', (req, res) => {
+    var form = new formidable.IncomingForm()
+    form.parse(req, (err, fields, files) => {
+        var old_path = files.file.path
+        var file_ext = files.file.name.split('.').pop()
+        var index = old_path.lastIndexOf('/') + 1
+        var file_name = old_path.substr(index)
+        var new_path = path.join(path.join(__dirname, '..', 'static'), '/uploads/', file_name + '.' + file_ext)
+
+        fs.readFile(old_path, (err, data) => {
+            fs.writeFile(new_path, data, err => {
+                fs.unlink(old_path, err => {
+                    if (err) {
+                        res.status(500)
+                        res.json({'success': false})
+                    } else {
+                        res.status(200)
+                        res.json({'success': true})
+                    }
+                })
+            })
+        })
+    })
 })
 
 module.exports = app.listen(port, function (err) {

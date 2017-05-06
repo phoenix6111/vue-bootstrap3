@@ -1,7 +1,7 @@
-import Menu from './src/menu';
+import IMenu from './src/menu';
 
-Menu.install = (Vue) => {
-    Vue.component(Menu.name,Menu);
+IMenu.install = (Vue) => {
+    Vue.component(IMenu.name,IMenu);
 }
 
-export default Menu;
+export default IMenu;

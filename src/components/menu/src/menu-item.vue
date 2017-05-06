@@ -15,8 +15,8 @@
     import MenuMixins from './menu-mixins';
 
     export default {
-        name: 'MenuItem',
-        componentName: 'MenuItem',
+        name: 'IMenuItem',
+        componentName: 'IMenuItem',
         mixins: [Emitter, MenuMixins],
         components: {Icon},
         props: {
@@ -48,7 +48,7 @@
         },
         methods: {
             handleClick() {
-                this.dispatch('Menu', 'item-click', this);
+                this.dispatch('IMenu', 'item-click', this);
                 this.$emit('click', this);
             }
         },

@@ -1,7 +1,7 @@
-import SubMenu from '../menu/src/sub-menu';
+import ISubMenu from '../menu/src/sub-menu';
 
-SubMenu.install = (Vue) => {
-    Vue.component(SubMenu.name,SubMenu);
+ISubMenu.install = (Vue) => {
+    Vue.component(ISubMenu.name,ISubMenu);
 }
 
-export default SubMenu;
+export default ISubMenu;

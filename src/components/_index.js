@@ -7,6 +7,7 @@ import ButtonGroup from './button-group';
 
 import Carousel from './carousel';
 import Checkbox from './checkbox';
+import CheckboxButton from './checkbox-button';
 import CheckboxGroup from './checkbox-group';
 import Radio from './radio';
 import RadioGroup from './radio-group';
@@ -16,15 +17,15 @@ import Rate from './rate';
 import Tag from './tag';
 import Tooltip from './tooltip';
 import Popover from './popover';
-import Progress from './progress';
+import IProgress from './progress';
 import ICircle from './circle';
 
 import Collapse from './collapse';
 import Tabs from './tabs';
-import Menu from './menu';
-import SubMenu from './sub-menu';
-import MenuItemGroup from './menu-item-group';
-import MenuItem from './menu-item';
+import IMenu from './menu';
+import ISubMenu from './sub-menu';
+import IMenuItemGroup from './menu-item-group';
+import IMenuItem from './menu-item';
 import Modal from './modal';
 
 import Dropdown from './dropdown';
@@ -47,11 +48,16 @@ import BackTop from './back-top';
 import ICard from './card';
 
 import ICircle2 from './circle2';
+import Timeline from './timeline';
+import TimelineItem from './timeline-item';
+import Steps from './steps';
+import Step from './step';
 
 export default {
     Alert,
     Badge,
     Breadcrumb,
+    BreadcrumbItem:Breadcrumb.item,
     ICard,
     IButton,
     SplitButton,
@@ -59,6 +65,7 @@ export default {
     Carousel,
     CarouselItem:Carousel.item,
     Checkbox,
+    CheckboxButton,
     CheckboxGroup,
     Radio,
     RadioGroup,
@@ -68,16 +75,16 @@ export default {
     Tag,
     Tooltip,
     Popover,
-    Progress,
+    IProgress,
     ICircle,
     Collapse,
     CollapseItem:Collapse.item,
     Tabs,
     TabPane:Tabs.TabPane,
-    Menu,
-    SubMenu,
-    MenuItemGroup,
-    MenuItem,
+    IMenu,
+    ISubMenu,
+    IMenuItemGroup,
+    IMenuItem,
     Modal,
     Dropdown,
     DropdownMenu,
@@ -96,8 +103,13 @@ export default {
     ElTableColumn,
     Affix,
     BackTop,
+    Timeline,
+    TimelineItem,
+    Steps,
+    Step,
 
-    ICircle2
+    ICircle2,
+
 };
 
 

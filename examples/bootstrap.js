@@ -4,7 +4,10 @@ require('../css/app_1.min.css');
 require('../css/grid-12.css');
 require('../css/card.css');
 require('../css/i-tag.css');
+require('../css/rate.css');
 require('../css/i-progress.css');
+require('../css/i-timeline.css');
+require('../css/i-steps.css');
 require('../css/pagination.css');
 require('../css/popover.css');
 // require('../css/i-popover.css');
@@ -15,6 +18,7 @@ require('../css/ivew-select.css');
 require('dropzone/dist/dropzone.css');
 require('../css/form.css');
 require('../css/form-border.css');
+require('../css/checkbox-button.css');
 require('../css/nouislider.css');
 require('../css/vendor.css');
 require('../css/modal.css');
@@ -30,6 +34,7 @@ require('../css/transition.css');
 require('../css/app_2.min.css');
 require('../css/app_3.min.css');
 require('../css/demo.css');
+require('../css/other-color.css');
 
 import 'highlight.js/styles/solarized-dark.css'
 
