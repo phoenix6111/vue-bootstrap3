@@ -40,6 +40,7 @@ import FormItem from './form-item';
 import Upload from './upload';
 
 import {BsSelect,BsOption,OptionGroup} from './select';
+import {ElSelect,ElOption,ElOptionGroup} from './select2';
 import Pagination from './pagination';
 import ElTable from './table';
 import ElTableColumn from './table-column';
@@ -52,6 +53,9 @@ import Timeline from './timeline';
 import TimelineItem from './timeline-item';
 import Steps from './steps';
 import Step from './step';
+
+import Toolbar from './toolbar';
+import Sidebar from './sidebar';
 
 export default {
     Alert,
@@ -97,6 +101,7 @@ export default {
     BsSelect,
     BsOption,
     OptionGroup,
+    ElSelect,ElOption,ElOptionGroup,
     Upload,
     Pagination,
     ElTable,
@@ -107,6 +112,9 @@ export default {
     TimelineItem,
     Steps,
     Step,
+
+    Toolbar,
+    Sidebar,
 
     ICircle2,
 

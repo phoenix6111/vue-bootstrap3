@@ -5,14 +5,14 @@
             ref="reference"
             @click="toggleMenu">
             <Tag closable @on-close="removeTag(index)" v-for="(item, index) in selectedMultiple" :key="index">{{item.label}}</Tag>
-            <span :class="[prefixCls + '-placeholder']" v-show="showPlaceholder && !filterable">{{ placeholder }}</span>
+            <span :class="[prefixCls + '-placeholder']" v-show="showPlaceholder && !filterable">{{ localePlaceholder }}</span>
             <span :class="[prefixCls + '-selected-value']" v-show="!showPlaceholder && !multiple && !filterable">{{ selectedSingle }}</span>
             <input
                 type="text"
                 v-if="filterable"
                 v-model="query"
                 :class="[prefixCls + '-input']"
-                :placeholder="showPlaceholder ? placeholder : ''"
+                :placeholder="showPlaceholder ? localePlaceholder : ''"
                 :style="inputStyle"
                 @blur="handleBlur"
                 @keydown="resetInputState"
@@ -21,8 +21,8 @@
             <Icon type="close-circle" :class="[prefixCls + '-arrow']" v-show="showCloseIcon" @click.native.stop="clearSingleSelect"></Icon>
             <Icon type="chevron-down" :class="[prefixCls + '-arrow']"></Icon>
         </div>
-        <transition name="slide-up">
-            <Dropdown v-show="visible" ref="dropdown">
+        <transition :name="transitionName">
+            <Dropdown v-show="visible" :placement="placement" ref="popper">
                 <ul v-show="notFound" :class="[prefixCls + '-not-found']"><li>{{ notFoundText }}</li></ul>
                 <ul v-show="!notFound" :class="[prefixCls + '-dropdown-list']" ref="options"><slot></slot></ul>
             </Dropdown>
@@ -32,9 +32,9 @@
 <script>
     import Icon from '../../icon';
     import Tag from '../../tag';
-    import Dropdown from './select-dropdown.vue';
+    import Dropdown from './select-dropdown';
     import clickoutside from '../../../directives/clickoutside';
-    import { oneOf, MutationObserver, findComponentDownward } from '../../../utils/assist';
+    import { oneOf, findComponentDownward } from '../../../utils/assist';
     import Emitter from '../../../mixins/emitter2';
 
     const prefixCls = 'i-select';
@@ -88,6 +88,12 @@
                 default () {
                     return "没有匹配";
                 }
+            },
+            placement: {
+                validator (value) {
+                    return oneOf(value, ['top', 'bottom']);
+                },
+                default: 'bottom'
             }
         },
         data () {
@@ -120,6 +126,13 @@
                     }
                 ];
             },
+            localePlaceholder () {
+                if (this.placeholder === undefined) {
+                    return "请选择";
+                } else {
+                    return this.placeholder;
+                }
+            },
             showPlaceholder () {
                 let status = false;
 
@@ -150,6 +163,16 @@
                 }
 
                 return style;
+            },
+            localeNotFoundText () {
+                if (this.notFoundText === undefined) {
+                    return "没有匹配";
+                } else {
+                    return this.notFoundText;
+                }
+            },
+            transitionName () {
+                return this.placement === 'bottom' ? 'slide-up' : 'slide-down';
             }
         },
         methods: {
@@ -294,7 +317,7 @@
                     this.$refs.input.focus();
                 }
 
-                this.broadcast('select-dropdown', 'on-update');
+                this.broadcast('SelectDropdown', 'updatePopper');
             },
             // to select option for single
             toggleSingleSelected (value, init = false) {
@@ -435,14 +458,14 @@
             },
             resetScrollTop () {
                 const index = this.focusIndex - 1;
-                let bottomOverflowDistance = this.optionInstances[index].$el.getBoundingClientRect().bottom - this.$refs.dropdown.$el.getBoundingClientRect().bottom;
-                let topOverflowDistance = this.optionInstances[index].$el.getBoundingClientRect().top - this.$refs.dropdown.$el.getBoundingClientRect().top;
+                let bottomOverflowDistance = this.optionInstances[index].$el.getBoundingClientRect().bottom - this.$refs.popper.$el.getBoundingClientRect().bottom;
+                let topOverflowDistance = this.optionInstances[index].$el.getBoundingClientRect().top - this.$refs.popper.$el.getBoundingClientRect().top;
 
                 if (bottomOverflowDistance > 0) {
-                    this.$refs.dropdown.$el.scrollTop += bottomOverflowDistance;
+                    this.$refs.popper.$el.scrollTop += bottomOverflowDistance;
                 }
                 if (topOverflowDistance < 0) {
-                    this.$refs.dropdown.$el.scrollTop += topOverflowDistance;
+                    this.$refs.popper.$el.scrollTop += topOverflowDistance;
                 }
             },
             handleBlur () {
@@ -497,30 +520,41 @@
                         }
                     });
                 }
+            },
+            broadcastQuery (val) {
+                if (findComponentDownward(this, 'OptionGroup')) {
+                    this.broadcast('OptionGroup', 'on-query-change', val);
+                    this.broadcast('BsOption', 'on-query-change', val);
+                } else {
+                    this.broadcast('BsOption', 'on-query-change', val);
+                }
             }
         },
         mounted () {
             this.modelToQuery();
+            this.$nextTick(() => {
+                this.broadcastQuery('');
+            });
 
             this.updateOptions(true);
             document.addEventListener('keydown', this.handleKeydown);
 
-            // watch slot changed
-            // todo 在 child 的 mounted 和 beforeDestroy 里处理
-            if (MutationObserver) {
-                this.observer = new MutationObserver(() => {
-                    this.modelToQuery();
-                    this.slotChange();
-                    this.updateOptions(true, true);
+            this.$on('append', () => {
+                this.modelToQuery();
+                this.$nextTick(() => {
+                    this.broadcastQuery('');
                 });
-
-                this.observer.observe(this.$refs.options, {
-//                attributes: true,
-                    childList: true,
-                    characterData: true,
-                    subtree: true
+                this.slotChange();
+                this.updateOptions(true, true);
+            });
+            this.$on('remove', () => {
+                this.modelToQuery();
+                this.$nextTick(() => {
+                    this.broadcastQuery('');
                 });
-            }
+                this.slotChange();
+                this.updateOptions(true, true);
+            });
 
             this.$on('on-select-selected', (value) => {
                 if (this.model === value) {
@@ -532,7 +566,7 @@
                             this.removeTag(index);
                         } else {
                             this.model.push(value);
-                            this.broadcast('select-dropdown', 'on-update');
+                            this.broadcast('SelectDropdown', 'updatePopper');
                         }
 
                         if (this.filterable) {
@@ -555,13 +589,12 @@
         },
         beforeDestroy () {
             document.removeEventListener('keydown', this.handleKeydown);
-            if (this.observer) {
-                this.observer.disconnect();
-            }
         },
         watch: {
             value (val) {
                 this.model = val;
+
+                if (val === '') this.query = '';
             },
             model () {
                 this.$emit('input', this.model);
@@ -578,24 +611,31 @@
             },
             visible (val) {
                 if (val) {
-                    if (this.multiple && this.filterable) {
-                        this.$refs.input.focus();
+                    if (this.filterable) {
+                        if (this.multiple) {
+                            this.$refs.input.focus();
+                        } else {
+                            this.$refs.input.select();
+                        }
                     }
-                    this.broadcast('select-dropdown', 'on-update');
+
+                    this.broadcast('SelectDropdown', 'updatePopper');
                 } else {
                     if (this.filterable) {
                         this.$refs.input.blur();
+                        // #566 reset options visible
+                        setTimeout(() => {
+                            this.broadcastQuery('');
+                        }, 300);
                     }
-//                    this.broadcast('select-dropdown', 'on-destroy-popper');
+                    this.broadcast('SelectDropdown', 'destroyPopper');
                 }
             },
             query (val) {
-                if (findComponentDownward(this, 'OptionGroup')) {
-                    this.broadcast('OptionGroup', 'on-query-change', val);
-                    this.broadcast('BsOption', 'on-query-change', val);
-                } else {
-                    this.broadcast('BsOption', 'on-query-change', val);
-                }
+                this.$emit('on-query-change', val);
+
+                this.broadcastQuery(val);
+
                 let is_hidden = true;
 
                 this.$nextTick(() => {
@@ -606,7 +646,7 @@
                     });
                     this.notFound = is_hidden;
                 });
-                this.broadcast('select-dropdown', 'on-update');
+                this.broadcast('SelectDropdown', 'updatePopper');
             }
         }
     };

@@ -6,19 +6,38 @@
 
 <script>
     import { getStyle } from '../../../utils/assist';
+    import Popper from '../../../utils/vue-popper';
 
     export default {
-        name:'select-dropdown',
+        name:'SelectDropdown',
+        mixins: [Popper],
+        props: {
+            placement: {
+                default: 'bottom-start'
+            },
+
+            boundariesPadding: {
+                default: 0
+            },
+
+            popperOptions: {
+                default() {
+                    return {
+                        forceAbsolute: true,
+                        gpuAcceleration: false
+                    };
+                }
+            }
+        },
         data () {
             return {
                 width: '',
-                visible:false
             };
         },
         computed: {
             classes(){
                 return [
-                    'dropdown-menu',
+                    'dropdown-menu',this.popperClass,
                     {
                         [`dropdown-menu-${this.align}`]: !!this.align
                     }
@@ -28,6 +47,9 @@
                 let style = {};
                 if (this.width) style.minWidth = `${this.width}px`;
                 return style;
+            },
+            popperClass() {
+                return this.$parent.popperClass;
             }
         },
         methods:{
@@ -36,10 +58,21 @@
                 if (this.$parent.$options.name === 'BsSelect') {
                     this.width = parseInt(getStyle(this.$parent.$el, 'width'));
                 }
+
+                this.updatePopper();
             }
         },
-        created() {
+        /*created() {
             this.$on('on-update',this.update);
+        },*/
+        mounted() {
+            this.referenceElm = this.$parent.$refs.reference;
+            this.$parent.popperElm = this.popperElm = this.$el;
+            this.$on('updatePopper', this.update);
+            this.$on('destroyPopper', this.destroyPopper);
+        },
+        beforeDestroy () {
+            this.doDestroy();
         }
     }
 </script>

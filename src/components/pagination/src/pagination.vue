@@ -17,6 +17,7 @@
                :current="currentPage"
                :page-count="pageCount"
                :size="size"
+               :shape="shape"
                :class-name="className"
                :styles="styles"
                :simple="simple"
@@ -93,6 +94,12 @@
             },
             styles: {
                 type: Object
+            },
+            shape: {
+                validator(val) {
+                    return oneOf(val,['square','round']);
+                },
+                default:'round'
             }
         },
         data() {

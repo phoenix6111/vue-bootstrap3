@@ -81,6 +81,32 @@
 
 ::: demo
 <summary>
+  #### 方形分页
+  设置shape="square"使Pagination为方形
+</summary>
+
+```html
+<template>
+  <div class="row">
+    <div class="col-sm-6 text-center">
+        <p>Small</p>
+        <Pagination size="sm" :total="50" shape="square"></Pagination>
+    </div>
+    <div class="col-sm-6 text-center">
+        <p>Default</p>
+        <Pagination :total="50" shape="square"></Pagination>
+    </div>
+    <div class="col-sm-6 text-center m-t-20">
+        <p>Large</p>
+        <Pagination size="lg" :total="50" shape="square"></Pagination>
+    </div>
+  </div>
+</template>
+```
+:::
+
+::: demo
+<summary>
   #### 附加功能
   根据场景需要，可以添加其他功能模块。
 </summary>

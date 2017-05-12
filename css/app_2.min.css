@@ -1,140 +1,3 @@
-/***** common block-header action dropdown-menu style *****/
-.block-header {
-    margin-bottom: 25px;
-    position: relative
-}
-
-@media screen and (min-width: 768px) {
-    .block-header {
-        padding: 0 35px
-    }
-}
-
-@media screen and (max-width: 991px) {
-    .block-header {
-        padding: 0 20px
-    }
-}
-
-.block-header > h2 {
-    font-size: 15px;
-    color: #777;
-    margin: 0;
-    font-weight: 400;
-    text-transform: uppercase
-}
-
-.block-header > h2 > small {
-    display: block;
-    text-transform: none;
-    margin-top: 8px;
-    margin-bottom: 20px;
-    color: #9E9E9E;
-    line-height: 140%
-}
-
-.block-header .actions {
-    position: absolute;
-    right: 10px;
-    top: 0;
-    z-index: 4
-}
-
-.actions {
-    list-style: none;
-    padding: 0;
-    z-index: 3;
-    margin: 0
-}
-
-.actions > li,
-.actions .dropdown{
-    display: inline-block;
-    vertical-align: baseline
-}
-
-.actions > a,
-.actions > li > a,
-.actions .dropdown .dropdown-trigger a{
-    width: 30px;
-    height: 30px;
-    display: inline-block;
-    padding-top: 5px;
-    text-align: center;
-}
-
-/****** card header action style *****/
-.actions > a > i,
-.actions > li > a > i,
-.actions .dropdown .dropdown-trigger a{
-    color: #adadad;
-    font-size: 20px
-}
-
-.actions.open > a > i,
-.actions > a:hover > i,
-.actions > li.open > a > i,
-.actions > li > a:hover > i,
-.actions .dropdown .dropdown-trigger a:hover{
-    color: #000
-}
-
-.actions.open > a:before, .actions > li.open > a:before {
-    -webkit-transform: scale(1);
-    -ms-transform: scale(1);
-    -o-transform: scale(1);
-    transform: scale(1);
-    opacity: 1;
-    filter: alpha(opacity=100)
-}
-
-.actions.actions-alt > li.open > a > i, .actions.actions-alt > li > a > i, .actions.actions-alt > li > a > i:hover {
-    color: #fff
-}
-
-.actions.open {
-    z-index: 4
-}
-
-/**** common load more style *****/
-.load-more {
-    margin-top: 30px
-}
-
-.load-more a {
-    padding: 8px 10px 6px;
-    display: inline-block;
-    background-color: #F44336;
-    color: #FFF;
-    border-radius: 2px;
-    white-space: nowrap
-}
-
-.load-more a i {
-    font-size: 20px;
-    vertical-align: middle;
-    position: relative;
-    margin-top: -2px
-}
-
-.load-more a:hover {
-    background-color: #ea1c0d
-}
-
-.view-more {
-    display: block;
-    padding: 10px 10px 15px;
-    line-height: 100%;
-    font-size: 11px;
-    margin-top: 10px;
-    text-transform: uppercase;
-    color: #777
-}
-
-.view-more:hover {
-    color: #5E5E5E
-}
-
 /******* app header style ******/
 #header, .waves-effect {
     -moz-user-select: none;
@@ -195,10 +58,6 @@
     margin-bottom: 0
 }
 
-.hi-menu, .hi-menu > li .dropdown-menu-lg {
-    padding: 0
-}
-
 .h-inner > li:not(.pull-right) {
     float: left
 }
@@ -248,11 +107,17 @@
     -o-transform: scale(0)
 }
 
+.hi-menu, .hi-menu > li .dropdown-menu-lg,
+.toolbar-menu , .toolbar-menu .toolbar-menu-item .dropdown-menu-lg{
+    padding: 0
+}
+
 .hi-menu {
     list-style: none
 }
 
-.hi-menu > li {
+.hi-menu > li,
+.toolbar-menu .toolbar-menu-item{
     display: inline-block;
     margin: 0 1px;
     vertical-align: top;
@@ -260,21 +125,25 @@
 }
 
 @media (max-width: 767px) {
-    .hi-menu > li {
+    .hi-menu > li,
+    .toolbar-menu .toolbar-menu-item {
         position: static !important
     }
 }
 
-.hi-menu > li .dropdown-menu {
+.hi-menu > li .dropdown-menu,
+.toolbar-menu .toolbar-menu-item .dropdown-menu{
     top: -5px
 }
 
-.hi-menu > li .dropdown-menu-lg .lg-body {
+.hi-menu > li .dropdown-menu-lg .lg-body,
+.toolbar-menu .toolbar-menu-item .dropdown-menu-lg .lg-body{
     min-height: 350px;
     overflow-x: hidden
 }
 
-.hi-menu > li > a {
+.hi-menu > li > a,
+.toolbar-menu .toolbar-menu-item .toolbar-menu-item-trigger{
     color: #fff;
     display: block;
     text-align: center;
@@ -288,12 +157,15 @@
     border-radius: 2px
 }
 
-.hi-menu > li > a > .him-icon {
+.hi-menu > li > a > .him-icon ,
+.toolbar-menu .toolbar-menu-item  .toolbar-menu-item-trigger > .him-icon{
     font-size: 24px;
     line-height: 36px
 }
 
-.hi-menu > li > a > .him-label {
+
+.hi-menu > li > a > .him-label ,
+.toolbar-menu .toolbar-menu-item .toolbar-menu-item-trigger > .him-label{
     line-height: 35px;
     white-space: nowrap;
     padding: 0 10px;
@@ -301,7 +173,8 @@
     text-transform: uppercase
 }
 
-.hi-menu > li > a > .him-counts {
+.hi-menu > li > a > .him-counts,
+.toolbar-menu .toolbar-menu-item .toolbar-menu-item-trigger >.him-counts{
     position: absolute;
     font-style: normal;
     background: #F44336;
@@ -313,16 +186,21 @@
     line-height: 15px
 }
 
-.hi-menu > li.toggled > a, .hi-menu > li:hover > a {
+.hi-menu > li.toggled > a,
+.hi-menu > li:hover > a,
+.toolbar-menu .toolbar-menu-item.toggled  .toolbar-menu-item-trigger ,
+.toolbar-menu .toolbar-menu-item:hover  .toolbar-menu-item-trigger {
     background-color: rgba(0, 0, 0, .08)
 }
 
 @media (max-width: 767px) {
-    .hi-menu .dropdown-menu-lg {
+    .hi-menu .dropdown-menu-lg,
+    .toolbar-menu .dropdown-menu-lg{
         width: calc(100% - 28px) !important
     }
 
-    .hi-menu .dropdown-menu {
+    .hi-menu .dropdown-menu,
+    .toolbar-menu .dropdown-menu{
         right: 14px;
         top: 55px !important
     }
@@ -495,10 +373,7 @@
     text-transform: uppercase
 }
 
-.tab-nav li > a:after {
-    content: "";
-    left: 0
-}
+
 
 .list-group.lg-even-black .list-group-item:nth-child(even), .list-group.lg-odd-black .list-group-item:nth-child(odd) {
     background-color: #f9f9f9
@@ -1130,6 +1005,9 @@
 .sidebar-toggled #footer {
     display: none
 }
+
+
+
 
 /*****example.css*****/
 .container {

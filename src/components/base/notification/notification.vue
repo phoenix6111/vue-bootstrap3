@@ -10,6 +10,7 @@
                 :duration="notice.duration"
                 :closable="notice.closable"
                 :name="notice.name"
+                :theme="notice.theme"
                 :transition-name="notice.transitionName"
                 :with-icon="notice.showIcon"
                 :on-close="notice.onClose">

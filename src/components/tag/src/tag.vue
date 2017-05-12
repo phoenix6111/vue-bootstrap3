@@ -30,8 +30,9 @@
             },
             hit: {
                 validator (value) {
-                    return oneOf(value, ['border', 'dot']);
-                }
+                    return oneOf(value, ['border', 'dot','default']);
+                },
+                default:"default"
             },
             color: String//背景色
         },

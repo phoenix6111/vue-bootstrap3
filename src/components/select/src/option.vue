@@ -72,12 +72,16 @@
         },
         mounted () {
             this.searchLabel = this.$el.innerHTML;
+            this.dispatch('BsSelect', 'append');
             this.$on('on-select-close', () => {
                 this.isFocus = false;
             });
             this.$on('on-query-change', (val) => {
                 this.queryChange(val);
             });
+        },
+        beforeDestroy () {
+            this.dispatch('BsSelect', 'remove');
         }
     };
 </script>

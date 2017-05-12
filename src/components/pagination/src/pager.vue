@@ -74,6 +74,12 @@
                 type: Boolean,
                 default: false
             },
+            shape: {
+                validator(val) {
+                    return oneOf(val,['square','round']);
+                },
+                default:'round'
+            },
             className:String,
             styles:Object
         },
@@ -106,7 +112,8 @@
                     `pagination`,
                     {
                         [`${this.className}`]: !!this.className,
-                        [`pagination-${this.size}`]: !!this.size
+                        [`pagination-${this.size}`]: !!this.size,
+                        [`pagination-${this.shape}`]:!!this.shape
                     }
                 ];
             },

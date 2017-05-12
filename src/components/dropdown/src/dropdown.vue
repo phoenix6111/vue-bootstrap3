@@ -72,6 +72,9 @@
                 validator (value) {
                     return oneOf(value, ['lg', 'sm','xs']);
                 },
+            },
+            dropdownClass: {
+                type:String
             }
         },
         data () {

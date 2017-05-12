@@ -35,6 +35,7 @@ function notice (type, options) {
     const onClose = options.onClose || function () {};
     // todo const btn = options.btn || null;
     const duration = (options.duration === 0) ? 0 : options.duration || defaultDuration;
+    const theme = options.theme || 'default';
 
     name++;
 
@@ -44,11 +45,11 @@ function notice (type, options) {
 
     if (type == 'normal') {
         content = `
-            <div class="${prefixCls}-msg">${title}</div>
+            <div class="${prefixCls}-heading">${title}</div>
             <div class="${prefixCls}-desc">${desc}</div>
         `;
     } else {
-        const iconType = iconTypes[type];
+        const iconType = iconTypes[type] || iconTypes['info'];
 
         if(options.showIcon) {
             content += `
@@ -60,7 +61,7 @@ function notice (type, options) {
 
         if(!!title) {
             content += `
-                <div class="alert-msg">${title}</div>
+                <div class="alert-heading">${title}</div>
             `;
         }
 
@@ -82,12 +83,14 @@ function notice (type, options) {
         onClose: onClose,
         closable: true,
         showIcon:options.showIcon || false,
+        theme:theme
     });
 }
 
 export default {
-    open (options) {
-        return notice('inverse', options);
+    open (options,type) {
+        const _type = type || 'inverse';
+        return notice(_type, options);
     },
     info (options) {
         return notice('info', options);

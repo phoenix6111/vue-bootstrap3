@@ -10,6 +10,8 @@
     </transition>
 </template>
 <script>
+    import { oneOf } from '../../../utils/assist';
+
     export default {
         props: {
             prefixCls: {
@@ -56,6 +58,12 @@
             },
             transitionName: {
                 type: String
+            },
+            theme: {
+                validator(value) {
+                    return oneOf(value,['default','light']);
+                },
+                default:'default'
             }
         },
         data () {
@@ -74,7 +82,8 @@
                     {
                         [`${this.className}`]: !!this.className,
                         [`alert-${this.type}`]:!!this.type,
-                        'alert-dismissable':this.closable,
+                        [`alert-theme-${this.theme}`]:!!this.theme,
+                        'alert-dismissible':this.closable,
                         'with-desc': this.withDesc,
                         'with-icon':this.withIcon
                     }

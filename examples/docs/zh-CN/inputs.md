@@ -78,7 +78,7 @@
 
 ```html
 <template>
-  <bs-input v-model="value4" icon="time" placeholder="请输入..." style="width: 200px"></bs-input>
+  <bs-input v-model="value4" icon="search" placeholder="请输入..." style="width: 200px"></bs-input>
 </template>
 ```
 :::

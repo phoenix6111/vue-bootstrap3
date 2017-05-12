@@ -14,7 +14,7 @@
         computed: {
             classes(){
                 return [
-                    'dropdown-menu',
+                    'dropdown-menu',this.$parent.dropdownClass,
                     {
                         [`dropdown-menu-${this.align}`]: !!this.align
                     }

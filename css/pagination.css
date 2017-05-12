@@ -15,15 +15,15 @@
     transition: background-color 300ms, color 300ms;
 }
 
-.pagination-lg > li:first-child > a,
+/*.pagination-lg > li:first-child > a,
 .pagination-lg > li:first-child > span,
 .pagination-sm > li:first-child > a,
 .pagination-sm > li:first-child > span {
     border-bottom-left-radius: 2px;
     border-top-left-radius: 2px
-}
+}*/
 
-.pagination-lg > li:last-child > a,
+/*.pagination-lg > li:last-child > a,
 .pagination-lg > li:last-child > span,
 .pagination-sm > li:last-child > a,
 .pagination-sm > li:last-child > span,
@@ -31,13 +31,13 @@
 .pagination > li:last-child > span {
     border-bottom-right-radius: 2px;
     border-top-right-radius: 2px
-}
+}*/
 
 .pagination > li:first-child > a,
 .pagination > li:first-child > span {
     margin-left: 0;
-    border-bottom-left-radius: 2px;
-    border-top-left-radius: 2px
+    /*border-bottom-left-radius: 2px;
+    border-top-left-radius: 2px*/
 }
 
 .pagination > li > a:focus,
@@ -141,7 +141,7 @@
 }
 
 .pagination > li > a, .pagination > li > span {
-    border-radius: 50% !important;
+    border-radius: 50%;
     padding: 0;
     width: 35px;
     height: 35px;
@@ -339,4 +339,8 @@
 
 .page-options-elevator input[disabled]:hover,fieldset[disabled] .page-options-elevator input:hover {
     border-color: #dfe4e9
+}
+
+.pagination-square.pagination > li > a, .pagination-square.pagination > li > span{
+    border-radius: 2px;
 }

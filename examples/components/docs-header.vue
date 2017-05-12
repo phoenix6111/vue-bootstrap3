@@ -31,13 +31,13 @@
 <style>
 
     #app .navbar-primary {
-        height: 80px;
+        height: 70px;
     }
     @media (min-width: 768px) {
         #app  .navbar-nav > li > a,
         #app .navbar-brand{
-            padding-top: 30px;
-            padding-bottom: 30px;
+            padding-top: 25px;
+            padding-bottom: 24px;
             font-size: 16px;
             font-weight: 500;
         }

@@ -91,7 +91,7 @@
 
 ```html
 <template>
-  <bs-select v-model="model1" style="width:200px">
+  <bs-select v-model="model1" placement="top" style="width:200px">
       <bs-option v-for="item in cityList" :value="item.value" :key="item">{{ item.label }}</bs-option>
   </bs-select>
 </template>

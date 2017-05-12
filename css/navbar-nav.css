@@ -1029,6 +1029,8 @@ fieldset[disabled] .navbar-default .btn-link:hover {
     position: absolute;
     width: 100%;
     bottom: 0;
+    content: "";
+    left: 0;
     -webkit-transition: all;
     -o-transition: all;
     transition: all;

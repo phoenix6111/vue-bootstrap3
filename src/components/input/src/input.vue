@@ -71,7 +71,7 @@
                   @input="handleInput">
 
         </textarea>
-        <Icon :type="icon" v-if="icon" @click="handleIconClick"></Icon>
+        <Icon :type="icon" v-if="icon" @click="handleIconClick" class="input-icon"></Icon>
     </div>
 
 </template>
@@ -197,14 +197,14 @@
                 if (this.onIconClick) {
                     this.onIconClick(event);
                 }
-                this.$emit('on-click', event);
+                this.$emit('click', event);
             },
             handleFocus (event) {
                 this.currentFocused = true;
-                this.$emit('on-focus', event);
+                this.$emit('focus', event);
             },
             handleBlur (event) {
-                this.$emit('on-blur', event);
+                this.$emit('blur', event);
                 this.currentFocused = false;
                 if (this.validateEvent && !findComponentUpward(this, ['DatePicker', 'TimePicker', 'Cascader', 'Search'])) {
                     this.dispatch('FormItem', 'bs.form.blur', this.currentValue);
@@ -215,7 +215,7 @@
                 if (this.number) value = Number.isNaN(Number(value)) ? value : Number(value);
                 this.$emit('input', value);
                 this.setCurrentValue(value);
-                this.$emit('on-change', event);
+                this.$emit('change', event);
             },
             handleChange (event) {
                 this.$emit('on-input-change', event);

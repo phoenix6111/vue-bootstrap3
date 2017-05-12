@@ -1,3 +1,44 @@
+/**** common load more style *****/
+.load-more {
+    margin-top: 30px
+}
+
+.load-more a {
+    padding: 8px 10px 6px;
+    display: inline-block;
+    background-color: #F44336;
+    color: #FFF;
+    border-radius: 2px;
+    white-space: nowrap
+}
+
+.load-more a i {
+    font-size: 20px;
+    vertical-align: middle;
+    position: relative;
+    margin-top: -2px
+}
+
+.load-more a:hover {
+    background-color: #ea1c0d
+}
+
+.view-more {
+    display: block;
+    padding: 10px 10px 15px;
+    line-height: 100%;
+    font-size: 11px;
+    margin-top: 10px;
+    text-transform: uppercase;
+    color: #777
+}
+
+.view-more:hover {
+    color: #5E5E5E
+}
+
+
+
 #footer, #header .skin-switch, .actions > a, .actions > li > a,
 .ahs-close, .contacts .c-footer > button, .contacts .c-info,
 .fc button, .ie-warning, .load-more, .pt-inner, .pt-inner .pti-footer > a,

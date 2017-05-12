@@ -37,6 +37,9 @@
               "path":"/selects",
               "title":"Select 选择框"
             }, {
+              "path":"/selects2",
+              "title":"Select2 选择框"
+            }, {
               "path":"/switchs",
               "title":"Switch 开关"
             },{
@@ -111,6 +114,9 @@
             }, {
               "path":"/timelines",
               "title":"Timeline 时间轴"
+            }, {
+              "path":"/toolbars",
+              "title":"Toolbar 工具栏"
             }
           ]
         },

@@ -9,6 +9,10 @@
     padding: 6px 12px;
 }
 
+.form-control:hover {
+    border-color: #5cadff;
+}
+
 .form-control:focus {
     border-color: #5cadff;
     outline: 0;
@@ -17,6 +21,7 @@
 
 .form-control {
     box-shadow: none !important;
+    color: #657180;
 }
 
 .fg-line:not([class*=has-]):after {
@@ -150,36 +155,36 @@ html:not(.ie9) .select:before {
     z-index: 5
 }
 
-.fg-line.with-icon .form-control, .fg-line.with-icon .zmdi {
-    -webkit-transition: all;
-    -o-transition: all;
-    transition: all;
-    -webkit-transition-duration: .3s;
-    transition-duration: .3s;
+/*.fg-line.with-icon .form-control, .fg-line.with-icon .input-icon {
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+}*/
+.fg-line.with-icon .form-control {
+    -webkit-transition: border-color .3s,box-shadow .3s;
+    -o-transition: border-color .3s,box-shadow .3s;
+    transition: border-color .3s,box-shadow .3s;
+}
+
+.fg-line.with-icon .input-icon {
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
 }
 
 .fg-line.with-icon .form-control {
     background-repeat: no-repeat;
     background-position: left center;
-    padding-left: 30px;
+    padding-right: 30px;
     background-color: transparent;
 }
 
-.fg-line.with-icon .zmdi {
+.fg-line.with-icon .input-icon {
     position: absolute;
-    /* left: 0; */
-    left: 10px;
+    right: 10px;
     bottom: 9px;
     font-size: 18px;
     color: #BFACA5;
-}
-
-.fg-line.with-icon .form-control:focus {
-    padding: 0 30px 0 10px;
-}
-
-.fg-line.with-icon .form-control:focus + .zmdi {
-    left: calc(100% - 25px);
 }
 
 .form-control-feedback {
