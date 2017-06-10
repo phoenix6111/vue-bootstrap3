@@ -1,128 +1,127 @@
 <template>
-    <div class="affix-placeholder" :style="wrapStyle">
-        <div :class="{'affix': affixed}" :style="styles">
+    <div>
+        <div :class="classes" :style="styles">
             <slot></slot>
         </div>
     </div>
 </template>
-<script>
-    export default {
-        props: {
-            offset: {
-                type: Number,
-                default: 0,
-            },
-            onAffix: {
-                type: Function,
-                default() {},
-            },
-            boundary: {
-                type: String,
-                default: '',
-            },
-        },
 
-        data() {
+<script>
+    const prefixCls = 'i-affix';
+
+    function getScroll(target, top) {
+        const prop = top ? 'pageYOffset' : 'pageXOffset';
+        const method = top ? 'scrollTop' : 'scrollLeft';
+
+        let ret = target[prop];
+
+        if (typeof ret !== 'number') {
+            ret = window.document.documentElement[method];
+        }
+
+        return ret;
+    }
+
+    function getOffset(element) {
+        const rect = element.getBoundingClientRect();
+
+        const scrollTop = getScroll(window, true);
+        const scrollLeft = getScroll(window);
+
+        const docEl = window.document.body;
+        const clientTop = docEl.clientTop || 0;
+        const clientLeft = docEl.clientLeft || 0;
+
+        return {
+            top: rect.top + scrollTop - clientTop,
+            left: rect.left + scrollLeft - clientLeft
+        };
+    }
+
+    export default {
+        name: 'Affix',
+        props: {
+            offsetTop: {
+                type: Number,
+                default: 0
+            },
+            offsetBottom: {
+                type: Number
+            }
+        },
+        data () {
             return {
-                affixed: false,
-                styles: {},
-                affixedClientHeight: 0,
-                wrapStyle: {},
+                affix: false,
+                styles: {}
             };
         },
-
-        methods: {
-            getScroll(w, top) {
-                let ret = w[`page${(top ? 'Y' : 'X')}Offset`];
-                const method = `scroll${top ? 'Top' : 'Left'}`;
-                if (typeof ret !== 'number') {
-                    const d = w.document;
-                    // ie6,7,8 standard mode
-                    ret = d.documentElement[method];
-                    if (typeof ret !== 'number') {
-                        // quirks mode
-                        ret = d.body[method];
-                    }
-                }
-                return ret;
-            },
-
-            getOffset(element) {
-                const rect = element.getBoundingClientRect();
-                const body = document.body;
-                const clientTop = element.clientTop || body.clientTop || 0;
-                const clientLeft = element.clientLeft || body.clientLeft || 0;
-                //      const clientHeight = element.clientHeight || 0;
-                const scrollTop = this.getScroll(window, true);
-                const scrollLeft = this.getScroll(window);
-                return {
-                    top: rect.bottom + scrollTop - clientTop - this.affixedClientHeight,
-                    left: rect.left + scrollLeft - clientLeft,
-                };
-            },
-
-            handleScroll() {
-                const scrollTop = this.getScroll(window, true) + this.offsets;// handle setting offset
-                const elementOffset = this.getOffset(this.$el);
-
-                if (!this.affixed && scrollTop > elementOffset.top) {
-                    this.affixed = true;
-                    this.styles = {
-                        top: `${this.offsets}px`,
-                        left: `${elementOffset.left}px`,
-                        width: `${this.$el.offsetWidth}px`,
-                    };
-                    this.onAffix(this.affixed);
-                }
-
-                // if setting boundary
-                if (this.boundary && scrollTop > elementOffset.top) {
-                    const el = document.getElementById(this.boundary.slice(1));
-                    if (el) {
-                        const boundaryOffset = this.getOffset(el);
-                        if ((scrollTop + this.offsets) > boundaryOffset.top) {
-                            const top = scrollTop - boundaryOffset.top;
-                            this.styles.top = `-${top}px`;
-                        }
-                    }
-                }
-
-                if (this.affixed && scrollTop < elementOffset.top) {
-                    this.affixed = false;
-                    this.styles = {};
-                    this.onAffix(this.affixed);
-                }
-
-                if (this.affixed && this.boundary) {
-                    const el = document.getElementById(this.boundary.slice(1));
-                    if (el) {
-                        const boundaryOffset = this.getOffset(el);
-                        if ((scrollTop + this.offsets) <= boundaryOffset.top) {
-                            this.styles.top = 0;
-                        }
-                    }
-                }
-            },
-        },
-
         computed: {
-            offsets() {
-                if (this.boundary) return 0;
-                return this.offset;
+            offsetType () {
+                let type = 'top';
+                if (this.offsetBottom >= 0) {
+                    type = 'bottom';
+                }
+
+                return type;
             },
+            classes () {
+                return [
+                    {
+                        [`${prefixCls}`]: this.affix
+                    }
+                ];
+            }
         },
-
-        mounted() {
-            this.affixedClientHeight = this.$el.children[0].clientHeight;
-            this.wrapStyle = {height: `${this.affixedClientHeight}px`};
-            window.addEventListener('scroll', this.handleScroll);
-            window.addEventListener('resize', this.handleScroll);
+        mounted () {
+            window.addEventListener('scroll', this.handleScroll, false);
+            window.addEventListener('resize', this.handleScroll, false);
         },
-
-        beforeDestroy() {
-            window.removeEventListener('scroll', this.handleScroll);
-            window.removeEventListener('resize', this.handleScroll);
+        beforeDestroy () {
+            window.removeEventListener('scroll', this.handleScroll, false);
+            window.removeEventListener('resize', this.handleScroll, false);
         },
+        methods: {
+            handleScroll () {
+                const affix = this.affix;
+                const scrollTop = getScroll(window, true);
+                const elOffset = getOffset(this.$el);
+                const windowHeight = window.innerHeight;
+                const elHeight = this.$el.getElementsByTagName('div')[0].offsetHeight;
 
+                // Fixed Top
+                if ((elOffset.top - this.offsetTop) < scrollTop && this.offsetType == 'top' && !affix) {
+                    this.affix = true;
+                    this.styles = {
+                        top: `${this.offsetTop}px`,
+                        left: `${elOffset.left}px`,
+                        width: `${this.$el.offsetWidth}px`
+                    };
+
+                    this.$emit('on-change', true);
+                } else if ((elOffset.top - this.offsetTop) > scrollTop && this.offsetType == 'top' && affix) {
+                    this.affix = false;
+                    this.styles = null;
+
+                    this.$emit('on-change', false);
+                }
+
+                // Fixed Bottom
+                if ((elOffset.top + this.offsetBottom + elHeight) > (scrollTop + windowHeight) && this.offsetType == 'bottom' && !affix) {
+                    this.affix = true;
+                    this.styles = {
+                        bottom: `${this.offsetBottom}px`,
+                        left: `${elOffset.left}px`,
+                        width: `${this.$el.offsetWidth}px`
+                    };
+
+                    this.$emit('on-change', true);
+                } else if ((elOffset.top + this.offsetBottom + elHeight) < (scrollTop + windowHeight) && this.offsetType == 'bottom' && affix) {
+                    this.affix = false;
+                    this.styles = null;
+
+                    this.$emit('on-change', false);
+                }
+            }
+        }
     };
 </script>

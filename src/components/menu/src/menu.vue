@@ -8,6 +8,8 @@
     import Emitter from '../../../mixins/emitter';
     import {oneOf} from '../../../utils/assist';
 
+    const prefixCls = 'menu';
+
     export default {
         name:'IMenu',
         componentName:'IMenu',
@@ -46,13 +48,19 @@
         computed: {
             classes() {
                 return [
+                    `${prefixCls}`,
+                    {
+                        [`${prefixCls}-${this.mode}`]:!!this.mode
+                    }
+                ];
+                /*return [
                     'nav',
                     {
                         'nav-stacked':this.mode === 'vertical',
                         'nav-tabs':this.mode === 'horizontal',
                         [`menu-${this.mode}`]:!!this.mode,
                     }
-                ];
+                ];*/
             }
         },
         watch: {

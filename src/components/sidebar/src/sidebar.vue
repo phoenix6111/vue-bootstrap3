@@ -1,5 +1,5 @@
 <template>
-    <aside id="sidebar" :class="classes">
+    <aside :class="classes">
         <slot></slot>
     </aside>
 </template>

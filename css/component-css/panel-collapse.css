@@ -1,0 +1,141 @@
+/***** panel style ****/
+.panel {
+    box-shadow: none;
+    border: 0
+}
+
+.panel-heading {
+    padding: 0
+}
+
+.panel-title > a {
+    padding: 10px 15px;
+    display: block;
+    font-size: 13px
+}
+
+.panel-collapse .panel-heading {
+    position: relative
+}
+
+.panel-collapse .panel-heading .panel-title > a {
+    padding: 8px 5px 16px 30px;
+    color: #000;
+    position: relative
+}
+
+.panel-collapse .panel-heading .panel-title > a:after,
+.panel-collapse .panel-heading .panel-title > a:before {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    content: "";
+    -webkit-transition: all;
+    -o-transition: all;
+    transition: all;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden
+}
+
+.panel-collapse .panel-heading .panel-title > a:after {
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0)
+}
+
+.panel-collapse .panel-heading:not(.active) .panel-title > a:before {
+    background: #eee
+}
+
+.panel-collapse .panel-heading:after, .panel-collapse .panel-heading:before {
+    font-family: Material-Design-Iconic-Font;
+    font-size: 17px;
+    position: absolute;
+    left: 0;
+    -webkit-transition: all;
+    -o-transition: all;
+    transition: all;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    top: 1px
+}
+
+.panel-collapse .panel-heading:before {
+    content: "\f278";
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1)
+}
+
+.panel-collapse .panel-heading:after {
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+    content: "\f273"
+}
+
+.panel-collapse .panel-heading.active .panel-title > a:after {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1)
+}
+
+.panel-collapse .panel-heading.active:before {
+    -webkit-transform: scale(0) rotate(-90deg);
+    -ms-transform: scale(0) rotate(-90deg);
+    -o-transform: scale(0) rotate(-90deg);
+    transform: scale(0) rotate(-90deg)
+}
+
+.panel-collapse .panel-heading.active:after {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1)
+}
+
+.panel-collapse .panel-body {
+    border-top: 0 !important;
+    padding-left: 5px;
+    padding-right: 5px
+}
+
+.panel-group:not([data-collapse-color]) .panel-collapse .panel-heading.active .panel-title > a:after {
+    background: #2196F3
+}
+
+.panel-group[data-collapse-color=red] .panel-collapse .panel-heading.active .panel-title > a:after {
+    background: #F44336
+}
+
+.panel-group[data-collapse-color=green] .panel-collapse .panel-heading.active .panel-title > a:after {
+    background: #4CAF50
+}
+
+.panel-group[data-collapse-color=amber] .panel-collapse .panel-heading.active .panel-title > a:after {
+    background: #FFC107
+}
+
+.panel-group[data-collapse-color=teal] .panel-collapse .panel-heading.active .panel-title > a:after {
+    background: #009688
+}
+
+.panel-group[data-collapse-color=black] .panel-collapse .panel-heading.active .panel-title > a:after {
+    background: #000
+}
+
+.panel-group[data-collapse-color=cyan] .panel-collapse .panel-heading.active .panel-title > a:after {
+    background: #00BCD4
+}

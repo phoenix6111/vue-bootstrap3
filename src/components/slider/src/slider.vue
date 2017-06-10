@@ -1,45 +1,58 @@
 <template>
-    <div :class="wrapClasses" :disabled="disabled" :style="customStyles">
-        <div class="noUi-base"
-             @click="onSliderClick"
-             ref="slider">
-
-            <div class="noUi-connect"
-                 :style="{'left': barLeft,'width': barWidth}">
-            </div>
-
-            <slider-button
-                    v-model="firstValue"
-                    ref="button1">
-            </slider-button>
-            <slider-button
-                    v-model="secondValue"
-                    ref="button2"
-                    v-if="range">
-            </slider-button>
-
-            <div
-                    class="slider-stop"
-                    v-for="item in stops"
-                    :style="{ 'left': item + '%' }"
-                    v-if="showStops">
+    <div :class="wrapClasses">
+        <input-number ref="input"
+                      v-model="firstValue"
+                      v-if="showInput && !range"
+                      class="slider-input"
+                      :step="step"
+                      :disabled="disabled"
+                      :controls="showInputControls"
+                      :min="min"
+                      :max="max"
+                      size="sm">
+        </input-number>
+        <div :class="sliderClasses"
+             :disabled="disabled"
+             :style="runwayStyle">
+            <div class="slider-base"
+                 @click="onSliderClick"
+                 ref="slider">
+                <div class="slider-connect"
+                     :style="barStyle">
+                </div>
+                <slider-button
+                        v-model="firstValue"
+                        :vertical="vertical"
+                        ref="button1">
+                </slider-button>
+                <slider-button
+                        v-model="secondValue"
+                        ref="button2"
+                        :vertical="vertical"
+                        v-if="range">
+                </slider-button>
+                <div
+                        class="slider-stop"
+                        v-for="item in stops"
+                        :style="{ 'left': item + '%' }"
+                        v-if="showStops">
+                </div>
             </div>
         </div>
     </div>
-
-
-
-
 </template>
 
 <script>
+    import InputNumber from '../../input-number';
     import SliderButton from './slider-button.vue';
     import {getStyle} from '../../../utils/dom';
+    import {oneOf} from '../../../utils/assist';
 
     export default {
         name:'Slider',
         components: {
-            SliderButton
+            SliderButton,
+            InputNumber
         },
 
         props: {
@@ -71,6 +84,11 @@
                 type: Boolean,
                 default: false
             },
+            showTooltip: {
+                type: Boolean,
+                default: true
+            },
+            formatTooltip: Function,
             disabled: {
                 type: Boolean,
                 default: false
@@ -79,8 +97,16 @@
                 type: Boolean,
                 default: false
             },
-            customClass: [String,Array],
-            customStyles:Object
+            orientation: {
+                validator(val) {
+                    return oneOf(val,['horizontal','vertical']);
+                },
+                default:'horizontal'
+            },
+            height: {
+                type: String,
+                default:'200px'
+            }
         },
 
         data() {
@@ -88,23 +114,32 @@
                 firstValue: null,
                 secondValue: null,
                 oldValue: null,
-                precision: 0,
-                dragging: false
+                dragging: false,
+                vertical:false
             };
         },
 
         computed: {
             wrapClasses() {
                 return [
-                    'noUi-target noUi-ltr noUi-horizontal',this.customClass,
+                    'slider-wrap',
                     {
+                        'slider-with-input':this.showInput&&!this.range
+                    }
+                ]
+            },
+            sliderClasses() {
+                return [
+                    'slider-target slider-ltr slider-light',
+                    {
+                        [`slider-${this.orientation}`]:!!this.orientation,
                         'input-slider':!this.range,
                         'input-slider-range':this.range
                     }
                 ];
             },
-            $sliderWidth() {
-                return parseInt(getStyle(this.$refs.slider, 'width'), 10);
+            $sliderSize() {
+                return parseInt(getStyle(this.$refs.slider, (this.vertical ? 'height' : 'width')), 10);
             },
 
             stops() {
@@ -132,16 +167,39 @@
                 return Math.max(this.firstValue, this.secondValue);
             },
 
-            barWidth() {
+            barSize() {
                 return this.range
                     ? `${ 100 * (this.maxValue - this.minValue) / (this.max - this.min) }%`
                     : `${ 100 * (this.firstValue - this.min) / (this.max - this.min) }%`;
             },
 
-            barLeft() {
+            barStart() {
                 return this.range
                     ? `${ 100 * (this.minValue - this.min) / (this.max - this.min) }%`
                     : '0%';
+            },
+
+            precision() {
+                let precisions = [this.min, this.max, this.step].map(item => {
+                    let decimal = ('' + item).split('.')[1];
+                    return decimal ? decimal.length : 0;
+                });
+                return Math.max.apply(null, precisions);
+            },
+
+            runwayStyle() {
+                return this.vertical ? { height: this.height } : {};
+            },
+
+            barStyle() {
+                return this.vertical
+                    ? {
+                    height: this.barSize,
+                    bottom: this.barStart
+                } : {
+                    width: this.barSize,
+                    left: this.barStart
+                };
             }
         },
 
@@ -246,7 +304,7 @@
             onSliderClick(event) {
                 if (this.disabled || this.dragging) return;
                 const sliderOffsetLeft = this.$refs.slider.getBoundingClientRect().left;
-                this.setPosition((event.clientX - sliderOffsetLeft) / this.$sliderWidth * 100);
+                this.setPosition((event.clientX - sliderOffsetLeft) / this.$sliderSize * 100);
             }
         },
 
@@ -268,11 +326,8 @@
                 }
                 this.oldValue = this.firstValue;
             }
-            let precisions = [this.min, this.max, this.step].map(item => {
-                let decimal = ('' + item).split('.')[1];
-                return decimal ? decimal.length : 0;
-            });
-            this.precision = Math.max.apply(null, precisions);
+
+            this.vertical = (this.orientation === 'vertical');
         }
     }
 </script>

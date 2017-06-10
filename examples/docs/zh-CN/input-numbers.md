@@ -7,7 +7,8 @@
                 num3: 5,
                 num4: 1,
                 num5: 1,
-                num6: 1
+                num6: 1,
+                num7:1
             };
         },
         methods: {
@@ -18,9 +19,13 @@
     }
 </script>
 
-<style scoped>
-    .box-demo .input-group {
-        margin-bottom: 10px;
+<style>
+    .box-demo-show .input-number {
+        margin-right:30px;
+    }
+    
+    .box-demo .input-number > .fg-line {
+        top: -20px;
     }
 </style>
 
@@ -36,14 +41,17 @@
 ::: demo
 <summary>
   #### 基础用法
-  数字输入框。
+  数字输入框。使用`v-model`绑定输入值即可，`sepMode`可将控制按钮分开两边显示，`controls`可设置是否显示控制按钮。
+  可以通过输入、鼠标点击或键盘的上下键来改变数值大小。
 </summary>
 
 ```html
 <template>
-  <input-number v-model="num1" @change="handleChange" :min="1" :max="10"></input-number>
+  <input-number v-model="num1" @change="handleChange" :min="1" :max="10" class="m-r-30"></input-number>
   
-  <input-number v-model="num1" @change="handleChange" :min="1" :max="10" sep-mode></input-number>
+  <input-number v-model="num1" @change="handleChange" :min="1" :max="10" sep-mode class="m-r-30"></input-number>
+  
+  <input-number v-model="num1" @change="handleChange" :min="1" :max="10" class="m-r-30" :controls="false"></input-number>
 </template>
 ```
 :::
@@ -85,6 +93,21 @@
   <input-number size="lg" v-model="num4"></input-number>
   <input-number v-model="num5"></input-number>
   <input-number size="sm" v-model="num6"></input-number>
+</template>
+```
+:::
+
+::: demo
+<summary>
+  #### 复合型数字输入框
+  通过前置和后置的 slot 可以实现复合型数字输入框。
+</summary>
+
+```html
+<template>
+    <input-number v-model="num7">
+        <template slot="prepend">$</template>
+    </input-number>
 </template>
 ```
 :::

@@ -1,29 +1,76 @@
 import Vue from 'vue';
-import {addClass, removeClass} from '../dom';
+import { addClass, removeClass } from '../dom';
 
-let hasModal = false;
+let hasBackdrop = false;
 
-const getModal = function () {
+const getBackdrop = function() {
     if (Vue.prototype.$isServer) return;
-    let modalDom = PopupManager.modalDom;
-    if (modalDom) {
-        hasModal = true;
+
+    let backdropDom = PopupManager.backdropDom;
+    if (backdropDom) {
+        hasBackdrop = true;
     } else {
-        hasModal = false;
-        modalDom = document.createElement('div');
-        PopupManager.modalDom = modalDom;
+        hasBackdrop = false;
+        backdropDom = new Vue({
+            render(h) {
+                let backdropVNode = (
+                    <div class={this.classes}
+                         v-show={this.visible}
+                         on-click={this.handleClick}
+                        on-touchmove={this.handleTouchmove}
+                        style={this.styles}></div>
+                );
+                let backdropTran = '';
+                if(this.fade) {
+                    backdropTran = (
+                        <transition name="fade">
+                            {backdropVNode}
+                        </transition>
+                    );
+                } else {
+                    backdropTran = backdropVNode;
+                }
 
-        modalDom.addEventListener('touchmove', function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-        });
+                return backdropTran;
+            },
+            data:{
+                visible:false,
+                zIndex:2000,
+                customClass:[],
+                fade:true
+            },
+            computed: {
+                classes() {
+                    return [
+                        'modal-backdrop',this.customClass
+                    ]
+                },
+                styles() {
+                    return {zIndex:this.zIndex};
+                }
+            },
+            methods: {
+                handleClick(e) {
+                    PopupManager.doOnBackdropClick && PopupManager.doOnBackdropClick();
+                },
+                handleTouchmove(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                },
+                show() {
+                    this.visible = true;
+                },
+                hidden() {
+                    this.visible = false;
+                }
+            }
+        }).$mount();
 
-        modalDom.addEventListener('click', function () {
-            PopupManager.doOnModalClick && PopupManager.doOnModalClick();
-        });
+        PopupManager.backdropDom = backdropDom;
     }
 
-    return modalDom;
+    return backdropDom;
+
 };
 
 const instances = {};
@@ -31,132 +78,143 @@ const instances = {};
 const PopupManager = {
     zIndex: 2000,
 
-    modalFade: true,
+    backdropFade: true,
 
-    getInstance: function (id) {
+    getInstance: function(id) {
         return instances[id];
     },
 
-    register: function (id, instance) {
+    addOpenedModal:function (id) {
+        PopupManager.openedModalStack.push(id);
+    },
+
+    removeOpenedModal:function (id) {
+        var index = PopupManager.openedModalStack.indexOf(id);
+        if(index >=0) {
+            PopupManager.openedModalStack.splice(index,1);
+        }
+    },
+
+    getTopOpenedModal:function () {
+        if(PopupManager.openedModalStack.length > 0) {
+            var id = PopupManager.openedModalStack[PopupManager.openedModalStack.length-1];
+            return PopupManager.getInstance(id);
+        } else {
+            return '';
+        }
+    },
+
+    register: function(id, instance) {
         if (id && instance) {
             instances[id] = instance;
         }
     },
 
-    deregister: function (id) {
+    deregister: function(id) {
         if (id) {
             instances[id] = null;
             delete instances[id];
         }
     },
 
-    nextZIndex: function () {
+    nextZIndex: function() {
         return PopupManager.zIndex++;
     },
 
-    modalStack: [],
+    openedModalStack:[],
 
-    doOnModalClick: function () {
-        const topItem = PopupManager.modalStack[PopupManager.modalStack.length - 1];
-        if (!topItem) return;
+    backdropStack: [],
 
-        const instance = PopupManager.getInstance(topItem.id);
-        if (instance && instance.closeOnClickModal) {
-            instance.close();
+    doOnBackdropClick: function() {
+        if(PopupManager.openedModalStack.length > 0) {
+            const topItem = PopupManager.getTopOpenedModal();
+            if (topItem && topItem.closeOnClickOutside) {
+                topItem.handleClose
+                    ? topItem.handleClose()
+                    : (topItem.handleAction ? topItem.handleAction('cancel') : topItem.close());
+            }
         }
     },
 
-    openModal: function (id, zIndex, dom, modalClass, modalFade) {
+    openBackdrop: function(id, zIndex, dom, backdropClass, backdropFade) {
         if (Vue.prototype.$isServer) return;
         if (!id || zIndex === undefined) return;
-        this.modalFade = modalFade;
 
-        const modalStack = this.modalStack;
-
-        for (let i = 0, j = modalStack.length; i < j; i++) {
-            const item = modalStack[i];
+        this.backdropFade = backdropFade;
+        const backdropStack = this.backdropStack;
+        for (let i = 0, j = backdropStack.length; i < j; i++) {
+            const item = backdropStack[i];
             if (item.id === id) {
                 return;
             }
         }
 
-        const modalDom = getModal();
+        const backdropDom = getBackdrop();
 
-        addClass(modalDom, 'v-modal');
-        if (this.modalFade && !hasModal) {
-            addClass(modalDom, 'v-modal-enter');
+        if (backdropClass) {
+            backdropDom.customClass = backdropClass;
         }
-        if (modalClass) {
-            let classArr = modalClass.trim().split(/\s+/);
-            classArr.forEach(item => addClass(modalDom, item));
-        }
-        setTimeout(() => {
-            removeClass(modalDom, 'v-modal-enter');
-        }, 200);
 
         if (dom && dom.parentNode && dom.parentNode.nodeType !== 11) {
-            dom.parentNode.appendChild(modalDom);
+            dom.parentNode.appendChild(backdropDom.$el);
         } else {
-            document.body.appendChild(modalDom);
+            document.body.appendChild(backdropDom.$el);
         }
 
         if (zIndex) {
-            modalDom.style.zIndex = zIndex;
+            backdropDom.zIndex = zIndex;
         }
-        modalDom.style.display = '';
+        if(!this.backdropFade) {
+            backdropDom.fade = false;
+        }
 
-        this.modalStack.push({id: id, zIndex: zIndex, modalClass: modalClass});
+        if (!hasBackdrop) {
+            backdropDom.show();
+        }
+
+        this.backdropStack.push({ id: id, zIndex: zIndex, backdropClass: backdropClass });
     },
 
-    closeModal: function (id) {
-        const modalStack = this.modalStack;
-        const modalDom = getModal();
+    closeBackdrop: function(id) {
+        const backdropStack = this.backdropStack;
+        const backdropDom = getBackdrop();
 
-        if (modalStack.length > 0) {
-            const topItem = modalStack[modalStack.length - 1];
+        if (backdropStack.length > 0) {
+            const topItem = backdropStack[backdropStack.length - 1];
             if (topItem.id === id) {
-                if (topItem.modalClass) {
-                    let classArr = topItem.modalClass.trim().split(/\s+/);
-                    classArr.forEach(item => removeClass(modalDom, item));
+                if (topItem.backdropClass) {
+                    backdropDom.customClass = null;
                 }
 
-                modalStack.pop();
-                if (modalStack.length > 0) {
-                    modalDom.style.zIndex = modalStack[modalStack.length - 1].zIndex;
+                backdropStack.pop();
+                if (backdropStack.length > 0) {
+                    backdropDom.zIndex = backdropStack[backdropStack.length - 1].zIndex;
                 }
             } else {
-                for (let i = modalStack.length - 1; i >= 0; i--) {
-                    if (modalStack[i].id === id) {
-                        modalStack.splice(i, 1);
+                for (let i = backdropStack.length - 1; i >= 0; i--) {
+                    if (backdropStack[i].id === id) {
+                        backdropStack.splice(i, 1);
                         break;
                     }
                 }
             }
         }
 
-        if (modalStack.length === 0) {
-            if (this.modalFade) {
-                addClass(modalDom, 'v-modal-leave');
-            }
-            setTimeout(() => {
-                if (modalStack.length === 0) {
-                    if (modalDom.parentNode) modalDom.parentNode.removeChild(modalDom);
-                    modalDom.style.display = 'none';
-                    PopupManager.modalDom = undefined;
-                }
-                removeClass(modalDom, 'v-modal-leave');
-            }, 200);
+        if (backdropStack.length === 0) {
+            backdropDom.hidden();
+            if (backdropDom.parentNode) backdropDom.parentNode.removeChild(backdropDom);
+            PopupManager.backdropDom = undefined;
         }
     }
 };
-!Vue.prototype.$isServer && window.addEventListener('keydown', function (event) {
+!Vue.prototype.$isServer && window.addEventListener('keydown', function(event) {
     if (event.keyCode === 27) { // ESC
-        if (PopupManager.modalStack.length > 0) {
-            const topItem = PopupManager.modalStack[PopupManager.modalStack.length - 1];
-            if (!topItem) return;
-            const instance = PopupManager.getInstance(topItem.id);
-            if (instance.closeOnPressEscape) {
-                instance.close();
+        if(PopupManager.openedModalStack.length > 0) {
+            const topItem = PopupManager.getTopOpenedModal();
+            if (topItem && topItem.closeOnPressEsc) {
+                topItem.handleClose
+                    ? topItem.handleClose()
+                    : (topItem.handleAction ? topItem.handleAction('cancel') : topItem.close());
             }
         }
     }

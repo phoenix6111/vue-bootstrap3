@@ -1,12 +1,12 @@
 import {getCell, getColumnByCell, getRowIdentity} from './util';
 import {hasClass} from '../../../utils/dom';
-import Checkbox from '../../checkbox';
-import Tooltip from '../../tooltip/src/tooltip3';
+import VCheckbox from '../../checkbox';
+import Tooltip from '../../tooltip';
 import debounce from 'throttle-debounce/debounce';
 
 export default {
     components: {
-        Checkbox,
+        VCheckbox,
         Tooltip
     },
 
@@ -14,10 +14,24 @@ export default {
         store: {
             required: true
         },
+        stripe: Boolean,
         context: {},
         layout: {
             required: true
         },
+        tableHover: {
+            type:Boolean,
+            default:true
+        },
+        tableStriped: {
+            type:Boolean,
+            default:false
+        },
+        border: {
+            type:Boolean,
+            default:false
+        },
+        size:[String,Number],
         rowClassName: [String, Function],
         rowStyle: [Object, Function],
         fixed: String,
@@ -28,7 +42,8 @@ export default {
         const columnsHidden = this.columns.map((column, index) => this.isColumnHidden(index));
         return (
             <table
-                class="el-table__body"
+                class={['el-table__body table', this.tableHover ? 'table-hover' : '', this.stripe ? 'table-striped' : ''
+                    , this.border ? 'table-bordered' : '', this.size ? 'table-' + this.size : '']}
                 cellspacing="0"
                 cellpadding="0"
                 border="0">
@@ -89,6 +104,8 @@ export default {
                                 : ''
                         ]
                     ).concat(
+                        this._self.$parent.$slots.append
+                    ).concat(
                         <tooltip effect={ this.table.tooltipEffect } placement="top"
                                     ref="tooltip" content={ this.tooltipContent }></tooltip>
                     )
@@ -118,16 +135,16 @@ export default {
             const el = this.$el;
             if (!el) return;
             const data = this.store.states.data;
-            const rows = el.querySelectorAll('tbody > tr');
+            const rows = el.querySelectorAll('tbody > tr.el-table__row');
             const oldRow = rows[data.indexOf(oldVal)];
             const newRow = rows[data.indexOf(newVal)];
             if (oldRow) {
-                oldRow.classList.remove('current-row');
+                oldRow.classList.remove('table-active');
             } else if (rows) {
-                [].forEach.call(rows, row => row.classList.remove('current-row'));
+                [].forEach.call(rows, row => row.classList.remove('table-active'));
             }
             if (newRow) {
-                newRow.classList.add('current-row');
+                newRow.classList.add('table-active');
             }
         }
     },
@@ -196,8 +213,11 @@ export default {
         },
 
         getRowClass(row, index) {
-            const classes = [];
+            const classes = ['el-table__row'];
 
+            if (this.stripe && index % 2 === 1) {
+                classes.push('el-table__row--striped');
+            }
             const rowClassName = this.rowClassName;
             if (typeof rowClassName === 'string') {
                 classes.push(rowClassName);
@@ -221,19 +241,24 @@ export default {
             // 判断是否text-overflow, 如果是就显示tooltip
             const cellChild = event.target.querySelector('.cell');
 
-            if (hasClass(cellChild, 'el-tooltip') && cellChild.scrollWidth > cellChild.offsetWidth) {
+            if (hasClass(cellChild, 'tooltip') && cellChild.scrollWidth > cellChild.offsetWidth) {
                 const tooltip = this.$refs.tooltip;
 
                 this.tooltipContent = cell.innerText;
                 tooltip.referenceElm = cell;
                 tooltip.$refs.popper.style.display = 'none';
                 tooltip.doDestroy();
+                tooltip.setExpectedState(true);
                 this.activateTooltip(tooltip);
             }
         },
 
         handleCellMouseLeave(event) {
-            this.$refs.tooltip.handleClosePopper();
+            const tooltip = this.$refs.tooltip;
+            if (tooltip) {
+                tooltip.setExpectedState(false);
+                tooltip.handleClosePopper();
+            }
             const cell = getCell(event);
             if (!cell) return;
 

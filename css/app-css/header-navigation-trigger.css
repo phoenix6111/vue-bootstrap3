@@ -1,0 +1,96 @@
+/** 屏幕区域小于 1279px 时，header的左侧菜单切换按钮**/
+.header-inner-trigger {
+    margin-left: -5px;
+    cursor: pointer;
+    position: relative;
+}
+
+#header .header-inner-trigger {
+    display: none !important
+}
+
+.header-inner-trigger:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .22);
+    -webkit-transition: all;
+    -o-transition: all;
+    transition: all;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    transform: scale(0);
+    z-index: 0;
+    margin-top: -22px;
+    margin-left: -22px;
+}
+
+.header-inner-trigger:before {
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+}
+
+.header-inner-trigger.toggled:before {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1)
+}
+
+@media (max-width: 1279px) {
+    .header-inner-trigger {
+        display: inline-block !important
+    }
+}
+
+/***** app header toggle sidebar logo style *****/
+.line-wrap, .line-wrap .line {
+    width: 18px;
+    -o-transition: all
+}
+
+.line-wrap {
+    height: 12px;
+    -webkit-transition: all;
+    transition: all;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    margin: 12px 20px
+}
+
+.line-wrap .line {
+    height: 2px;
+    -webkit-transition: all;
+    transition: all;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    background-color: #fff
+}
+
+.line-wrap .line.center {
+    margin: 3px 0
+}
+
+.toggled .line-wrap {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg)
+}
+
+.toggled .line-wrap .line.top {
+    width: 12px;
+    transform: translateX(8px) translateY(1px) rotate(45deg);
+    -webkit-transform: translateX(8px) translateY(1px) rotate(45deg)
+}
+
+.toggled .line-wrap .line.bottom {
+    width: 12px;
+    transform: translateX(8px) translateY(-1px) rotate(-45deg);
+    -webkit-transform: translateX(8px) translateY(-1px) rotate(-45deg)
+}

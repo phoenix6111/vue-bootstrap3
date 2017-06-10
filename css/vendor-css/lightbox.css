@@ -1,0 +1,35 @@
+/***** photo page lightbox style  ****/
+.lightbox .lightbox-item, .messages {
+    overflow: hidden
+}
+
+.lightbox .lightbox-item > img {
+    -webkit-transition: all;
+    -o-transition: all;
+    transition: all;
+    -webkit-transition-duration: .2s;
+    transition-duration: .2s;
+    width: 100%;
+    border-radius: 2px
+}
+
+.lightbox .lightbox-item:hover {
+    cursor: pointer
+}
+
+.lightbox .lightbox-item:hover img {
+    -webkit-transform: scale(1.35) rotate(10deg);
+    -ms-transform: scale(1.35) rotate(10deg);
+    -o-transform: scale(1.35) rotate(10deg);
+    transform: scale(1.35) rotate(10deg)
+}
+
+.lightbox [data-src]:after, .lightbox [data-src]:before {
+    content: " ";
+    display: table
+}
+
+.lightbox .lightbox-item:not(.p-item) {
+    position: relative
+}
+

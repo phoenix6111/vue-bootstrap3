@@ -1,52 +1,76 @@
 <template>
-    <transition name="move-notice">
-        <div :class="wrapClasses"
-             :style="{ top: top ? top + 'px' : 'auto' }"
-             v-show="visible"
-             @mouseenter="clearTimer()"
-             @mouseleave="startTimer()">
-            <button type="button" class="close" @click="close"
-                    style="display: block; z-index: 1030;">
-                <span aria-hidden="true">×</span>
-                <span class="sr-only">Close</span>
-            </button>
-            <span class="fa fa-comments"></span>
-            <span>{{title}}</span>
-            <span>
-                <slot>{{ message }}</slot>
-            </span>
-            <a href="javascript:void(0)"></a>
+    <transition name="message-fade">
+        <div :class="wrapClasses" v-show="visible">
+            <div :class="classes">
+                <button type="button" class="close" @click="close" v-if="closable">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <div class="alert-content">
+                    <span :class="[`${baseClass}-icon`]">
+                        <i :class="iconClasses"></i>
+                    </span>
+                    <div :class="[`${baseClass}-heading`]">
+                        {{ message }}
+                    </div>
+                </div>
+            </div>
         </div>
     </transition>
-
-
 </template>
 <script>
+    import { oneOf } from '../../../utils/assist';
+
+    const prefixCls = 'alert';
+    const iconPrefixCls = 'zmdi';
+    const iconTypes = {
+        'info': 'info',
+        'success': 'check-circle',
+        'warning': 'alert-circle',
+        'danger': 'close-circle'
+    };
+
     export default {
 
         data() {
             return {
                 visible: false,
-                title: '',
                 message: '',
-                duration: 4500,
-                type: 'inverse',
+                duration: 3000,
+                type: 'info',
                 customClass: '',
                 iconClass: '',
                 onClose: null,
                 closed: false,
                 top: null,
-                timer: null
+                timer: null,
+                transition: "move-up",
+                theme:'light',
+                closable:false
             };
         },
 
         computed: {
             wrapClasses() {
+                return ['message-wrap'];
+            },
+            baseClass () {
+                return `${prefixCls}`;
+            },
+            classes() {
                 return [
-                    "alert alert-dismissable message",
+                    `${prefixCls}`,'message','with-icon',
                     {
-                        [`alert-${this.type}`]:!!this.type
+                        [`${this.customClass}`]: !!this.customClass,
+                        [`alert-type-${this.type}`]:!!this.type,
+                        [`alert-theme-${this.theme}`]:!!this.theme,
+                        'alert-dismissible':this.closable
                     }
+                ];
+            },
+            iconClasses() {
+                return [
+                    `${iconPrefixCls}`,`${iconPrefixCls}-${iconTypes[this.type]}`
                 ];
             }
         },
@@ -70,7 +94,7 @@
             close() {
                 this.closed = true;
                 if (typeof this.onClose === 'function') {
-                    this.onClose();
+                    this.onClose(this);
                 }
             },
 
@@ -90,15 +114,7 @@
         },
 
         mounted() {
-            if (this.duration > 0) {
-                this.timer = setTimeout(() => {
-                    if (!this.closed) {
-                        this.close();
-                    }
-                }, this.duration);
-            }
-
-            console.log("this.type == "+this.type);
+            this.startTimer();
         }
     }
 </script>

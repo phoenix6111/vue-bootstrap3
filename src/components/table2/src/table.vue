@@ -6,7 +6,8 @@
               'el-table--border': border,
               'el-table--fluid-height': maxHeight,
               'el-table--enable-row-hover': !store.states.isComplex,
-              'el-table--enable-row-transition': true || (store.states.data || []).length !== 0 && (store.states.data || []).length < 100
+              'table-hover': showHover,
+              'el-table--enable-row-transition': (store.states.data || []).length !== 0 && (store.states.data || []).length < 100
             }"
          @mouseleave="handleMouseLeave($event)">
         <div class="hidden-columns" ref="hiddenColumns">
@@ -17,6 +18,8 @@
                     :store="store"
                     :layout="layout"
                     :border="border"
+                    :size="size"
+                    :theadType="theadType"
                     :default-sort="defaultSort"
                     :style="{ width: layout.bodyWidth ? layout.bodyWidth + 'px' : '' }">
             </table-header>
@@ -29,16 +32,31 @@
                     :context="context"
                     :store="store"
                     :layout="layout"
+                    :table-hover="showHover"
+                    :table-striped="stripe"
+                    :border="border"
+                    :size="size"
                     :row-class-name="rowClassName"
                     :row-style="rowStyle"
                     :highlight="highlightCurrentRow"
                     :style="{ width: bodyWidth }">
             </table-body>
-            <div :style="{ width: bodyWidth }"
-                 class="el-table__empty-block"
+            <div :style="{ width: bodyWidth }" class="el-table__empty-block"
                  v-if="!data || data.length === 0">
                 <span class="el-table__empty-text"><slot name="empty">{{ emptyText || t('el.table.emptyText') }}</slot></span>
             </div>
+        </div>
+        <div class="el-table__footer-wrapper" ref="footerWrapper" v-if="showSummary"
+             v-show="data && data.length > 0">
+            <table-footer
+                    :store="store"
+                    :layout="layout"
+                    :border="border"
+                    :sum-text="sumText || t('el.table.sumText')"
+                    :summary-method="summaryMethod"
+                    :default-sort="defaultSort"
+                    :style="{ width: layout.bodyWidth ? layout.bodyWidth + 'px' : '' }">
+            </table-footer>
         </div>
         <div class="el-table__fixed" ref="fixedWrapper"
              v-if="fixedColumns.length > 0"
@@ -51,7 +69,9 @@
                         fixed="left"
                         :border="border"
                         :store="store"
+                        :size="size"
                         :layout="layout"
+                        :theadType="theadType"
                         :style="{ width: layout.fixedWidth ? layout.fixedWidth + 'px' : '' }"></table-header>
             </div>
             <div class="el-table__fixed-body-wrapper" ref="fixedBodyWrapper"
@@ -63,43 +83,75 @@
                         fixed="left"
                         :store="store"
                         :layout="layout"
+                        :table-hover="showHover"
+                        :table-striped="stripe"
+                        :border="border"
+                        :size="size"
                         :highlight="highlightCurrentRow"
                         :row-class-name="rowClassName"
                         :row-style="rowStyle"
                         :style="{ width: layout.fixedWidth ? layout.fixedWidth + 'px' : '' }">
                 </table-body>
             </div>
+            <div class="el-table__fixed-footer-wrapper" ref="fixedFooterWrapper" v-if="showSummary"
+                 v-show="data && data.length > 0">
+                <table-footer
+                        fixed="left"
+                        :border="border"
+                        :sum-text="sumText || t('el.table.sumText')"
+                        :summary-method="summaryMethod"
+                        :store="store"
+                        :layout="layout"
+                        :style="{ width: layout.fixedWidth ? layout.fixedWidth + 'px' : '' }"></table-footer>
+            </div>
         </div>
         <div class="el-table__fixed-right" ref="rightFixedWrapper"
              v-if="rightFixedColumns.length > 0"
              :style="[
-                { width: layout.rightFixedWidth ? layout.rightFixedWidth + 'px' : '' },
-                { right: layout.scrollY ? (border ? layout.gutterWidth : (layout.gutterWidth || 1)) + 'px' : '' },
-                fixedHeight
-              ]">
+                    { width: layout.rightFixedWidth ? layout.rightFixedWidth + 'px' : '' },
+                    { right: layout.scrollY ? (border ? layout.gutterWidth : (layout.gutterWidth || 1)) + 'px' : '' },
+                    fixedHeight
+                  ]">
             <div class="el-table__fixed-header-wrapper" ref="rightFixedHeaderWrapper"
                  v-if="showHeader">
                 <table-header
                         fixed="right"
                         :border="border"
                         :store="store"
+                        :size="size"
                         :layout="layout"
+                        :theadType="theadType"
                         :style="{ width: layout.rightFixedWidth ? layout.rightFixedWidth + 'px' : '' }"></table-header>
             </div>
             <div class="el-table__fixed-body-wrapper" ref="rightFixedBodyWrapper"
                  :style="[
-                  { top: layout.headerHeight + 'px' },
-                  fixedBodyHeight
-                ]">
+                      { top: layout.headerHeight + 'px' },
+                      fixedBodyHeight
+                    ]">
                 <table-body
                         fixed="right"
                         :store="store"
                         :layout="layout"
+                        :table-hover="showHover"
+                        :table-striped="stripe"
+                        :border="border"
+                        :size="size"
                         :row-class-name="rowClassName"
                         :row-style="rowStyle"
                         :highlight="highlightCurrentRow"
                         :style="{ width: layout.rightFixedWidth ? layout.rightFixedWidth + 'px' : '' }">
                 </table-body>
+            </div>
+            <div class="el-table__fixed-footer-wrapper" ref="rightFixedFooterWrapper"
+                 v-if="showSummary" v-show="data && data.length > 0">
+                <table-footer
+                        fixed="right"
+                        :border="border"
+                        :sum-text="sumText || t('el.table.sumText')"
+                        :summary-method="summaryMethod"
+                        :store="store"
+                        :layout="layout"
+                        :style="{ width: layout.rightFixedWidth ? layout.rightFixedWidth + 'px' : '' }"></table-footer>
             </div>
         </div>
         <div class="el-table__fixed-right-patch"
@@ -111,7 +163,7 @@
 </template>
 
 <script type="text/babel">
-    import Checkbox from '../../checkbox';
+    import VCheckbox from '../../checkbox';
     import throttle from 'throttle-debounce/throttle';
     import debounce from 'throttle-debounce/debounce';
     import {addResizeListener, removeResizeListener} from '../../../utils/resize-event';
@@ -120,15 +172,14 @@
     import TableLayout from './table-layout';
     import TableBody from './table-body';
     import TableHeader from './table-header';
+    import TableFooter from './table-footer';
     import {mousewheel} from './util';
+    import {oneOf} from '../../../utils/assist';
 
     let tableIdSeed = 1;
-
     export default {
         name: 'ElTable',
-
         mixins: [Locale],
-
         props: {
             data: {
                 type: Array,
@@ -136,96 +187,93 @@
                     return [];
                 }
             },
-
             width: [String, Number],
-
             height: [String, Number],
-
             maxHeight: [String, Number],
-
             fit: {
                 type: Boolean,
                 default: true
             },
-
             stripe: Boolean,
-
             border: Boolean,
-
+            theadType: {
+                type:String,
+            },
+            size: {
+                validator(value) {
+                    return oneOf(value,['sm','default']);
+                }
+            },
+            tableHover: {
+                type:Boolean,
+                default:true
+            },
             rowKey: [String, Function],
-
             context: {},
-
             showHeader: {
                 type: Boolean,
                 default: true
             },
-
+            showSummary: Boolean,
+            sumText: String,
+            summaryMethod: Function,
             rowClassName: [String, Function],
-
             rowStyle: [Object, Function],
-
             highlightCurrentRow: Boolean,
-
             currentRowKey: [String, Number],
-
             emptyText: String,
-
             expandRowKeys: Array,
-
             defaultExpandAll: Boolean,
-
             defaultSort: Object,
-
             tooltipEffect: String
         },
-
         components: {
             TableHeader,
+            TableFooter,
             TableBody,
-            Checkbox
+            VCheckbox
         },
-
         methods: {
+            setCurrentRow(row) {
+                this.store.commit('setCurrentRow', row);
+            },
             toggleRowSelection(row, selected) {
                 this.store.toggleRowSelection(row, selected);
                 this.store.updateAllSelected();
             },
-
             clearSelection() {
                 this.store.clearSelection();
             },
-
             handleMouseLeave() {
                 this.store.commit('setHoverRow', null);
                 if (this.hoverState) this.hoverState = null;
             },
-
             updateScrollY() {
                 this.layout.updateScrollY();
             },
-
             bindEvents() {
-                const {headerWrapper} = this.$refs;
+                const {headerWrapper, footerWrapper} = this.$refs;
                 const refs = this.$refs;
                 this.bodyWrapper.addEventListener('scroll', function () {
                     if (headerWrapper) headerWrapper.scrollLeft = this.scrollLeft;
+                    if (footerWrapper) footerWrapper.scrollLeft = this.scrollLeft;
                     if (refs.fixedBodyWrapper) refs.fixedBodyWrapper.scrollTop = this.scrollTop;
                     if (refs.rightFixedBodyWrapper) refs.rightFixedBodyWrapper.scrollTop = this.scrollTop;
                 });
-
+                const scrollBodyWrapper = event => {
+                    const deltaX = event.deltaX;
+                    if (deltaX > 0) {
+                        this.bodyWrapper.scrollLeft += 10;
+                    } else {
+                        this.bodyWrapper.scrollLeft -= 10;
+                    }
+                };
                 if (headerWrapper) {
-                    mousewheel(headerWrapper, throttle(16, event => {
-                        const deltaX = event.deltaX;
-
-                        if (deltaX > 0) {
-                            this.bodyWrapper.scrollLeft += 10;
-                        } else {
-                            this.bodyWrapper.scrollLeft -= 10;
-                        }
-                    }));
+                    mousewheel(headerWrapper, throttle(16, scrollBodyWrapper));
                 }
-
+                if (footerWrapper) {
+                    mousewheel(footerWrapper, throttle(16, scrollBodyWrapper));
+                }
                 if (this.fit) {
                     this.windowResizeListener = throttle(50, () => {
                         if (this.$ready) this.doLayout();
@@ -233,7 +281,6 @@
                     addResizeListener(this.$el, this.windowResizeListener);
                 }
             },
-
             doLayout() {
                 this.store.updateColumns();
                 this.layout.update();
@@ -249,89 +296,75 @@
                 });
             }
         },
-
         created() {
             this.tableId = 'el-table_' + tableIdSeed + '_';
             this.debouncedLayout = debounce(50, () => this.doLayout());
         },
-
         computed: {
+            showHover() {
+                return this.tableHover && !this.store.states.isComplex;
+            },
             bodyWrapper() {
                 return this.$refs.bodyWrapper;
             },
-
             shouldUpdateHeight() {
                 return typeof this.height === 'number' ||
                     this.fixedColumns.length > 0 ||
                     this.rightFixedColumns.length > 0;
             },
-
             selection() {
                 return this.store.selection;
             },
-
             columns() {
                 return this.store.states.columns;
             },
-
             tableData() {
                 return this.store.states.data;
             },
-
             fixedColumns() {
                 return this.store.states.fixedColumns;
             },
-
             rightFixedColumns() {
                 return this.store.states.rightFixedColumns;
             },
-
             bodyHeight() {
                 let style = {};
-
                 if (this.height) {
                     style = {
                         height: this.layout.bodyHeight ? this.layout.bodyHeight + 'px' : ''
                     };
                 } else if (this.maxHeight) {
                     style = {
-                        'max-height': (this.showHeader ? this.maxHeight - this.layout.headerHeight : this.maxHeight) + 'px'
+                        'max-height': (this.showHeader
+                            ? this.maxHeight - this.layout.headerHeight - this.layout.footerHeight
+                            : this.maxHeight - this.layout.footerHeight) + 'px'
                     };
                 }
-
                 return style;
             },
-
             bodyWidth() {
                 const {bodyWidth, scrollY, gutterWidth} = this.layout;
                 return bodyWidth ? bodyWidth - (scrollY ? gutterWidth : 0) + 'px' : '';
             },
-
             fixedBodyHeight() {
                 let style = {};
-
                 if (this.height) {
                     style = {
                         height: this.layout.fixedBodyHeight ? this.layout.fixedBodyHeight + 'px' : ''
                     };
                 } else if (this.maxHeight) {
                     let maxHeight = this.layout.scrollX ? this.maxHeight - this.layout.gutterWidth : this.maxHeight;
-
                     if (this.showHeader) {
                         maxHeight -= this.layout.headerHeight;
                     }
-
                     style = {
                         'max-height': maxHeight + 'px'
                     };
                 }
-
                 return style;
             },
-
             fixedHeight() {
                 let style = {};
-
                 if (this.maxHeight) {
                     style = {
                         bottom: (this.layout.scrollX && this.data.length) ? this.layout.gutterWidth + 'px' : ''
@@ -341,40 +374,32 @@
                         height: this.layout.viewportHeight ? this.layout.viewportHeight + 'px' : ''
                     };
                 }
-
                 return style;
             }
         },
-
         watch: {
             height(value) {
                 this.layout.setHeight(value);
             },
-
             currentRowKey(newVal) {
                 this.store.setCurrentRowKey(newVal);
             },
-
             data: {
                 immediate: true,
                 handler(val) {
                     this.store.commit('setData', val);
                 }
             },
-
             expandRowKeys(newVal) {
                 this.store.setExpandRowKeys(newVal);
             }
         },
-
         destroyed() {
             if (this.windowResizeListener) removeResizeListener(this.$el, this.windowResizeListener);
         },
-
         mounted() {
             this.bindEvents();
             this.doLayout();
-
             // init filters
             this.store.states.columns.forEach(column => {
                 if (column.filteredValue && column.filteredValue.length) {
@@ -385,10 +410,8 @@
                     });
                 }
             });
-
             this.$ready = true;
         },
-
         data() {
             const store = new TableStore(this, {
                 rowKey: this.rowKey,

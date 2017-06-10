@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import './bootstrap';
+    import './css';
     export default {
 
     }
@@ -149,14 +149,14 @@
             margin-left: 1rem;
         }
     }
-    h2 {
+    & > h2 {
         font-size:1.5em;
         font-weight: 700;
     }
-    h3 {
+    & > h3 {
         font-size: 1.17em;
     }
-    h1, h2, h3{
+    & >h1, & >h2, & >h3{
     a.header-anchor{
         font-size: .8em;
         opacity: 0;

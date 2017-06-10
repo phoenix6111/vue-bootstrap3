@@ -1,0 +1,145 @@
+/******* todo style ******/
+#todo {
+    background: #FFC107;
+    color: #fff;
+    font-family: satisfy, cursive
+}
+
+#todo .card-header {
+    padding: 28px 35px 20px;
+    background-color: rgba(0, 0, 0, .03)
+}
+
+#todo .card-header h2 {
+    font-size: 25px
+}
+
+#todo .card-header h2 small {
+    font-size: 18px;
+    margin-top: 0
+}
+
+#todo .card-body {
+    font-size: 20px;
+    position: relative
+}
+
+#todo .list-group-item {
+    padding: 0
+}
+
+#todo .checkbox .input-helper:after, #todo .checkbox .input-helper:before {
+    top: 5px
+}
+
+#todo .checkbox input:checked + i + span {
+    text-decoration: line-through
+}
+
+.t-add, .ta-block, .ta-btn {
+    transition: all;
+    -webkit-transition: all;
+    -o-transition: all;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition-duration: 250ms;
+    transition-duration: 250ms
+}
+
+.t-add {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    background: #fff;
+    top: -25px;
+    right: 23px;
+    max-height: 300px;
+    -webkit-transition: all;
+    -o-transition: all
+}
+
+.t-add .ta-block {
+    overflow: hidden;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -webkit-transition: all;
+    -o-transition: all
+}
+
+.t-add .ta-block textarea {
+    padding: 25px 25px 45px;
+    resize: none;
+    width: 100%;
+    font-size: 24px;
+    color: #FFC107;
+    position: absolute;
+    height: 100%;
+    border: 0;
+    outline: 0
+}
+
+.t-add:not(.toggled) {
+    overflow: hidden
+}
+
+.t-add:not(.toggled) .ta-btn {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 23px;
+    color: #FF9800;
+    line-height: 51px
+}
+
+.t-add.toggled {
+    width: calc(100% - 47px);
+    height: calc(100% - 25px);
+    border-radius: 2px;
+    top: 0;
+    z-index: 1;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, .2);
+    overflow: visible
+}
+
+.t-add.toggled .ta-btn {
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+    display: none
+}
+
+.t-add.toggled .ta-block {
+    opacity: 1;
+    filter: alpha(opacity=100)
+}
+
+.t-add.toggled .ta-block .tab-actions {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 5px 10px;
+    border-top: 1px solid #EEE;
+    z-index: 1
+}
+
+.t-add.toggled .ta-block .tab-actions > a {
+    font-size: 25px;
+    padding: 6px 6px;
+    border-radius: 50%;
+    text-align: center;
+    height: 40px;
+    width: 40px;
+    line-height: 48px;
+    display: inline-block
+}
+
+.t-add.toggled .ta-block .tab-actions > a:hover {
+    background-color: #eee
+}

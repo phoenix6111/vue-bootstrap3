@@ -1,0 +1,241 @@
+/**** nav style ****/
+.nav {
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none
+}
+
+.nav > li {
+    display: block;
+    position: relative
+}
+.nav > li, .nav > li > a {
+    display: block;
+    position: relative
+}
+.nav > li > a {
+    padding: 10px 20px;
+    color: #5E5E5E;
+    font-size:14px;
+    display: block;
+    position: relative
+}
+
+.nav > li > a:focus,
+.nav > li > a:hover {
+    text-decoration: none;
+    /*background-color: #eee*/
+}
+
+.nav > li.disabled > a {
+    color: #777
+}
+
+.nav > li.disabled > a:focus,
+.nav > li.disabled > a:hover {
+    color: #777;
+    text-decoration: none;
+    background-color: transparent;
+    cursor: not-allowed
+}
+
+/*.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    background-color: #eee;
+    border-color: #2196F3
+}*/
+
+.nav .nav-divider {
+    height: 1px;
+    margin: 8px 0;
+    overflow: hidden;
+    background-color: #e5e5e5
+}
+
+.nav > li > a > img {
+    max-width: none
+}
+
+
+
+.nav-tabs {
+    border-bottom: 1px solid #fff
+}
+
+.nav-tabs > li {
+    float: left;
+    margin-bottom: -1px;
+    transition: all .2s ease-in-out;
+}
+
+.nav-tabs > li > a {
+    /*margin-right: 2px;*/
+    line-height: 1.42857143;
+    /*border: 1px solid transparent;*/
+    border-bottom: 2px solid transparent;
+    border-radius: 2px 2px 0 0;
+    transition: all .2s ease-in-out;
+}
+
+.nav-tabs > li > a:hover {
+    /*border-color: #eee #eee #fff*/
+    color: #2196f3;
+    background-color: transparent;
+    border-bottom: 2px solid #2196f3;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+    /*color: #555;
+    background-color: transparent;
+    border: 1px solid #fff;
+    border-bottom-color: transparent;*/
+    color: #2196f3;
+    background-color: transparent;
+    border-bottom: 2px solid #2196f3;
+    /*cursor: default*/
+}
+
+.nav-tabs.nav-justified {
+    width: 100%;
+    border-bottom: 0
+}
+
+.nav-tabs.nav-justified > li {
+    float: none
+}
+
+.nav-tabs.nav-justified > li > a {
+    text-align: center;
+    margin-bottom: 5px;
+    margin-right: 0;
+    border-radius: 2px
+}
+
+.nav-tabs.nav-justified > .active > a, .nav-tabs.nav-justified > .active > a:focus, .nav-tabs.nav-justified > .active > a:hover {
+    border: 1px solid #ddd
+}
+
+@media (min-width: 768px) {
+    .nav-tabs.nav-justified > li {
+        display: table-cell;
+        width: 1%
+    }
+
+    .nav-tabs.nav-justified > li > a {
+        margin-bottom: 0;
+        border-bottom: 1px solid #ddd;
+        border-radius: 2px 2px 0 0
+    }
+
+    .nav-tabs.nav-justified > .active > a, .nav-tabs.nav-justified > .active > a:focus, .nav-tabs.nav-justified > .active > a:hover {
+        border-bottom-color: #f3f3f3
+    }
+}
+
+.nav-pills > li {
+    float: left
+}
+
+.nav-justified > li, .nav-stacked > li {
+    float: none
+}
+
+.nav-pills > li > a {
+    border-radius: 2px;
+    color: #5E5E5E;
+}
+
+.nav-pills > li > a:hover {
+    background-color: #2196f3;
+    color: #fff;
+}
+
+.nav-pills > li + li {
+    margin-left: 2px;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+    color: #fff;
+    background-color: #2196F3;
+
+}
+
+.nav-stacked > li > a {
+    transition: all .2s ease-in-out;
+    padding: 14px 20px;
+}
+
+.nav-stacked > li > a:hover {
+    background-color: #f7f7f7;
+}
+
+.nav-stacked > li.active > a {
+    /*background-color: #f7f7f7;*/
+    color: #2196f3;
+    background-color: transparent;
+    cursor: default;
+}
+
+/*.nav-stacked > li.active > a:focus, .nav-stacked > li.active > a:hover {
+    background-color: #F7F7F7;
+}*/
+
+.nav-stacked > li + li {
+    /*margin-top: 2px;*/
+    margin-left: 0
+}
+
+.nav-justified {
+    width: 100%
+}
+
+.nav-justified > li > a {
+    text-align: center;
+    margin-bottom: 5px
+}
+
+.nav-tabs-justified {
+    border-bottom: 0
+}
+
+.nav-tabs-justified > li > a {
+    margin-right: 0;
+    border-radius: 2px
+}
+
+.nav-tabs-justified > .active > a, .nav-tabs-justified > .active > a:focus, .nav-tabs-justified > .active > a:hover {
+    border: 1px solid #ddd
+}
+
+@media (min-width: 768px) {
+    .nav-justified > li {
+        display: table-cell;
+        width: 1%
+    }
+
+    .nav-justified > li > a {
+        margin-bottom: 0
+    }
+
+    .nav-tabs-justified > li > a {
+        border-bottom: 1px solid #ddd;
+        border-radius: 2px 2px 0 0
+    }
+
+    .nav-tabs-justified > .active > a, .nav-tabs-justified > .active > a:focus, .nav-tabs-justified > .active > a:hover {
+        border-bottom-color: #f3f3f3
+    }
+}
+
+.nav-justified>.dropdown .dropdown-menu,
+.nav-tabs.nav-justified>.dropdown .dropdown-menu {
+    top: auto;
+    left: auto
+}
+
+.nav-tabs .dropdown-menu {
+    /*margin-top: -1px;*/
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+}

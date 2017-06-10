@@ -21,12 +21,16 @@ import IProgress from './progress';
 import ICircle from './circle';
 
 import Collapse from './collapse';
+import Tabs2 from './tabs2';
 import Tabs from './tabs';
+import TabPane from './tab-pane';
 import IMenu from './menu';
 import ISubMenu from './sub-menu';
 import IMenuItemGroup from './menu-item-group';
 import IMenuItem from './menu-item';
 import Modal from './modal';
+import MessageBox from './message-box';
+import Swal from './sweet-alert';
 
 import Dropdown from './dropdown';
 import DropdownMenu from './dropdown-menu';
@@ -42,7 +46,7 @@ import Upload from './upload';
 import {BsSelect,BsOption,OptionGroup} from './select';
 import {ElSelect,ElOption,ElOptionGroup} from './select2';
 import Pagination from './pagination';
-import ElTable from './table';
+import ElTable from './table3';
 import ElTableColumn from './table-column';
 import Affix from './affix';
 import BackTop from './back-top';
@@ -55,6 +59,8 @@ import Steps from './steps';
 import Step from './step';
 
 import Toolbar from './toolbar';
+import ToolbarItems from './toolbar-items';
+import ToolbarItem from './toolbar-item';
 import Sidebar from './sidebar';
 
 export default {
@@ -83,13 +89,17 @@ export default {
     ICircle,
     Collapse,
     CollapseItem:Collapse.item,
+    Tabs2,
+    TabPane2:Tabs2.TabPane,
     Tabs,
-    TabPane:Tabs.TabPane,
+    TabPane,
     IMenu,
     ISubMenu,
     IMenuItemGroup,
     IMenuItem,
     Modal,
+    MessageBox,
+    Swal,
     Dropdown,
     DropdownMenu,
     DropdownItem,
@@ -114,6 +124,8 @@ export default {
     Step,
 
     Toolbar,
+    ToolbarItems,
+    ToolbarItem,
     Sidebar,
 
     ICircle2,

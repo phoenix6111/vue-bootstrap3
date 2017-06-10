@@ -1,4 +1,4 @@
-import Checkbox from '../../checkbox';
+import VCheckbox from '../../checkbox';
 import Tag from '../../tag';
 import Vue from 'vue';
 import FilterPanel from './filter-panel.vue';
@@ -63,14 +63,13 @@ const convertToRows = (originColumns) => {
 
 export default {
     name: 'ElTableHeader',
-
     render(h) {
         const originColumns = this.store.states.originColumns;
         const columnRows = convertToRows(originColumns, this.columns);
 
         return (
             <table
-                class="el-table__header"
+                class={['el-table__header table',this.border?'table-bordered':'',this.size?'table-'+this.size:'']}
                 cellspacing="0"
                 cellpadding="0"
                 border="0">
@@ -89,7 +88,7 @@ export default {
                             : ''
                     }
                 </colgroup>
-                <thead>
+                <thead class={this.theadType?'thead-'+this.theadType:''}>
                 {
                     this._l(columnRows, (columns, rowIndex) =>
                         <tr>
@@ -119,18 +118,18 @@ export default {
                                                     column.sortable
                                                         ? <span class="caret-wrapper"
                                                                 on-click={ ($event) => this.handleSortClick($event, column) }>
-                                                        <i class="sort-caret ascending"
-                                                           on-click={ ($event) => this.handleSortClick($event, column, 'ascending') }></i>
-                                                        <i class="sort-caret descending"
-                                                           on-click={ ($event) => this.handleSortClick($event, column, 'descending') }></i>
-                                                      </span>
+                            <i class="sort-caret ascending"
+                               on-click={ ($event) => this.handleSortClick($event, column, 'ascending') }></i>
+                            <i class="sort-caret descending"
+                               on-click={ ($event) => this.handleSortClick($event, column, 'descending') }></i>
+                          </span>
                                                         : ''
                                                 }
                                                 {
                                                     column.filterable
                                                         ? <span class="el-table__column-filter-trigger"
                                                                 on-click={ ($event) => this.handleFilterClick($event, column) }>
-                                                        <i class={ ['el-icon-arrow-down', column.filterOpened ? 'el-icon-arrow-up' : ''] }></i></span>
+                                                        <i class={ ['zmdi zmdi-chevron-down', column.filterOpened ? 'zmdi-chevron-up' : ''] }></i></span>
                                                         : ''
                                                 }
                                             </div>
@@ -159,7 +158,11 @@ export default {
         layout: {
             required: true
         },
+        theadType: {
+            type:String
+        },
         border: Boolean,
+        size:[String,Number],
         defaultSort: {
             type: Object,
             default() {
@@ -172,7 +175,7 @@ export default {
     },
 
     components: {
-        Checkbox,
+        VCheckbox,
         Tag
     },
 
@@ -268,7 +271,9 @@ export default {
             if (!filterPanel) {
                 filterPanel = new Vue(FilterPanel);
                 this.filterPanels[column.id] = filterPanel;
-
+                if (column.filterPlacement) {
+                    filterPanel.placement = column.filterPlacement;
+                }
                 filterPanel.table = table;
                 filterPanel.cell = cell;
                 filterPanel.column = column;

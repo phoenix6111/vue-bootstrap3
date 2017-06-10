@@ -95,6 +95,7 @@ export default {
             options.placement = this.currentPlacement;
             options.offset = this.offset;
             this.popperJS = new PopperJS(reference, popper, options);
+
             this.popperJS.onCreate(_ => {
                 this.$emit('created', this);
                 this.resetTransformOrigin();

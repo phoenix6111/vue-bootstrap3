@@ -1,0 +1,348 @@
+/******* chart style *******/
+.chart-edge {
+    margin: 20px -8px 0 -10px;
+    overflow: hidden
+}
+
+.chart-edge .flot-chart {
+    bottom: -14px
+}
+
+.charts-row {
+    margin-top: 50px;
+    margin-bottom: 20px
+}
+
+.mini-charts-item {
+    position: relative;
+    margin-bottom: 30px
+}
+
+.mini-charts-item .chart {
+    padding: 21px 18px 0;
+    float: left
+}
+
+.mini-charts-item .chart.chart-pie {
+    margin: 0 20px;
+    padding: 14px 11px
+}
+
+.mini-charts-item .count {
+    overflow: hidden;
+    color: rgba(255, 255, 255, .9);
+    padding: 16px 12px
+}
+
+.mini-charts-item .count > h2 {
+    margin: 0;
+    line-height: 100%;
+    font-size: 22px;
+    font-weight: 300;
+    color: #fff
+}
+
+.mini-charts-item .count > small {
+    margin-bottom: 2px;
+    display: block
+}
+
+.mini-charts-item .count > h2, .mini-charts-item .count > small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.mini-charts-item > .btn-group-vertical > .btn-group, .mini-charts-item > .btn-toolbar, .mini-charts-item > .clearfix, .mini-charts-item > .container, .mini-charts-item > .container-fluid, .mini-charts-item > .dl-horizontal dd, .mini-charts-item > .form-horizontal .form-group, .mini-charts-item > .modal-footer, .mini-charts-item > .modal-header, .mini-charts-item > .nav, .mini-charts-item > .navbar, .mini-charts-item > .navbar-collapse, .mini-charts-item > .navbar-header, .mini-charts-item > .pager, .mini-charts-item > .panel-body, .mini-charts-item > .row {
+    position: relative;
+    z-index: 1
+}
+
+.mini-charts-item:before {
+    -webkit-transition: width;
+    -o-transition: width;
+    transition: width;
+    -webkit-transition-duration: .5s;
+    transition-duration: .5s;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    width: 105px;
+    height: 100%;
+    background: rgba(0, 0, 0, .1);
+    position: absolute;
+    top: 0
+}
+
+.mini-charts-item:hover .count {
+    color: #fff !important
+}
+
+.mini-charts-item:hover:before {
+    width: 100%
+}
+
+.mini-charts-item {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .1)
+}
+
+.mini-charts-item:before, .tab-nav li > a:after {
+    content: "";
+    left: 0
+}
+
+#jqstooltip {
+    min-width: 21px;
+    min-height: 23px;
+    text-align: center;
+    border: 0;
+    background: #fff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .3)
+}
+
+#jqstooltip .jqsfield {
+    font-size: 12px;
+    font-weight: 700;
+    font-family: inherit;
+    text-align: center;
+    color: #333
+}
+
+#jqstooltip .jqsfield > span {
+    display: none
+}
+
+.epc-item {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .15);
+    position: relative;
+    margin-bottom: 30px;
+    padding: 30px 20px;
+    text-align: center
+}
+
+.easy-pie {
+    display: inline-block;
+    position: relative;
+    padding: 0 0 10px
+}
+
+.easy-pie .percent {
+    position: absolute;
+    font-weight: 300;
+    width: 100%;
+    line-height: 100%;
+    left: 4px;
+    color: #fff
+}
+
+.easy-pie .percent:after {
+    content: "%"
+}
+
+.easy-pie.main-pie .percent {
+    margin-top: 49px;
+    font-size: 50px;
+    text-align: center
+}
+
+.easy-pie.main-pie .percent:after {
+    font-size: 30px
+}
+
+.easy-pie.main-pie .pie-title {
+    color: #fff
+}
+
+.easy-pie:not(.main-pie) .percent {
+    font-size: 24px;
+    margin-top: 33px
+}
+
+.easy-pie:not(.main-pie) .percent:after {
+    font-size: 20px
+}
+
+.easy-pie .pie-title {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: -3px;
+    left: 0
+}
+
+#recent-items-chart {
+    width: calc(100% + 19px);
+    height: 150px;
+    margin: -20px -10px 0;
+    bottom: -10px
+}
+
+[class*=flot-chart] {
+    width: 100%;
+    display: block
+}
+
+.flot-chart {
+    height: 250px
+}
+
+.flot-chart-pie {
+    height: 300px
+}
+
+@media (min-width: 768px) {
+    .flot-chart-pie {
+        margin-bottom: 20px
+    }
+}
+
+#flotTip, .flot-tooltip {
+    position: absolute;
+    color: #333;
+    display: none;
+    font-size: 12px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .1);
+    padding: 3px 10px;
+    background-color: #fff;
+    z-index: 99999
+}
+
+.dw-item, .dwi-header {
+    position: relative
+}
+
+#site-visits .dwi-header, #site-visits .sv-item:nth-child(even) {
+    background-color: rgba(255, 255, 255, .05)
+}
+
+[class*=flc-] {
+    text-align: center;
+    margin: 20px 0 -5px
+}
+
+[class*=flc-] table {
+    display: inline-block
+}
+
+[class*=flc-] .legendColorBox > div {
+    border: #fff !important
+}
+
+[class*=flc-] .legendColorBox > div > div {
+    border-radius: 50%
+}
+
+[class*=flc-] .legendLabel {
+    padding: 0 8px 0 3px
+}
+
+.map-sm {
+    width: 100%;
+    height: 220px
+}
+
+.map-rg {
+    width: 100%;
+    height: 350px
+}
+
+.dw-item {
+    min-height: 400px;
+    margin-bottom: 30px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .1)
+}
+
+.dw-footer, .dwih-title {
+    position: absolute;
+    left: 0
+}
+
+.dwi-header-img {
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
+    height: 155px
+}
+
+.dw-footer {
+    bottom: 0;
+    width: 100%
+}
+
+.dwih-title {
+    padding: 12px 20px;
+    width: 100%
+}
+
+#site-visits .dwi-header {
+    padding-bottom: 38px;
+    margin-bottom: 12px
+}
+
+#site-visits .dwi-header canvas {
+    width: 100% !important
+}
+
+#site-visits .dwih-title {
+    bottom: 0;
+    color: #fff
+}
+
+#site-visits .sv-item small {
+    color: rgba(255, 255, 255, .7)
+}
+
+#site-visits .sv-item h3 {
+    font-weight: 400;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #fff
+}
+
+#site-visits .sv-item .pull-right {
+    margin-top: 5px;
+    opacity: .7;
+    filter: alpha(opacity=70)
+}
+
+#best-selling {
+    background-color: #fff
+}
+
+#best-selling .dwi-header .dwih-title {
+    padding-bottom: 30px;
+    top: 0;
+    color: #fff;
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, .6) 0, rgba(0, 0, 0, 0) 100%);
+    background-image: -o-linear-gradient(top, rgba(0, 0, 0, .6) 0, rgba(0, 0, 0, 0) 100%);
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, .6) 0, rgba(0, 0, 0, 0) 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#99000000', endColorstr='#00000000', GradientType=0)
+}
+
+#best-selling .dwi-header .bs-main {
+    padding: 15px;
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, .6) 100%);
+    background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, .6) 100%);
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, .6) 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#99000000', GradientType=0)
+}
+
+#best-selling .dwi-header .bs-main > h2 {
+    font-weight: 400;
+    font-size: 20px;
+    margin: 5px 0 0;
+    line-height: 100%;
+    color: #fff
+}

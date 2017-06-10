@@ -1,0 +1,45 @@
+/*
+ * Block Header
+ * Used for Heading outside the Cards.
+ */
+.block-header {
+    margin-bottom: 25px;
+    position: relative
+}
+
+@media screen and (min-width: 768px) {
+    .block-header {
+        padding: 0 35px
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .block-header {
+        padding: 0 20px
+    }
+}
+
+.block-header > h2 {
+    font-size: 15px;
+    color: #777;
+    margin: 0;
+    font-weight: 400;
+    text-transform: uppercase
+}
+
+.block-header > h2 > small {
+    display: block;
+    text-transform: none;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    color: #9E9E9E;
+    line-height: 140%
+}
+
+.block-header .actions {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    z-index: 4
+}
+

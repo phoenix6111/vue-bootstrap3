@@ -23,12 +23,18 @@
             justified: {
                 type:Boolean,
                 default:false
+            },
+            vertical: {
+                type:Boolean,
+                default:false
             }
         },
         computed: {
             classes() {
+                const baseCls = !this.vertical?`${prefixCls}`:`${prefixCls}-vertical`
+
                 return [
-                    'btn-group',
+                    baseCls,
                     {
                         [`${prefixCls}-${this.size}`]: !!this.size,
                         [`${prefixCls}-justified`]: this.justified

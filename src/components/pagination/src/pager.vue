@@ -76,9 +76,9 @@
             },
             shape: {
                 validator(val) {
-                    return oneOf(val,['square','round']);
+                    return oneOf(val,['square','circle']);
                 },
-                default:'round'
+                default:'circle'
             },
             className:String,
             styles:Object

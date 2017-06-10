@@ -1,7 +1,7 @@
 import {getCell, getColumnByCell, getRowIdentity} from './util';
 import {hasClass} from '../../../utils/dom';
 import Checkbox from '../../checkbox';
-import Tooltip from '../../tooltip/src/tooltip3';
+import Tooltip from '../../tooltip/src/tooltip';
 import debounce from 'throttle-debounce/debounce';
 
 export default {

@@ -1,0 +1,54 @@
+/****** breadcrumb style ******/
+.breadcrumb {
+    padding: 8px 20px;
+    margin-bottom: 18px;
+    list-style: none;
+    background-color: transparent;
+    border-radius: 2px;
+}
+
+.breadcrumb > li {
+    display: inline-block;
+}
+
+/*.breadcrumb > li + li:before {
+    content: "/\00a0";
+    padding: 0 5px;
+    color: #ccc
+}*/
+
+.breadcrumb > .active {
+    color: #7c7c7c
+}
+
+/****** override bread-crumb styles ******/
+.breadcrumb {
+    border-bottom: 1px solid #E5E5E5;
+    border-radius: 0;
+    /*margin-top: -27px;*/
+    /*margin-bottom: 50px*/
+}
+
+@media (min-width: 1280px) {
+    .breadcrumb {
+        padding: 10px 33px 11px 300px
+    }
+}
+
+.breadcrumb > li > a {
+    color: #A9A9A9;
+    color: #5E5E5E;
+    -webkit-transition:color 300ms;
+    transition:color 300ms;
+}
+
+.breadcrumb > li > a:hover {
+    color: #7c7c7c;
+    color: #20A0FF;
+    cursor: pointer;
+}
+
+.breadcrumb-item-separator {
+    margin: 0 8px;
+    color: #ccc;
+}

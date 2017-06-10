@@ -1,13 +1,13 @@
 <template lang="html">
-    <button class="btn" :class="classes" :disabled="disabled" v-if="!href"
-            :type="htmlType" @click="_click">
+    <button :class="classes" :disabled="disabled" v-if="!href"
+            :type="htmlType" @click="handleClick">
         <i class="zmdi zmdi-refresh zmdi-hc-spin" v-if="loading"></i>
         <Icon :type="icon" v-if="icon && !loading"></Icon>
         <slot></slot>
     </button>
 
-    <a class="btn" :class="classes" :href="href" :disabled="disabled"
-        :target="target"  @click="_click" v-else>
+    <a :class="classes" :href="href" :disabled="disabled"
+        :target="target"  @click="handleClick" v-else>
         <Icon :type="icon" v-if="icon"></Icon>
         <slot></slot>
     </a>
@@ -29,10 +29,11 @@
                 validator (value) {
                     return oneOf(value, ['default', 'primary','secondary', 'info', 'success', 'warning', 'danger','link','text','inverse']);
                 },
+                default:'secondary'
             },
             shape: {
                 validator (value) {
-                    return oneOf(value, ['circle', 'icon']);
+                    return oneOf(value, ['circle']);
                 }
             },
             size: {
@@ -69,17 +70,18 @@
             };
         },
         methods: {
-            _click(e) {
+            handleClick(e) {
                 this.$emit('click',e);
             }
         },
         computed: {
             classes () {
+                const typeClass = !this.outline?`${prefixCls}-${this.type}`:`${prefixCls}-outline-${this.type}`;
                 return [
+                    `${prefixCls}`,typeClass,
                     {
-                        'btn-outline':this.outline,
-                        'is-loading':this.loading,
-                        [`${prefixCls}-${this.type}`]: !!this.type,
+                        'is-loading':this.loading != null && this.loading,
+                        [`${prefixCls}-icon-only`]: !this.showSlot && (!!this.icon || this.loading),
                         [`${prefixCls}-${this.size}`]: !!this.size,
                         [`${prefixCls}-${this.shape}`]: !!this.shape,
                         [`${prefixCls}-block`]: this.long,
@@ -88,6 +90,9 @@
                     }
                 ];
             }
+        },
+        mounted () {
+            this.showSlot = this.$slots.default !== undefined;
         }
     }
 

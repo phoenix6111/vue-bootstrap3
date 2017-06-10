@@ -36,11 +36,16 @@
 <style>
     .side-nav .menu-vertical {
         width:100%;
-        border-right:1px solid #e5e5e5;
+        border-right:1px solid #e9e9e9;
     }
 
     .side-nav .menu-vertical .menu-item > a {
-        font-size:13px !important;
+        padding:12px 20px;
+    }
+
+    .side-nav .menu-vertical .sub-menu.open > a.sub-menu-title:after,
+    .side-nav .menu-vertical .sub-menu > a.sub-menu-title:before {
+        content:'';
     }
 </style>
 

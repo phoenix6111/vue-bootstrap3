@@ -1,359 +1,384 @@
 <script>
-    export default {
-        methods: {
-            btn1() {
-                console.log(this.$swal);
-                this.$swal("Any fool can use a computer");
-
-            },
-            btn2() {
-                this.$swal('The Internet?',
-                    'That thing is still around?',
-                    'question');
-            },
-            btn3() {
-                this.$swal(
-                    'Good job!',
-                    'You clicked the button!',
-                    'success'
-                )
-            },
-            btn4() {
-                this.$swal({
-                    title: 'Auto close alert!',
-                    text: 'I will close in 2 seconds.',
-                    timer: 2000
-                }).then(
-                    function () {},
-                    // handling the promise rejection
-                    function (dismiss) {
-                        if (dismiss === 'timer') {
-                            console.log('I was closed by the timer')
-                        }
-                    }
-                )
-            },
-            btn5() {
-                this.$swal({
-                    title: '<i>HTML</i> <u>example</u>',
-                    type: 'info',
-                    html:
-                    'You can use <b>bold text</b>, ' +
-                    '<a href="//github.com">links</a> ' +
-                    'and other HTML tags',
-                    showCloseButton: true,
-                    showCancelButton: true,
-                    confirmButtonText:
-                        '<i class="zmdi zmdi-thumb-up"></i> Great!',
-                    cancelButtonText:
-                        '<i class="zmdi zmdi-thumb-down"></i>'
-                })
-            },
-            btn6() {
-                this.$swal({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then(() => {
-                    this.$swal(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                })
-            },
-            btn7() {
-                this.$swal({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!',
-                    cancelButtonText: 'No, cancel!',
-                    confirmButtonClass: 'btn btn-lg btn-success',
-                    cancelButtonClass: 'btn btn-lg btn-danger',
-                    buttonsStyling: false
-                }).then(() => {
-                    this.$swal(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                }, (dismiss) => {
-                    // dismiss can be 'cancel', 'overlay',
-                    // 'close', and 'timer'
-                    if (dismiss === 'cancel') {
-                        this.$swal(
-                            'Cancelled',
-                            'Your imaginary file is safe :)',
-                            'error'
-                        )
-                    }
-                })
-            },
-            btn8() {
-                this.$swal({
-                    title: 'Sweet!',
-                    text: 'Modal with a custom image.',
-                    imageUrl: 'https://unsplash.it/400/200',
-                    imageWidth: 400,
-                    imageHeight: 200,
-                    animation: false
-                })
-            },
-            btn9() {
-                this.$swal({
-                    title: 'Custom width, padding, background.',
-                    width: 600,
-                    padding: 100,
-                    background: '#fff url(//bit.ly/1Nqn9HU)'
-                })
-            },
-            btn10() {
-                this.$swal({
-                    title: 'Submit email to run ajax request',
-                    input: 'email',
-                    showCancelButton: true,
-                    confirmButtonText: 'Submit',
-                    showLoaderOnConfirm: true,
-                    preConfirm: function (email) {
-                        return new Promise(function (resolve, reject) {
-                            setTimeout(function() {
-                                if (email === 'taken@example.com') {
-                                    reject('This email is already taken.')
-                                } else {
-                                    resolve()
-                                }
-                            }, 2000)
-                        })
-                    },
-                    allowOutsideClick: false
-                }).then((email) => {
-                    this.$swal({
-                        type: 'success',
-                        title: 'Ajax request finished!',
-                        html: 'Submitted email: ' + email
-                    })
-                })
-            },
-            btn11() {
-                this.$swal.setDefaults({
-                    input: 'text',
-                    confirmButtonText: 'Next &rarr;',
-                    showCancelButton: true,
-                    animation: false,
-                    progressSteps: ['1', '2', '3']
-                })
-
-                var steps = [
-                    {
-                        title: 'Question 1',
-                        text: 'Chaining swal2 modals is easy'
-                    },
-                    'Question 2',
-                    'Question 3'
-                ]
-
-                this.$swal.queue(steps).then((result) => {
-                    this.$swal.resetDefaults()
-                    this.$swal({
-                        title: 'All done!',
-                        html:'Your answers: ' +JSON.stringify(result) +'',
-                        confirmButtonText: 'Lovely!',
-                        showCancelButton: false
-                    })
-                }, () => {
-                    this.$swal.resetDefaults()
-                })
-            },
-            btn12() {
-                this.$swal.queue([{
-                    title: 'Your public IP',
-                    confirmButtonText: 'Show my public IP',
-                    text:
-                    'Your public IP will be received ' +
-                    'via AJAX request',
-                    showLoaderOnConfirm: true,
-                    preConfirm: () => {
-                        return new Promise((resolve) => {
-                            /*$.get('https://api.ipify.org?format=json')
-                                .done(function (data) {
-                                    this.$swal.insertQueueStep(data.ip)
-                                    resolve()
-                                })*/
-                        })
-                    }
-                }])
+  export default {
+    methods: {
+      open() {
+        this.$confirm('这是一段内容', '标题名称', {
+          confirmButtonText: '确定',
+          callback: action => {
+            this.$notice.info({
+              title: "action "+action
+            });
+          }
+        });
+      },
+      open1() {
+          this.$alert('这是一段内容', '标题名称', {
+            confirmButtonText: '确定',
+            noAnimation:true,
+            callback: action => {
+              this.$notice.info({
+                title: "action "+action
+              });
             }
-        }
+          });
+        },
+      open11() {
+        this.$alert('这是一段内容', '标题名称', {
+          confirmButtonText: '确定',
+          transition:'ease',
+          callback: action => {
+            this.$notice.info({
+              title: "action "+action
+            });
+          }
+        });
+      },
+      open2() {
+          this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'info'
+          }).then(() => {
+            this.$notice.info({
+              title: '删除成功!'
+            });
+          }).catch(() => {
+            this.$notice.info({
+              title: '已取消删除'
+            });          
+          });
+        },
+      open22() {
+            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'success'
+            }).then(() => {
+              this.$notice.info({
+                title: '删除成功!'
+              });
+            }).catch(() => {
+              this.$notice.info({
+                title: '已取消删除'
+              });          
+            });
+          },
+        open222() {
+            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(() => {
+              this.$notice.info({
+                title: '删除成功!'
+              });
+            }).catch(() => {
+              this.$notice.info({
+                title: '已取消删除'
+              });          
+            });
+          },
+        open2222() {
+            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'danger'
+            }).then(() => {
+              this.$notice.info({
+                title: '删除成功!'
+              });
+            }).catch(() => {
+              this.$notice.info({
+                title: '已取消删除'
+              });          
+            });
+          },
+      open3() {
+          this.$prompt('请输入邮箱', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+            inputErrorMessage: '邮箱格式不正确'
+          }).then(({ value }) => {
+            this.$notice.success({
+              title: '你的邮箱是: ' + value
+            });
+          }).catch(() => {
+            this.$notice.info({
+              title: '取消输入'
+            });       
+          });
+        },
+      open4() {
+              const h = this.$createElement;
+              this.$swal({
+                title: '消息',
+                message: h('p', null, [
+                  h('span', null, '内容可以是 '),
+                  h('i', { style: 'color: teal' }, 'VNode')
+                ]),
+                showCancelButton: true,
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                beforeClose: (action, instance, done) => {
+                  if (action === 'confirm') {
+                    instance.confirmButtonLoading = true;
+                    instance.confirmButtonText = '执行中...';
+                    setTimeout(() => {
+                      done();
+                      setTimeout(() => {
+                        instance.confirmButtonLoading = false;
+                      }, 300);
+                    }, 3000);
+                  } else {
+                    done();
+                  }
+                }
+              }).then(action => {
+                this.$notice.info({
+                  title: 'action: ' + action
+                });
+              });
+            },
     }
+  }
 </script>
 
-## Sweetalert 弹出框
+## Swal SweetAlert弹框
 
-Sweetalert 封装的弹出框。
+模拟SweetAlert的消息提示框而实现的一套模态对话框组件，用于消息提示、成功提示、错误提示、询问信息。
 
 ### 代码演示
 
 ::: demo
 <summary>
-  #### 基本
-  最简单的用法。
+  #### 消息提示
+  当用户进行操作时会被触发，该对话框中断用户操作，直到用户确认知晓后才可关闭。
 </summary>
 
 ```html
 <template>
-  <i-button type="primary" @click="btn1">Try me!</i-button>
+<div class="row">
+    <div class="col-sm-4">
+        <i-button type="primary" @click="open">点击打开 SweetAlert</i-button>
+    </div>
+    <div class="col-sm-4">
+        <i-button type="primary" @click="open1">NoAnimation SweetAlert</i-button>
+    </div>
+    <div class="col-sm-4">
+        <i-button type="primary" @click="open11">Custom Transition SweetAlert</i-button>
+    </div>
+</div>
 </template>
+
+<script>
+  export default {
+    methods: {
+      open() {
+        this.$alert('这是一段内容', '标题名称', {
+          confirmButtonText: '确定',
+          callback: action => {
+            this.$notice.info({
+              title: "action "+action
+            });
+          }
+        });
+      },
+      open1() {
+          this.$alert('这是一段内容', '标题名称', {
+            confirmButtonText: '确定',
+            noAnimation:true,
+            callback: action => {
+              this.$notice.info({
+                title: "action "+action
+              });
+            }
+          });
+        },
+      open11() {
+            this.$alert('这是一段内容', '标题名称', {
+              confirmButtonText: '确定',
+              transition:'ease',
+              callback: action => {
+                this.$notice.info({
+                  title: "action "+action
+                });
+              }
+            });
+          }
+    }
+  }
+</script>
 ```
 :::
 
 ::: demo
 <summary>
-  #### A title with a text under
-  A title with a text under
+  #### 确认消息
+  提示用户确认其已经触发的动作，并询问是否进行此操作时会用到此对话框。
 </summary>
 
 ```html
 <template>
-  <i-button type="primary" @click="btn2">Try me!</i-button>
+  <i-button type="primary" @click="open2">Info SweetAlert</i-button>
+  <i-button type="primary" @click="open22">Success SweetAlert</i-button>
+  <i-button type="primary" @click="open222">Warning SweetAlert</i-button>
+  <i-button type="primary" @click="open2222">Danger SweetAlert</i-button>
 </template>
+
+<script>
+  export default {
+    methods: {
+      open2() {
+        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'info'
+        }).then(() => {
+          this.$notice.info({
+            title: '删除成功!'
+          });
+        }).catch(() => {
+          this.$notice.info({
+            title: '已取消删除'
+          });          
+        });
+      },
+      open22() {
+          this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'success'
+          }).then(() => {
+            this.$notice.info({
+              title: '删除成功!'
+            });
+          }).catch(() => {
+            this.$notice.info({
+              title: '已取消删除'
+            });          
+          });
+        },
+      open222() {
+          this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$notice.info({
+              title: '删除成功!'
+            });
+          }).catch(() => {
+            this.$notice.info({
+              title: '已取消删除'
+            });          
+          });
+        },
+      open2222() {
+          this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'danger'
+          }).then(() => {
+            this.$notice.info({
+              title: '删除成功!'
+            });
+          }).catch(() => {
+            this.$notice.info({
+              title: '已取消删除'
+            });          
+          });
+        }
+    }
+  }
+</script>
 ```
 :::
 
 ::: demo
 <summary>
-  #### A success message!
-  A success message!
+  #### 提交内容
+  当用户进行操作时会被触发，中断用户操作，提示用户进行输入的对话框。
 </summary>
 
 ```html
 <template>
-  <i-button type="primary" @click="btn3">Try me!</i-button>
+  <i-button type="primary" @click="open3">点击打开 SweetAlert</i-button>
 </template>
+
+<script>
+  export default {
+    methods: {
+      open3() {
+        this.$prompt('请输入邮箱', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+            inputErrorMessage: '邮箱格式不正确'
+          }).then(({ value }) => {
+            this.$notice.success({
+              title: '你的邮箱是: ' + value
+            });
+          }).catch(() => {
+            this.$notice.info({
+              title: '取消输入'
+            });       
+          });
+      }
+    }
+  }
+</script>
 ```
 :::
 
 ::: demo
 <summary>
-  #### A message with auto close timer
-  A message with auto close timer
+  #### 自定义
+  可自定义配置不同内容。
 </summary>
 
 ```html
 <template>
-  <i-button type="primary" @click="btn4">Try me!</i-button>
+  <i-button type="primary" @click="open4">点击打开 SweetAlert</i-button>
 </template>
-```
-:::
 
-::: demo
-<summary>
-  #### Custom HTML description and buttons
-  Custom HTML description and buttons
-</summary>
-
-```html
-<template>
-  <i-button type="primary" @click="btn5">Try me!</i-button>
-</template>
-```
-:::
-
-::: demo
-<summary>
-  #### Warning Message
-  A warning message, with a function attached to the "Confirm"-button...
-</summary>
-
-```html
-<template>
-  <i-button type="primary" @click="btn6">Try me!</i-button>
-</template>
-```
-:::
-
-::: demo
-<summary>
-  #### Cancel
-  and by passing a parameter, you can execute something else for "Cancel".
-</summary>
-
-```html
-<template>
-  <i-button type="primary" @click="btn7">Try me!</i-button>
-</template>
-```
-:::
-
-::: demo
-<summary>
-  #### No Animation
-  A message with a custom image and CSS animation disabled
-</summary>
-
-```html
-<template>
-  <i-button type="primary" @click="btn8">Try me!</i-button>
-</template>
-```
-:::
-
-::: demo
-<summary>
-  #### Custom styles
-  A message with custom width, padding and background
-</summary>
-
-```html
-<template>
-  <i-button type="primary" @click="btn9">Try me!</i-button>
-</template>
-```
-:::
-
-::: demo
-<summary>
-  #### Ajax request example
-  Ajax request example
-</summary>
-
-```html
-<template>
-  <i-button type="primary" @click="btn10">Try me!</i-button>
-</template>
-```
-:::
-
-::: demo
-<summary>
-  ####  Chaining modals (queue) example
-   Chaining modals (queue) example
-</summary>
-
-```html
-<template>
-  <i-button type="primary" @click="btn11">Try me!</i-button>
-</template>
-```
-:::
-
-::: demo
-<summary>
-  ####  Dynamic queue example
-   Dynamic queue example
-</summary>
-
-```html
-<template>
-  <i-button type="primary" @click="btn12">Try me!</i-button>
-</template>
+<script>
+  export default {
+    methods: {
+      open4() {
+        const h = this.$createElement;
+        this.$swal({
+          title: '消息',
+          message: h('p', null, [
+            h('span', null, '内容可以是 '),
+            h('i', { style: 'color: teal' }, 'VNode')
+          ]),
+          showCancelButton: true,
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          beforeClose: (action, instance, done) => {
+            if (action === 'confirm') {
+              instance.confirmButtonLoading = true;
+              instance.confirmButtonText = '执行中...';
+              setTimeout(() => {
+                done();
+                setTimeout(() => {
+                  instance.confirmButtonLoading = false;
+                }, 300);
+              }, 3000);
+            } else {
+              done();
+            }
+          }
+        }).then(action => {
+          this.$notice.info({
+            title: 'action: ' + action
+          });
+        });
+      },
+    }
+  }
+</script>
 ```
 :::
 

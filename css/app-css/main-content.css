@@ -1,0 +1,35 @@
+/** container-content style **/
+#main {
+    padding-bottom: 110px;
+    padding-top: 110px;
+    min-height: 100vh;
+    position: relative
+}
+
+.sidebar-toggled #main {
+    height: 100vh;
+    overflow: hidden
+}
+
+.container.container-alt {
+    max-width: 1170px
+}
+
+@media (min-width: 1280px) {
+    #content:not(.content-alt) {
+        padding-left: 283px;
+        padding-right: 15px
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+    #content {
+        padding-left: 15px;
+        padding-right: 15px
+    }
+}
+
+#content.content-alt {
+    max-width: 1200px;
+    margin: 0 auto
+}

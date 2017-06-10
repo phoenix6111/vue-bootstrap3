@@ -11,8 +11,6 @@
         <button type="button"
                 ref="caret"
                 :class="caretClasses"
-                data-toggle="dropdown"
-                aria-expanded="false"
                 @click="handleCaretClick"
                 @mouseenter="handleCaretMouseEnter"
                 @mouseleave="handleCaretMouseLeave">
@@ -29,7 +27,7 @@
         props: {
             type: {
                 validator (value) {
-                 return oneOf(value, ['default', 'primary', 'info', 'success', 'warning', 'danger']);
+                 return oneOf(value, ['default', 'primary','secondary', 'info', 'success', 'warning', 'danger']);
                  },
                  default:'default',
             },
@@ -63,7 +61,7 @@
             },
             caretClasses() {
                 return [
-                    'btn','dropdown-toggle',
+                    'btn','dropdown-toggle-split',
                     {
                         [`btn-${this.type}`]: !!this.type,
                         'disabled':this.disabled

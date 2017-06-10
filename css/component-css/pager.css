@@ -1,0 +1,46 @@
+.pager {
+    padding-left: 0;
+    margin: 18px 0;
+    list-style: none;
+    text-align: center
+}
+
+.pager li {
+    display: inline
+}
+
+.pager li > a,
+.pager li > span {
+    display: inline-block;
+    background-color: #f1f1f1;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    -webkit-transition: background-color 300ms, color 300ms;
+    transition: background-color 300ms, color 300ms;
+}
+
+.pager li > a:focus, .pager li > a:hover {
+    text-decoration: none;
+    background-color: #e4e4e4;
+}
+
+.pager .next > a, .pager .next > span {
+    float: right
+}
+
+.pager .previous > a, .pager .previous > span {
+    float: left
+}
+
+.pager .disabled > a, .pager .disabled > a:focus, .pager .disabled > a:hover, .pager .disabled > span {
+    color: #777;
+    background-color: #f1f1f1;
+    cursor: not-allowed
+}
+
+/*** override pager styles ***/
+.pager li > a, .pager li > span {
+    padding: 7px 10px 8px;
+    color: #7E7E7E;
+    border-radius: 100px;
+}

@@ -1,0 +1,74 @@
+/*** profile contact page style ***/
+.contacts:not(.c-profile) {
+    padding: 0 8px
+}
+
+.contacts > [class*=col-] {
+    padding: 0 10px
+}
+
+.contacts .c-item {
+    border: 1px solid #e2e2e2;
+    border-radius: 2px;
+    margin-bottom: 24px
+}
+
+.contacts .c-item .ci-avatar {
+    display: block
+}
+
+.contacts .c-item .ci-avatar img {
+    width: 100%;
+    border-radius: 2px 2px 0 0
+}
+
+.contacts .ci-avatar {
+    margin: -1px -1px 0
+}
+
+.contacts .c-info {
+    margin-top: 15px;
+    padding: 0 5px;
+    text-align: center
+}
+
+.contacts .c-info strong {
+    color: #000;
+    font-size: 14px;
+    font-weight: 500
+}
+
+.contacts .c-info small {
+    color: #999;
+    margin-top: 3px
+}
+
+.contacts .c-info small, .contacts .c-info strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block
+}
+
+.contacts .c-footer {
+    border-top: 1px solid #e2e2e2;
+    margin-top: 18px
+}
+
+.contacts .c-footer > button {
+    padding: 7px 10px;
+    color: #333;
+    display: block;
+    width: 100%;
+    font-weight: 500;
+    border-radius: 2px;
+    background: #fff;
+    border: 0;
+    text-align: center
+}
+
+.contacts .c-footer > button > i {
+    font-size: 16px;
+    vertical-align: middle;
+    margin-top: -3px
+}

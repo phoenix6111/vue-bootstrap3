@@ -1,7 +1,7 @@
 <script>
 export default {
     methods: {
-        onAffixed(status) {
+        change(status) {
             this.$notice.open({
                 type: 'success',
                 title: `回调状态${status}`,
@@ -24,44 +24,45 @@ export default {
 ::: demo
 <summary>
   #### 基本
-  最简单的用法。
+  简单使用，当元素不可见时，直接固定在最顶端。
 </summary>
 
 ```html
 <template>
-  <affix>
-      <i-button type="primary">固定在顶部</i-button>
-  </affix>
+    <Affix>
+        <i-button type="primary" class="demo-affix">固定在最顶部</i-button>
+    </Affix>
 </template>
 ```
 :::
 
 ::: demo
 <summary>
-  #### 基本
-  设置距离顶部达到指定距离时触发。
+  #### 偏移
+  当滚动到一定距离时再固定。
 </summary>
 
 ```html
 <template>
-  <affix :offset="200">
-      <i-button class="btn btn-primary">固定距离顶部200px的位置</i-button>
-  </affix>
+  <Affix :offset-top="50">
+      <i-button type="primary" class="demo-affix">固定在距离顶部 50px 的位置</i-button>
+  </Affix>
 </template>
 ```
 :::
 
 ::: demo
 <summary>
-  #### 基本
-  设置边界父容器。
+  #### 固定在底部
+  在屏幕下方固定，可以通过缩小浏览器窗口高度来查看效果。
+  注意，offset-top和offset-bottom只可以设置一个，如果都设置，会使用offset-top。
 </summary>
 
 ```html
 <template>
   <div id="parent" style="height: 120px; text-align: center">
-      <affix :offset="0" boundary="#parent">
-          <i-button class="btn btn-primary">在指定容器内浮动</i-button>
+      <affix :offset-bottom="20">
+          <i-button class="btn btn-primary">固定在距离底部 20px 的位置</i-button>
       </affix>
   </div>
 </template>
@@ -71,13 +72,13 @@ export default {
 ::: demo
 <summary>
   #### 固定状态改变的事件
-  可以获得是否固定的状态。
+  当固定状态发生改变时，会触发事件。
 </summary>
 
 ```html
 <template>
   <div style="text-align: right">
-      <affix :on-affix="onAffixed">
+      <affix :offset-top="100" @on-change="change">
           <i-button class="btn btn-primary">触发回调</i-button>
       </affix>
   </div>
@@ -85,7 +86,7 @@ export default {
 
 <script>
 export default {
-    onAffixed(status) {
+    change(status) {
         this.$notice.open({
             type: 'success',
             title: `回调状态${status}`,

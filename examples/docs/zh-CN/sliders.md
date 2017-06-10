@@ -9,12 +9,23 @@
                 value4: 42,
                 value5:0,
                 value6:0,
-
-                value8: [4, 8]
+                value8: [4, 8],
+                value9:0,
+                value10:0
             }
         }
     }
 </script>
+<style>
+    .slider-demo.slider-wrap {
+        margin-top:80px;
+        margin-bottom:80px;
+    }
+    
+    .vertical-slider-demo {
+        margin-left:100px;
+    }
+</style>
 
 ## Slider 滑块
 
@@ -35,10 +46,10 @@
 
 ```html
 <template>
-  <slider v-model="value1"></slider>
-  <slider v-model="value2" class="m-t-20"></slider>
-  <slider v-model="value3" :show-tooltip="false" class="m-t-20"></slider>
-  <slider v-model="value4" disabled class="m-t-20"></slider>
+  <slider v-model="value1" class="slider-demo"></slider>
+  <slider v-model="value2" class="slider-demo"></slider>
+  <slider v-model="value3" :show-tooltip="false" class="slider-demo"></slider>
+  <slider v-model="value4" disabled class="slider-demo"></slider>
 </template>
 ```
 :::
@@ -51,17 +62,47 @@
 
 ```html
 <template>
-    <slider
+    <slider class="slider-demo"
             v-model="value5"
             :step="10">
     </slider>
     <slider
-            class="m-t-20"
+            class="slider-demo"
             v-model="value6"
             :step="10"
             show-stops>
     </slider>
 </template>
+```
+:::
+
+::: demo
+<summary>
+  #### 带有输入框
+  设置show-input属性会在右侧显示一个输入框
+</summary>
+
+```html
+<template>
+    <slider class="slider-demo"
+            v-model="value9"
+            show-input>
+    </slider>
+    <slider class="slider-demo"
+                v-model="value9"
+                show-input
+                :show-input-controls="false">
+    </slider>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        value9: 0
+      }
+    }
+  }
+</script>
 ```
 :::
 
@@ -74,6 +115,7 @@
 ```html
 <template>
     <slider
+            class="slider-demo"
             v-model="value8"
             range
             show-stops
@@ -81,6 +123,33 @@
             :custom-class="['m-t-30']">
     </slider>
 </template>
+```
+:::
+
+::: demo
+<summary>
+  #### Vertical 模式
+  设置orientation=vertical可使 Slider 变成竖向模式，此时必须设置高度height属性
+</summary>
+
+```html
+<template>
+    <slider
+          class="vertical-slider-demo"
+          v-model="value10"
+          orientation="vertical"
+          height="200px">
+    </slider>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        value10: 0
+      }
+    }
+  }
+</script>
 ```
 :::
 

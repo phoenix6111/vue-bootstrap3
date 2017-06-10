@@ -81,7 +81,7 @@
                     this.baseClass,'alert',
                     {
                         [`${this.className}`]: !!this.className,
-                        [`alert-${this.type}`]:!!this.type,
+                        [`alert-type-${this.type}`]:!!this.type,
                         [`alert-theme-${this.theme}`]:!!this.theme,
                         'alert-dismissible':this.closable,
                         'with-desc': this.withDesc,

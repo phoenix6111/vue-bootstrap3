@@ -1,0 +1,114 @@
+.badge {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 1;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-align: center;
+    background-color: #2196f3;
+    border-radius: 2px;
+}
+
+.badge:empty {
+    display: none
+}
+
+.btn .badge {
+    top: -1px;
+    position: relative
+}
+
+.btn-group-xs > .btn .badge,
+.btn-xs .badge {
+    top: 0;
+    padding: 1px 5px
+}
+
+a.badge:focus,
+a.badge:hover {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer
+}
+
+.list-group-item > .badge {
+    float: right
+}
+
+.list-group-item > .badge + .badge {
+    margin-right: 5px
+}
+
+.nav-pills > li > a > .badge {
+    margin-left: 3px
+}
+
+.badge, .list-group-item.active > .badge,
+.nav-pills > .active > a > .badge {
+    color: #fff;
+    background-color: #2196F3
+}
+
+
+
+.i-badge {
+    position: relative;
+    display: inline-block;
+    line-height: 1;
+    vertical-align: middle
+}
+
+.i-badge-count {
+    position: absolute;
+    -ms-transform: translateX(50%);
+    transform: translateX(50%);
+    top: -10px;
+    right: 0;
+    height: 20px;
+    border-radius: 10px;
+    min-width: 20px;
+    background: #f30;
+    border: 1px solid transparent;
+    color: #fff;
+    line-height: 18px;
+    text-align: center;
+    padding: 0 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    -ms-transform-origin: -10% center;
+    transform-origin: -10% center;
+    z-index: 10;
+    box-shadow: 0 0 0 1px #fff
+}
+
+.i-badge-count a, .i-badge-count a:hover {
+    color: #fff
+}
+
+.i-badge-count-alone {
+    top: auto;
+    display: block;
+    position: relative;
+    -ms-transform: translateX(0);
+    transform: translateX(0)
+}
+
+.i-badge-dot {
+    position: absolute;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    -ms-transform-origin: 0 center;
+    transform-origin: 0 center;
+    top: -4px;
+    right: -8px;
+    height: 8px;
+    width: 8px;
+    border-radius: 100%;
+    background: #f30;
+    z-index: 10;
+    box-shadow: 0 0 0 1px #fff
+}

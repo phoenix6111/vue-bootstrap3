@@ -4,7 +4,7 @@
             openSimple(type) {
                 if(type === 'inverse') {
                     this.$notice.open({
-                        title: '这是一条信息'
+                        title: '这是一条信息',
                     });
                 } else {
                     this.$notice[type]({
@@ -16,7 +16,8 @@
                 if(type === 'inverse') {
                     this.$notice.open({
                         title: '这是一条信息',
-                        showIcon: true
+                        showIcon: true,
+                        duration:0
                     });
                 } else {
                     this.$notice[type]({
@@ -39,12 +40,14 @@
                 if(type === 'inverse') {
                     this.$notice.open({
                         title: '信息',
-                        desc: '这里是通知描述这里,是通知描述这里是通知描述这里,是通知描述这里,是通知描述这里是通知描述这里是通知描述'
+                        desc: '这里是通知描述这里,是通知描述这里是通知描述这里,是通知描述这里,是通知描述这里是通知描述这里是通知描述',
+                        duration:0
                     });
                 } else {
                     this.$notice[type]({
                         title: title,
                         desc: '这里是通知描述这里,是通知描述这里是通知描述这里,是通知描述这里,是通知描述这里是通知描述这里是通知描述',
+                        duration:0
                     });
                 }
                 
@@ -69,7 +72,7 @@
                     this.$notice[type]({
                         title: title,
                         desc: '这里是通知描述这里,是通知描述这里是通知描述这里,是通知描述这里,是通知描述这里是通知描述这里是通知描述',
-                        showIcon:true
+                        showIcon:true,
                     });
                 }
             },
@@ -113,13 +116,15 @@
                     this.$notice.open({
                         title: '信息',
                         desc: '这里是通知描述这里,是通知描述这里是通知描述这里,是通知描述这里,是通知描述这里是通知描述这里是通知描述',
-                        theme:'light'
+                        theme:'light',
+                        duration:0
                     });
                 } else {
                     this.$notice[type]({
                         title: title,
                         desc: '这里是通知描述这里,是通知描述这里是通知描述这里,是通知描述这里,是通知描述这里是通知描述这里是通知描述',
-                        theme:'light'
+                        theme:'light',
+                        duration:0
                     });
                 }
                 
@@ -139,7 +144,8 @@
                         title: '信息',
                         desc: '这里是通知描述这里,是通知描述这里是通知描述这里,是通知描述这里,是通知描述这里是通知描述这里是通知描述',
                         showIcon:true,
-                        theme:'light'
+                        theme:'light',
+                        duration:0
                     });
                 } else {
                     this.$notice[type]({

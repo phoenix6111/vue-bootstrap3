@@ -1,0 +1,223 @@
+/******* messages page chat style ******/
+.messages {
+    height: calc(100vh - 130px);
+    position: relative
+}
+
+.messages header {
+    min-height: 56px
+}
+
+.messages header .actions {
+    position: absolute;
+    top: 12px;
+    right: 13px
+}
+
+
+/**** messages page left sidebar style *****/
+.m-sidebar header, .mb-header {
+    border-bottom: 1px solid #f3f3f3
+}
+.m-sidebar {
+    width: 300px;
+    border-right: 1px solid #f3f3f3;
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1
+}
+
+@media (max-width: 767px) {
+    .m-sidebar {
+        width: 60px
+    }
+
+    .m-sidebar .list-group-item {
+        padding: 10px !important
+    }
+
+    .m-sidebar .ms-time {
+        display: none
+    }
+}
+
+.m-sidebar header {
+    padding: 20px
+}
+
+.m-sidebar header h2 {
+    line-height: 100%;
+    font-size: 15px;
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: 400
+}
+
+.m-sidebar .lgi-heading {
+    max-width: 120px
+}
+
+.m-sidebar .list-group {
+    height: calc(100% - 130px)
+}
+
+.m-sidebar .mCSB_scrollTools {
+    z-index: 2
+}
+
+.ms-time {
+    position: absolute;
+    top: 16px;
+    right: 25px;
+    color: #777
+}
+
+.ms-search {
+    padding: 20px 25px;
+    position: relative
+}
+
+.ms-search .zmdi-search {
+    position: absolute;
+    left: 0;
+    top: 8px;
+    font-size: 20px
+}
+
+.m-body, .mb-header, .mb-list, .mblm-item, .mblm-item > div {
+    position: relative
+}
+
+.ms-search input {
+    padding-left: 25px !important
+}
+
+.m-body {
+    height: 100%
+}
+
+@media (min-width: 768px) {
+    .m-body {
+        padding-left: 300px
+    }
+}
+
+@media (max-width: 767px) {
+    .m-body {
+        padding-left: 60px
+    }
+}
+
+.mb-header {
+    box-shadow: 0 -1px 0 1px #f3f3f3;
+    z-index: 2
+}
+
+.mbh-user {
+    padding: 12px 20px
+}
+
+.mbh-user > img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    float: left;
+    margin-right: 15px
+}
+
+.mb-list {
+    height: calc(100% - 55px)
+}
+
+.mbl-messages {
+    padding: 50px 50px 0;
+    height: calc(100vh - 259px);
+    overflow-x: hidden
+}
+
+@media (max-width: 767px) {
+    .mbl-messages {
+        padding: 20px 20px 0
+    }
+}
+
+.mblm-item {
+    margin-bottom: 10px
+}
+
+.mblm-item > div {
+    display: inline-block;
+    max-width: 70%;
+    padding: 15px 20px;
+    border-radius: 2px
+}
+
+.mblm-item small {
+    display: block;
+    color: #777;
+    padding: 5px 20px
+}
+
+.mblm-item-left > div {
+    background-color: #eee
+}
+
+.mblm-item-right {
+    text-align: right
+}
+
+.mblm-item-right > div {
+    background-color: #FFC107;
+    color: #fff
+}
+
+.mblmi-img {
+    margin: -10px -15px;
+    cursor: pointer
+}
+
+.mblmi-img img {
+    max-width: 250px;
+    border-radius: 2px
+}
+
+.mbl-compose {
+    border-top: 1px solid #eee;
+    height: 70px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 65px 15px 15px
+}
+
+.mbl-compose textarea {
+    height: 100%;
+    width: 100%;
+    border-radius: 2px;
+    border: 0;
+    resize: none;
+    background: #eee;
+    padding: 5px 10px;
+    color: #5E5E5E;
+    -webkit-transition: background-color;
+    -o-transition: background-color;
+    transition: background-color;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s
+}
+
+.mbl-compose button {
+    position: absolute;
+    top: 14px;
+    right: 15px;
+    background: 0 0;
+    border: 0;
+    font-size: 25px
+}
+
+.mbl-compose button:hover {
+    color: #333
+}

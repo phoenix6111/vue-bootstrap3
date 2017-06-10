@@ -90,18 +90,24 @@
             }, {
               "path":"/modals",
               "title":"Modal 模态框"
+            },{
+              "path":"/message-boxs",
+              "title":"MessageBox 弹出框"
+            }, {
+              "path":"/swals",
+              "title":"Sweetalert 弹出框"
             }, {
               "path":"/notices",
               "title":"Notice 系统通知"
+            },{
+              "path":"/messages",
+              "title":"Message 全局提示"
             }, {
               "path":"/progresses",
               "title":"Progress 进度条"
             }, {
               "path":"/snackbars",
               "title":"Snackbar 通知提醒"
-            }, {
-              "path":"/swals",
-              "title":"Sweetalert 弹出框"
             }, {
               "path":"/tags",
               "title":"Tag 标签"

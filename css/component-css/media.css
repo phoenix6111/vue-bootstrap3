@@ -1,0 +1,89 @@
+/**** media-list ****/
+.media {
+    margin-top: 15px
+}
+
+.media-heading, .media:first-child, .panel-title {
+    margin-top: 0
+}
+
+.media, .media-body {
+    zoom: 1;
+    overflow: hidden
+}
+
+.media-object.img-thumbnail {
+    max-width: none
+}
+
+.media-right, .media > .pull-right {
+    padding-left: 10px
+}
+
+.media-left, .media > .pull-left {
+    padding-right: 10px
+}
+
+.media-body, .media-left, .media-right {
+    display: table-cell;
+    vertical-align: top
+}
+
+.media-middle {
+    vertical-align: middle
+}
+
+.media-bottom {
+    vertical-align: bottom
+}
+
+.media-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.media-object {
+    display: block
+}
+
+.media-heading {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+/******* Overriding the Media style ******/
+.media {
+    overflow: visible
+}
+
+.media:after, .media:before {
+    content: " ";
+    display: table
+}
+
+.media:after {
+    clear: both;
+}
+
+.media > .pull-left {
+    padding-right: 15px
+}
+
+.media > .pull-right {
+    padding-left: 15px
+}
+
+.media-heading {
+    font-size: 14px;
+    margin-bottom: 10px
+}
+
+.media-body {
+    zoom: 1;
+    display: block;
+    width: auto
+}
+
+.media-object {
+    border-radius: 2px;
+}

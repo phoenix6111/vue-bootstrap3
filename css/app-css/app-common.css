@@ -1,0 +1,70 @@
+*, a, button, i, input {
+    -webkit-font-smoothing: antialiased
+}
+
+*, :active, :focus, :hover {
+    outline: 0 !important;
+    -webkit-tap-highlight-color: transparent !important
+}
+
+html {
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    font-size: 13px;
+    overflow-x: hidden \0/;
+    -ms-overflow-style: none;
+    min-height: 100vh;
+}
+
+html:not(.ie9) body {
+    overflow-y: scroll
+}
+
+html.ismobile * {
+    cursor: pointer
+}
+
+body {
+    font-size:1rem;
+    overflow-x: hidden;
+    font-weight: 400;
+    position: relative;
+    min-height: 100vh;
+}
+
+kbd kbd {
+    font-weight: 700
+}
+
+.dl-horizontal dt {
+    text-align: left;
+}
+
+audio, video {
+    outline: 0
+}
+
+p {
+    margin-bottom: 20px
+}
+
+
+small {
+    font-size: 11px;
+}
+
+.h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small, h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
+    font-size: 12px
+}
+
+/*
+ * IE 9 Placeholder
+ */
+
+.ie9-placeholder {
+    color: #888 !important;
+    font-weight: normal;
+}
+
+.ie9 textarea, .o-auto {
+    overflow: auto !important
+}

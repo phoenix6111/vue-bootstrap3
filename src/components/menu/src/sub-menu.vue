@@ -29,7 +29,7 @@
                 </slot>
             </a>
             <CollapseTransition>
-                <ul v-show="opened" class="nav nav-stacked">
+                <ul v-show="opened" class="menu">
                     <slot></slot>
                 </ul>
             </CollapseTransition>
@@ -96,9 +96,10 @@
             },
             classes() {
                 return [
+                    'sub-menu',
                     {
-                        'sub-menu':this.rootMenu.mode === 'vertical',
                         'dropdown':this.rootMenu.mode === 'horizontal',
+                        'menu-item':this.rootMenu.mode === 'horizontal',
                         'active': this.active,
                         'open': this.opened
                     }

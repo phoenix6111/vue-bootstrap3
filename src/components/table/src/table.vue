@@ -5,7 +5,7 @@
               'el-table--striped': stripe,
               'el-table--border': border,
               'el-table--fluid-height': maxHeight,
-//              'el-table--enable-row-hover': !store.states.isComplex,
+              'el-table--enable-row-hover': !store.states.isComplex,
               'table-hover': showHover,
               'el-table--enable-row-transition': true || (store.states.data || []).length !== 0 && (store.states.data || []).length < 100
             }"
@@ -34,6 +34,7 @@
                     :layout="layout"
                     :table-hover="showHover"
                     :table-striped="stripe"
+                    :stripe="stripe"
                     :border="border"
                     :size="size"
                     :row-class-name="rowClassName"
@@ -74,6 +75,7 @@
                         :layout="layout"
                         :table-hover="showHover"
                         :table-striped="stripe"
+                        :stripe="stripe"
                         :border="border"
                         :size="size"
                         :highlight="highlightCurrentRow"
@@ -112,6 +114,7 @@
                         :layout="layout"
                         :table-hover="showHover"
                         :table-striped="stripe"
+                        :stripe="stripe"
                         :border="border"
                         :size="size"
                         :row-class-name="rowClassName"

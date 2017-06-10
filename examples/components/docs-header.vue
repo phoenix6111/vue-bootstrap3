@@ -36,10 +36,15 @@
     @media (min-width: 768px) {
         #app  .navbar-nav > li > a,
         #app .navbar-brand{
-            padding-top: 25px;
-            padding-bottom: 24px;
+            padding-top: 23px;
+            padding-bottom: 23px;
             font-size: 16px;
             font-weight: 500;
+        }
+
+        #app .navbar-nav > li > a:hover {
+            color:#fff;
+            border-bottom-color: #fff;
         }
     }
 </style>

@@ -1,8 +1,8 @@
 import Vue from 'vue';
 var dropdowns = [];
 
-!Vue.prototype.$isServer && document.addEventListener('click', function (event) {
-    dropdowns.forEach(function (dropdown) {
+!Vue.prototype.$isServer && document.addEventListener('click', function(event) {
+    dropdowns.forEach(function(dropdown) {
         var target = event.target;
         if (!dropdown || !dropdown.$el) return;
         if (target === dropdown.$el || dropdown.$el.contains(target)) {

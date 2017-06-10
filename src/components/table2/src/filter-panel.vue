@@ -2,19 +2,17 @@
     <transition name="el-zoom-in-top">
         <div class="el-table-filter" v-if="multiple" v-show="showPopper">
             <div class="el-table-filter__content">
-                <checkbox-group class="el-table-filter__checkbox-group" v-model="filteredValue">
-                    <checkbox
-                            v-for="(filter,index) in filters"
-                            :key="index"
-                            :label="filter.value">{{ filter.text }}
-                    </checkbox>
-                </checkbox-group>
+                <v-checkbox-group class="el-table-filter__checkbox-group" v-model="filteredValue">
+                    <v-checkbox
+                            v-for="filter in filters"
+                            :key="filter.value"
+                            :label="filter.value">{{ filter.text }}</v-checkbox>
+                </v-checkbox-group>
             </div>
             <div class="el-table-filter__bottom">
                 <button @click="handleConfirm"
                         :class="{ 'is-disabled': filteredValue.length === 0 }"
-                        :disabled="filteredValue.length === 0">{{ t('el.table.confirmFilter') }}
-                </button>
+                        :disabled="filteredValue.length === 0">{{ t('el.table.confirmFilter') }}</button>
                 <button @click="handleReset">{{ t('el.table.resetFilter') }}</button>
             </div>
         </div>
@@ -22,15 +20,13 @@
             <ul class="el-table-filter__list">
                 <li class="el-table-filter__list-item"
                     :class="{ 'is-active': !filterValue }"
-                    @click="handleSelect(null)">{{ t('el.table.clearFilter') }}
-                </li>
+                    @click="handleSelect(null)">{{ t('el.table.clearFilter') }}</li>
                 <li class="el-table-filter__list-item"
-                    v-for="(filter,index) in filters"
-                    :key="index"
+                    v-for="filter in filters"
                     :label="filter.value"
+                    :key="filter.value"
                     :class="{ 'is-active': isActive(filter) }"
-                    @click="handleSelect(filter.value)">{{ filter.text }}
-                </li>
+                    @click="handleSelect(filter.value)" >{{ filter.text }}</li>
             </ul>
         </div>
     </transition>
@@ -38,34 +34,28 @@
 
 <script type="text/babel">
     import Popper from '../../../utils/vue-popper';
-    import {PopupManager} from '../../../utils/popup';
+    import { PopupManager } from '../../../utils/popup';
     import Locale from '../../../mixins/locale';
     import Clickoutside from '../../../utils/clickoutside';
     import Dropdown from './dropdown';
-    import Checkbox from '../../checkbox';
-    import CheckboxGroup from '../../checkbox-group';
-
+    import VCheckbox from '../../checkbox';
+    import VCheckboxGroup from '../../checkbox-group';
     export default {
-        name: 'TableFilterPanel',
-
+        name: 'ElTableFilterPanel',
         mixins: [Popper, Locale],
-
         directives: {
             Clickoutside
         },
-
         components: {
-            Checkbox,
-            CheckboxGroup
+            VCheckbox,
+            VCheckboxGroup
         },
-
         props: {
             placement: {
                 type: String,
                 default: 'bottom-end'
             }
         },
-
         customRender(h) {
             return (<div class="el-table-filter">
                 <div class="el-table-filter__content">
@@ -76,39 +66,31 @@
                 </div>
             </div>);
         },
-
         methods: {
             isActive(filter) {
                 return filter.value === this.filterValue;
             },
-
             handleOutsideClick() {
                 this.showPopper = false;
             },
-
             handleConfirm() {
                 this.confirmFilter(this.filteredValue);
                 this.handleOutsideClick();
             },
-
             handleReset() {
                 this.filteredValue = [];
                 this.confirmFilter(this.filteredValue);
                 this.handleOutsideClick();
             },
-
             handleSelect(filterValue) {
                 this.filterValue = filterValue;
-
                 if ((typeof filterValue !== 'undefined') && (filterValue !== null)) {
                     this.confirmFilter(this.filteredValue);
                 } else {
                     this.confirmFilter([]);
                 }
-
                 this.handleOutsideClick();
             },
-
             confirmFilter(filteredValue) {
                 this.table.store.commit('filterChange', {
                     column: this.column,
@@ -116,7 +98,6 @@
                 });
             }
         },
-
         data() {
             return {
                 table: null,
@@ -124,12 +105,10 @@
                 column: null
             };
         },
-
         computed: {
             filters() {
                 return this.column && this.column.filters;
             },
-
             filterValue: {
                 get() {
                     return (this.column.filteredValue || [])[0];
@@ -144,7 +123,6 @@
                     }
                 }
             },
-
             filteredValue: {
                 get() {
                     if (this.column) {
@@ -158,7 +136,6 @@
                     }
                 }
             },
-
             multiple() {
                 if (this.column) {
                     return this.column.filterMultiple;
@@ -166,14 +143,12 @@
                 return true;
             }
         },
-
         mounted() {
             this.popperElm = this.$el;
             this.referenceElm = this.cell;
             this.table.bodyWrapper.addEventListener('scroll', () => {
                 this.updatePopper();
             });
-
             this.$watch('showPopper', (value) => {
                 if (this.column) this.column.filterOpened = value;
                 if (value) {

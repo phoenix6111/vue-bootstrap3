@@ -1,0 +1,33 @@
+/*** thumbnail style ***/
+.thumbnail {
+    display: block;
+    padding: 3px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 1px solid #EDEDED;
+    border-radius: 2px;
+    -webkit-transition: border .2s ease-in-out;
+    -o-transition: border .2s ease-in-out;
+    transition: border .2s ease-in-out;
+}
+
+.thumbnail a > img,
+.thumbnail > img {
+    margin-left: auto;
+    margin-right: auto
+}
+
+a.thumbnail.active,
+a.thumbnail:focus,
+a.thumbnail:hover {
+    border-color: #2196F3
+}
+
+.thumbnail .caption {
+    padding: 10px 15px;
+    color: #5E5E5E
+}
+
+.thumbnail {
+    margin-bottom: 18px
+}

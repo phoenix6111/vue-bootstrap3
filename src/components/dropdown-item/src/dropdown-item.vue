@@ -1,18 +1,31 @@
 <template lang="html">
-    <li role="presentation"
+    <!--<li role="presentation"
         :class="classes"
         @click="handleClick">
         <a href="javascript:void(0)" v-if="!divided"><slot></slot></a>
-    </li>
+    </li>-->
+    <a :class="classes" @click="handleClick">
+        <template v-if="icon">
+            <Icon type="icon" v-if="icon"></Icon>
+            <slot></slot>
+        </template>
+        <template v-else>
+            <slot></slot>
+        </template>
+    </a>
 </template>
 
 <script>
     import Emitter from '../../../mixins/emitter';
+    import Icon from '../../icon';
 
     export default {
         name:'DropdownItem',
 
         mixins: [Emitter],
+        components: {
+            Icon
+        },
 
         props: {
             command:String,
@@ -27,15 +40,20 @@
             selected: {
                 type: Boolean,
                 default: false
+            },
+            icon: {
+                type:String
             }
         },
         computed: {
             classes() {
                 return [
+                    'dropdown-item',
                     {
                         'active':this.selected,
                         'disabled': this.disabled,
-                        'divider': this.divider
+                        'divider': this.divider,
+                        'dropdown-item-icon':this.icon
                     }
                 ];
             }

@@ -1,4 +1,4 @@
-import Checkbox from '../../checkbox';
+import VCheckbox from '../../checkbox';
 import Tag from '../../tag';
 import objectAssign from '../../../utils/merge';
 import {getValueByPath} from './util';
@@ -33,15 +33,16 @@ const defaults = {
 const forced = {
     selection: {
         renderHeader: function (h) {
-            return <checkbox
+            return <v-checkbox
                 nativeOn-click={ this.toggleAllSelection }
-                domProps-value={ this.isAllSelected }/>;
+                value={ this.isAllSelected }/>;
         },
         renderCell: function (h, {row, column, store, $index}) {
-            return <checkbox
-                domProps-value={ store.isSelected(row) }
+            return <v-checkbox
+                value={ store.isSelected(row) }
                 disabled={ column.selectable ? !column.selectable.call(null, row, $index) : false }
                 on-input={ () => {
+                    console.log("input changed ...");
                     store.commit('rowSelectedChanged', row);
                 } }/>;
         },
@@ -49,23 +50,22 @@ const forced = {
         resizable: false
     },
     index: {
-        renderHeader: function (h, {column}) {
+        renderHeader: function(h, { column }) {
             return column.label || '#';
         },
-        renderCell: function (h, {$index}) {
+        renderCell: function(h, { $index }) {
             return <div>{ $index + 1 }</div>;
         },
         sortable: false
     },
     expand: {
-        renderHeader: function (h, {}) {
+        renderHeader: function(h, {}) {
             return '';
         },
-        renderCell: function (h, {row, store}, proxy) {
+        renderCell: function(h, { row, store }, proxy) {
             const expanded = store.states.expandRows.indexOf(row) > -1;
-            return <div
-                class={ 'el-table__expand-icon ' + (expanded ? 'el-table__expand-icon--expanded' : '') }
-                on-click={ () => proxy.handleExpandClick(row) }>
+            return <div class={ 'el-table__expand-icon ' + (expanded ? 'el-table__expand-icon--expanded' : '') }
+                        on-click={ () => proxy.handleExpandClick(row) }>
                 <i class='zmdi zmdi-chevron-right'/>
             </div>;
         },
@@ -75,7 +75,7 @@ const forced = {
     }
 };
 
-const getDefaultColumn = function (type, options) {
+const getDefaultColumn = function(type, options) {
     const column = {};
 
     objectAssign(column, defaults[type || 'default']);
@@ -98,7 +98,7 @@ const getDefaultColumn = function (type, options) {
     return column;
 };
 
-const DEFAULT_RENDER_CELL = function (h, {row, column}) {
+const DEFAULT_RENDER_CELL = function(h, { row, column }) {
     const property = column.property;
     if (column && column.formatter) {
         return column.formatter(row, column);
@@ -149,6 +149,7 @@ export default {
         filterMethod: Function,
         filteredValue: Array,
         filters: Array,
+        filterPlacement: String,
         filterMultiple: {
             type: Boolean,
             default: true
@@ -169,7 +170,7 @@ export default {
     },
 
     components: {
-        Checkbox,
+        VCheckbox,
         Tag
     },
 
@@ -241,7 +242,8 @@ export default {
             filterable: this.filters || this.filterMethod,
             filterMultiple: this.filterMultiple,
             filterOpened: false,
-            filteredValue: this.filteredValue || []
+            filteredValue: this.filteredValue || [],
+            filterPlacement: this.filterPlacement || ''
         });
 
         objectAssign(column, forced[type] || {});
@@ -252,23 +254,23 @@ export default {
         let _self = this;
 
         if (type === 'expand') {
-            owner.renderExpanded = function (h, data) {
+            owner.renderExpanded = function(h, data) {
                 return _self.$scopedSlots.default
                     ? _self.$scopedSlots.default(data)
                     : _self.$slots.default;
             };
 
-            column.renderCell = function (h, data) {
+            column.renderCell = function(h, data) {
                 return <div class="cell">{ renderCell(h, data, this._renderProxy) }</div>;
             };
 
             return;
         }
 
-        column.renderCell = function (h, data) {
+        column.renderCell = function(h, data) {
             // 未来版本移除
             if (_self.$vnode.data.inlineTemplate) {
-                renderCell = function () {
+                renderCell = function() {
                     data._self = _self.context || data._self;
                     if (Object.prototype.toString.call(data._self) === '[object Object]') {
                         for (let prop in data._self) {
@@ -291,7 +293,7 @@ export default {
             }
 
             return _self.showOverflowTooltip || _self.showTooltipWhenOverflow
-                ? <div class="cell el-tooltip">{ renderCell(h, data) }</div>
+                ? <div class="cell tooltip" style={'width:' + (data.column.realWidth || data.column.width) + 'px'}>{ renderCell(h, data) }</div>
                 : <div class="cell">{ renderCell(h, data) }</div>;
         };
     },
@@ -366,6 +368,12 @@ export default {
             if (this.columnConfig) {
                 this.columnConfig.fixed = newVal;
                 this.owner.store.scheduleLayout();
+            }
+        },
+
+        sortable(newVal) {
+            if (this.columnConfig) {
+                this.columnConfig.sortable = newVal;
             }
         }
     },

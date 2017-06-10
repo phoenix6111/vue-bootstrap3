@@ -25,7 +25,7 @@ export default {
           下拉菜单
           <Icon type="chevron-down"></Icon>
       </a>
-      <Dropdown-menu slot="list">
+      <Dropdown-menu slot="dropdown">
           <Dropdown-item>驴打滚</Dropdown-item>
           <Dropdown-item>炸酱面</Dropdown-item>
           <Dropdown-item disabled>豆汁儿</Dropdown-item>
@@ -38,7 +38,7 @@ export default {
           下拉菜单
           <Icon type="chevron-down"></Icon>
       </i-button>
-      <Dropdown-menu slot="list">
+      <Dropdown-menu slot="dropdown">
           <Dropdown-item>驴打滚</Dropdown-item>
           <Dropdown-item>炸酱面</Dropdown-item>
           <Dropdown-item disabled>豆汁儿</Dropdown-item>
@@ -64,7 +64,7 @@ export default {
           hover 触发
           <Icon type="chevron-down"></Icon>
       </a>
-      <Dropdown-menu slot="list">
+      <Dropdown-menu slot="dropdown">
           <Dropdown-item>驴打滚</Dropdown-item>
           <Dropdown-item>炸酱面</Dropdown-item>
           <Dropdown-item>豆汁儿</Dropdown-item>
@@ -77,7 +77,7 @@ export default {
           click 触发
           <Icon type="chevron-down"></Icon>
       </a>
-      <Dropdown-menu slot="list">
+      <Dropdown-menu slot="dropdown">
           <Dropdown-item>驴打滚</Dropdown-item>
           <Dropdown-item>炸酱面</Dropdown-item>
           <Dropdown-item>豆汁儿</Dropdown-item>
@@ -97,12 +97,12 @@ export default {
 
 ```html
 <template>
-  <Dropdown align="left">
+  <Dropdown placement="bottom-start">
       <a href="javascript:void(0)">
           菜单(左)
           <Icon type="chevron-down"></Icon>
       </a>
-      <Dropdown-menu slot="list" align="left">
+      <Dropdown-menu slot="dropdown" placement="bottom">
           <Dropdown-item>驴打滚</Dropdown-item>
           <Dropdown-item>炸酱面</Dropdown-item>
           <Dropdown-item>豆汁儿</Dropdown-item>
@@ -110,12 +110,12 @@ export default {
           <Dropdown-item>北京烤鸭</Dropdown-item>
       </Dropdown-menu>
   </Dropdown>
-  <Dropdown style="margin-left: 20px">
+  <Dropdown style="margin-left: 20px" placement="bottom">
       <a href="javascript:void(0)">
           菜单(居中)
           <Icon type="chevron-down"></Icon>
       </a>
-      <Dropdown-menu slot="list">
+      <Dropdown-menu slot="dropdown">
           <Dropdown-item>驴打滚</Dropdown-item>
           <Dropdown-item>炸酱面</Dropdown-item>
           <Dropdown-item>豆汁儿</Dropdown-item>
@@ -123,12 +123,12 @@ export default {
           <Dropdown-item>北京烤鸭</Dropdown-item>
       </Dropdown-menu>
   </Dropdown>
-  <Dropdown style="margin-left: 20px" align="right">
+  <Dropdown style="margin-left: 20px" placement="bottom-end">
       <a href="javascript:void(0)">
           菜单(右)
           <Icon type="chevron-down"></Icon>
       </a>
-      <Dropdown-menu slot="list" align="right">
+      <Dropdown-menu slot="dropdown">
           <Dropdown-item>驴打滚</Dropdown-item>
           <Dropdown-item>炸酱面</Dropdown-item>
           <Dropdown-item>豆汁儿</Dropdown-item>
@@ -136,12 +136,12 @@ export default {
           <Dropdown-item>北京烤鸭</Dropdown-item>
       </Dropdown-menu>
   </Dropdown>
-  <Dropdown style="margin-left: 20px" align="right" direction="up">
+  <Dropdown style="margin-left: 20px" placement="top">
       <a href="javascript:void(0)">
           菜单(上)
           <Icon type="chevron-down"></Icon>
       </a>
-      <Dropdown-menu slot="list" align="right">
+      <Dropdown-menu slot="dropdown">
           <Dropdown-item>驴打滚</Dropdown-item>
           <Dropdown-item>炸酱面</Dropdown-item>
           <Dropdown-item>豆汁儿</Dropdown-item>
@@ -162,11 +162,10 @@ export default {
 ```html
 <template>
   <Dropdown style="margin-left: 20px" 
-            align="right" 
-            direction="up"
+            placement="top" 
             split-button type="primary">
       split 菜单(上)
-      <Dropdown-menu slot="list" align="right">
+      <Dropdown-menu slot="dropdown">
           <Dropdown-item>驴打滚</Dropdown-item>
           <Dropdown-item>炸酱面</Dropdown-item>
           <Dropdown-item>豆汁儿</Dropdown-item>
@@ -175,10 +174,10 @@ export default {
       </Dropdown-menu>
   </Dropdown>
 
-  <Dropdown style="margin-left: 20px" align="right" direction="up"
+  <Dropdown style="margin-left: 20px" placement="top"
             split-button type="primary" size="sm">
       split 菜单(上)
-      <Dropdown-menu slot="list" align="right">
+      <Dropdown-menu slot="dropdown">
           <Dropdown-item>驴打滚</Dropdown-item>
           <Dropdown-item>炸酱面</Dropdown-item>
           <Dropdown-item>豆汁儿</Dropdown-item>

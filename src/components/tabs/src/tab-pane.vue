@@ -1,45 +1,54 @@
 <template>
-    <div v-show="isActive" :class="classes">
+    <div role="tabpanel" aria-hidden="false" :class="wrapCls">
         <slot></slot>
     </div>
 </template>
-<script>
+
+<script lang="babel">
+    import emitter from '../../../mixins/emitter';
+
     export default {
+        name: 'TabPane',
+        componentName:'TabPane',
+        mixins: [emitter],
+        data: () => ({
+            prefix: 'tabs-tabpane',
+            selected: false
+        }),
         props: {
-            label: {
-                type:String,
-                required:true
+            tabKey: String,
+            icon: String,
+            disabled: {
+                type: Boolean,
+                default: false
             },
-            active: {
-                type:Boolean,
-                default:false
-            },
-            name: {
-                type:[String,Number]
-            },
-            icon: {
-                type:String
-            }
+            tab: String
         },
-        data() {
-            return {
-                isActive:false,
-                tabName:''
+        mounted() {
+            this.$on('tabPane.activeTabKey', (tabKey) => {
+                this.selected = tabKey === this.tabKey;
+            });
+
+            /* 派发事件给parent */
+            if (this.disabled) {
+                this.dispatch('Tabs', 'tabs.disabledItem', {tabKey: this.tabKey, disabled: this.disabled});
             }
         },
         computed: {
-            classes() {
+            wrapCls() {
                 return [
-                    'tab-pane',
-                    {'active':this.isActive}
-                ];
+                    this.prefix,
+                    {[`${this.prefix}-active`]: this.selected},
+                    {[`${this.prefix}-inactive`]: !this.selected}
+                ]
             }
         },
-        mounted() {
-            this.isActive = this.active;
-            if(typeof this.name != 'undefined' && this.name ) {
-                this.tabName = this.name;
+        watch: {
+            disabled(value) {
+                if (value) {
+                    this.dispatch('Tabs', 'tabs.disabledItem', {tabKey: this.tabKey, disabled: value});
+                }
             }
-        },
+        }
     }
 </script>

@@ -89,7 +89,7 @@ function notice (type, options) {
 
 export default {
     open (options,type) {
-        const _type = type || 'inverse';
+        const _type = type || 'default';
         return notice(_type, options);
     },
     info (options) {
@@ -103,6 +103,9 @@ export default {
     },
     danger (options) {
         return notice('danger', options);
+    },
+    inverse (options) {
+        return notice('inverse', options);
     },
     config (options) {
         if (options.top) {

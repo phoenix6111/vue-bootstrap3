@@ -1,0 +1,17 @@
+/*** photo page style ***/
+.photos {
+    margin: 2px 0 0
+}
+
+.photos .lightbox {
+    margin: 0 -8px
+}
+
+.photos:not(.p-timeline) [data-src] {
+    padding: 3px;
+    -webkit-transition: all;
+    -o-transition: all;
+    transition: all;
+    -webkit-transition-duration: 150ms;
+    transition-duration: 150ms
+}

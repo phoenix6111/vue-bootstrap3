@@ -1,0 +1,70 @@
+/****** card style ****/
+.card {
+    position: relative;
+    background: #fff;
+    margin-bottom: 30px;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+}
+
+.card .card-header {
+    position: relative;
+    display: block;
+    padding: 26px 30px;
+    border-radius: 2px 2px 0 0
+}
+
+.card .card-header h2 {
+    margin: 0;
+    line-height: 100%;
+    font-size: 16px;
+    font-weight: 400
+}
+
+.card .card-header h2 small {
+    display: block;
+    margin-top: 8px;
+    color: #AEAEAE;
+    line-height: 160%
+}
+
+.card .card-header.ch-alt:not([class*=bgm-]) {
+    background-color: #f7f7f7
+}
+
+.card .card-header .actions {
+    position: absolute;
+    right: 10px;
+    z-index: 2;
+    top: 15px
+}
+
+.card .card-header .btn-float {
+    right: 25px;
+    bottom: -23px;
+    z-index: 1
+}
+
+.card .card-header[class*=bgm-] h2 {
+    color: #fff
+}
+
+.card .card-header[class*=bgm-] h2 small {
+    color: rgba(255, 255, 255, .7)
+}
+
+.card .card-body.card-padding {
+    padding: 26px 30px
+}
+
+.card .card-body.card-padding-sm {
+    padding: 15px
+}
+
+.card-header:not(.ch-alt):not([class*=bgm-]) + .card-padding {
+    padding-top: 0
+}
+
+.card-light .card-header h2, .card-light .card-header h2 small {
+    color: #fff
+}

@@ -1,84 +1,68 @@
 import Vue from 'vue';
 import { PopupManager } from '../../../utils/popup';
-import { isVNode } from '../../../utils/vdom';
-let NotificationConstructor = Vue.extend(require('./message.vue'));
+let MessageConstructor = Vue.extend(require('./message.vue'));
 
 let instance;
 let instances = [];
 let seed = 1;
 
-var Notification = function(options) {
+var Message = function(options) {
+    if (Vue.prototype.$isServer) return;
+
     options = options || {};
+    if (typeof options === 'string') {
+        options = {
+            message: options
+        };
+    }
     let userOnClose = options.onClose;
-    let id = 'notification_' + seed++;
+    let id = 'message_' + seed++;
 
     options.onClose = function() {
-        Notification.close(id, userOnClose);
+        Message.close(id, userOnClose);
     };
 
-    instance = new NotificationConstructor({
+    instance = new MessageConstructor({
         data: options
     });
-
-    if (isVNode(options.message)) {
-        instance.$slots.default = [options.message];
-        options.message = '';
-    }
     instance.id = id;
     instance.vm = instance.$mount();
     document.body.appendChild(instance.vm.$el);
     instance.vm.visible = true;
     instance.dom = instance.vm.$el;
     instance.dom.style.zIndex = PopupManager.nextZIndex();
-
-    const offset = options.offset || 0;
-    let topDist = offset;
-    for (let i = 0, len = instances.length; i < len; i++) {
-        topDist += instances[i].$el.offsetHeight + 16;
-    }
-    topDist += 16;
-    instance.top = topDist;
     instances.push(instance);
     return instance.vm;
 };
 
-['danger', 'warning', 'info', 'success','inverse'].forEach(type => {
-
-    Notification[type] = options => {
-        console.log(options);
-        if (typeof options === 'string' || isVNode(options)) {
+['success', 'warning', 'info', 'danger'].forEach(type => {
+    Message[type] = options => {
+        if (typeof options === 'string') {
             options = {
                 message: options
             };
         }
         options.type = type;
-
-        console.log(options.type);
-
-        return Notification(options);
+        return Message(options);
     };
 });
 
-Notification.close = function(id, userOnClose) {
-    let index;
-    let removedHeight;
-    for (var i = 0, len = instances.length; i < len; i++) {
+Message.close = function(id, userOnClose) {
+    for (let i = 0, len = instances.length; i < len; i++) {
         if (id === instances[i].id) {
             if (typeof userOnClose === 'function') {
                 userOnClose(instances[i]);
             }
-            index = i;
-            removedHeight = instances[i].dom.offsetHeight;
             instances.splice(i, 1);
             break;
         }
     }
+};
 
-    if (len > 1) {
-        for (i = index; i < len - 1 ; i++) {
-            instances[i].dom.style.top = parseInt(instances[i].dom.style.top, 10) - removedHeight - 16 + 'px';
-        }
+Message.closeAll = function() {
+    for (let i = instances.length - 1; i >= 0; i--) {
+        instances[i].close();
     }
 };
 
-export default Notification;
+export default Message;

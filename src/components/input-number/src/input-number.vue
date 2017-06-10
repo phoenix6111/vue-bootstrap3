@@ -1,42 +1,69 @@
 <template>
-    <div :class="wrapClasses">
-        <div class="input-group-btn" v-if="controls && sepMode">
-            <IButton v-repeat-click="decrease" :disabled="minDisabled">
-                <Icon type="minus"></Icon>
-            </IButton>
+    <div :class="classes">
+        <div :class="wrapClasses" v-if="controls">
+            <div class="input-group-btn" v-if="sepMode">
+                <IButton type="secondary" v-repeat-click="decrease" :disabled="minDisabled">
+                    <Icon type="minus"></Icon>
+                </IButton>
+            </div>
+            <bs-input :value="currentValue"
+                      @keydown.up.native.prevent="increase"
+                      @keydown.down.native.prevent="decrease"
+                      @blur="handleBlur"
+                      @input="debounceHandleInput"
+                      :disabled="disabled"
+                      :size="size"
+                      :max="max"
+                      :min="min"
+                      ref="input">
+                <template slot="prepend" v-if="$slots.prepend">
+                    <slot name="prepend"></slot>
+                </template>
+                <template slot="append" v-if="$slots.append">
+                    <slot name="append"></slot>
+                </template>
+            </bs-input>
+            <div class="input-group-btn">
+                <IButton type="secondary" v-repeat-click="decrease" :disabled="minDisabled" v-if="!sepMode">
+                    <Icon type="minus"></Icon>
+                </IButton>
+                <IButton type="secondary" v-repeat-click="increase" :disabled="maxDisabled">
+                    <Icon type="plus"></Icon>
+                </IButton>
+            </div>
         </div>
-        <input type="text"
-               class="form-control"
-               :value="currentValue"
-               @keydown.up.native.prevent="increase"
-               @keydown.down.native.prevent="decrease"
-               @blur="handleBlur"
-               @input="handleInput"
-               :disabled="disabled"
-               :size="size"
-               :max="max"
-               :min="min"
-               ref="input"
-               aria-label="Input Number">
-        <div class="input-group-btn" v-if="controls">
-            <IButton v-repeat-click="decrease" :disabled="disabled || minDisabled" v-if="!sepMode">
-                <Icon type="minus"></Icon>
-            </IButton>
-            <IButton v-repeat-click="increase" :disabled="disabled || maxDisabled">
-                <Icon type="plus"></Icon>
-            </IButton>
-        </div>
+        <bs-input v-else
+                :value="currentValue"
+                  @keydown.up.native.prevent="increase"
+                  @keydown.down.native.prevent="decrease"
+                  @blur="handleBlur"
+                  @input="debounceHandleInput"
+                  :disabled="disabled"
+                  :size="size"
+                  :max="max"
+                  :min="min"
+                  ref="input">
+            <template slot="prepend" v-if="$slots.prepend">
+                <slot name="prepend"></slot>
+            </template>
+            <template slot="append" v-if="$slots.append">
+                <slot name="append"></slot>
+            </template>
+        </bs-input>
     </div>
 </template>
 
 <script>
     import Icon from '../../icon';
     import IButton from '../../button';
+    import BsInput from '../../input/src/input';
     import {oneOf} from '../../../utils/assist';
     import { once, on } from '../../../utils/dom';
+    import debounce from 'throttle-debounce/debounce';
 
     export default {
         name: 'InputNumber',
+        components: {IButton, BsInput},
         directives: {
             repeatClick: {
                 bind(el, binding, vnode) {
@@ -86,6 +113,10 @@
             controls: {//是否显示控制按钮
                 type: Boolean,
                 default: true
+            },
+            debounce: {
+                type: Number,
+                default: 300
             }
         },
         data() {
@@ -107,6 +138,15 @@
             }
         },
         computed: {
+            classes() {
+                return [
+                    'input-number',
+                    {
+                        [`input-number-${this.size}`]:!!this.size,
+                        'disabled':this.disabled
+                    }
+                ]
+            },
             wrapClasses() {
                 return [
                     'input-group',
@@ -170,30 +210,39 @@
                 this.setCurrentValue(newVal);
             },
             handleBlur(event) {
-//                this.$refs.input.setCurrentValue(this.currentValue);
-//                this.$refs.input.$el.value = this.currentValue;
+                this.$refs.input.setCurrentValue(this.currentValue);
                 console.log(this.currentValue);
-                event.target.value = this.currentValue;
             },
             setCurrentValue(newVal) {
                 const oldVal = this.currentValue;
                 if (newVal >= this.max) newVal = this.max;
                 if (newVal <= this.min) newVal = this.min;
-                if (oldVal === newVal) return;
+                if (oldVal === newVal) {
+                    this.$refs.input.setCurrentValue(this.currentValue);
+                    return;
+                }
                 this.$emit('on-change', newVal, oldVal);
                 this.$emit('input', newVal);
                 this.currentValue = newVal;
             },
             handleInput(event) {
-                const value = event.target.value.trim();
+
+                if (value === '') {
+                    return;
+                }
                 const newVal = Number(value);
-                console.log("newVal "+newVal);
                 if (!isNaN(newVal)) {
                     this.setCurrentValue(newVal);
+                } else {
+                    this.$refs.input.setCurrentValue(this.currentValue);
                 }
 
-//                console.log("currentValue "+this.currentValue);
             }
+        },
+        created() {
+            this.debounceHandleInput = debounce(this.debounce, value => {
+                this.handleInput(value);
+            });
         }
     }
 </script>

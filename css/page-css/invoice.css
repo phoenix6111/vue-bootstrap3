@@ -1,0 +1,53 @@
+/**** invoice page style ****/
+.invoice {
+    min-width: 1100px;
+    max-width: 1170px
+}
+
+.i-logo {
+    width: 150px
+}
+
+.i-table .highlight {
+    background-color: #eee;
+    border-bottom: 1px solid #e6e6e6
+}
+
+.i-table td.highlight {
+    font-size: 14px;
+    font-weight: 500
+}
+/*** invoice page print style ****/
+@media print {
+    .invoice .card-header, .invoice .highlight {
+        background: #eee !important
+    }
+
+    @page {
+        margin: 0;
+        size: auto
+    }
+
+    body {
+        margin: 0 !important;
+        padding: 0 !important
+    }
+
+    #chat, #footer, #header, #sidebar, .growl-animated, .m-btn {
+        display: none !important
+    }
+
+    .invoice {
+        padding: 30px !important;
+        -webkit-print-color-adjust: exact !important
+    }
+
+    .invoice .card-header {
+        padding: 20px;
+        margin: -60px -30px 25px
+    }
+
+    .invoice .block-header {
+        display: none
+    }
+}

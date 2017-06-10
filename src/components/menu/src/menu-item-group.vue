@@ -3,7 +3,7 @@
         <div class="menu-item-group-title" :style="{paddingLeft: levelPadding + 'px'}">
             <slot name="title">{{title}}</slot>
         </div>
-        <ul class="nav nav-stacked">
+        <ul class="menu">
             <slot></slot>
         </ul>
     </li>

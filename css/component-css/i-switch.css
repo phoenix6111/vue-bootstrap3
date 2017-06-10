@@ -1,0 +1,129 @@
+/***** switch customStyles ****/
+.i-switch {
+    width: 48px;
+    height: 24px;
+    line-height: 22px;
+    border-radius: 24px;
+    vertical-align: middle;
+    border: 1px solid #ccc;
+    background-color: #ccc;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    transition: all .2s ease-in-out;
+}
+
+.i-switch-inner {
+    color: #fff;
+    font-size: 12px;
+    position: absolute;
+    left: 25px
+}
+
+.i-switch-inner i {
+    width: 12px;
+    height: 12px;
+    text-align: center
+}
+
+.i-switch:after {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: #fff;
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    cursor: pointer;
+    transition: left .2s ease-in-out, width .2s ease-in-out
+}
+
+.i-switch:active:after {
+    width: 26px
+}
+
+.i-switch:focus:hover {
+    box-shadow: none
+}
+
+.i-switch-small {
+    width: 24px;
+    height: 12px;
+    line-height: 10px
+}
+
+.i-switch-small:after {
+    width: 10px;
+    height: 10px;
+    top: 0;
+    left: 0
+}
+
+.i-switch-small:active:after {
+    width: 14px
+}
+
+.i-switch-small.i-switch-checked:after {
+    left: 12px
+}
+
+.i-switch-small:active.i-switch-checked:after {
+    left: 8px
+}
+
+.i-switch-large {
+    width: 60px
+}
+
+.i-switch-large:active:after {
+    width: 32px
+}
+
+.i-switch-large.i-switch-checked:after {
+    left: 37px
+}
+
+.i-switch-large:active.i-switch-checked:after {
+    left: 25px
+}
+
+.i-switch-checked {
+    border-color: #39f;
+    background-color: #39f
+}
+
+.i-switch-checked .i-switch-inner {
+    left: 8px
+}
+
+.i-switch-checked:after {
+    left: 25px
+}
+
+.i-switch-checked:active:after {
+    left: 19px
+}
+
+.i-switch-disabled {
+    cursor: not-allowed;
+    background: #f3f3f3;
+    border-color: #f3f3f3
+}
+
+.i-switch-disabled:after {
+    background: #ccc;
+    cursor: not-allowed
+}
+
+.i-switch-disabled .i-switch-inner {
+    color: #ccc
+}
+
+.form-item-content .i-switch {
+    top: 5px;
+}

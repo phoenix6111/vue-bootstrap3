@@ -1,0 +1,146 @@
+/**** header skin switch style ***/
+.ss-skin {
+    width: 16px;
+    height: 16px;
+}
+
+.ss-skin:hover {
+    opacity: .8;
+    filter: alpha(opacity=80)
+}
+
+.header .ss-skin, .ss-skin {
+    border-radius: 50%;
+    cursor: pointer
+}
+
+.header .skin-switch {
+    padding: 10px 0 2px;
+    text-align: center;
+}
+
+.header .ss-skin {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin: 2px 3px
+}
+
+[data-ma-theme=lightblue] {
+    background-color: #03A9F4
+}
+
+[data-ma-theme=lightblue] .ss-icon {
+    color: #03A9F4
+}
+
+@media (max-width: 767px) {
+    [data-ma-theme=lightblue] .ha-menu {
+        background: #03A9F4
+    }
+
+    [data-ma-theme=bluegray] .ha-menu {
+        background: #607D8B
+    }
+}
+
+[data-ma-theme=bluegray] {
+    background-color: #607D8B
+}
+
+[data-ma-theme=bluegray] .ss-icon {
+    color: #607D8B
+}
+
+[data-ma-theme=blue] {
+    /*background-color: #2196F3*/
+    background-color: #20A0FF;
+}
+
+[data-ma-theme=blue] .ss-icon {
+    color: #2196F3
+}
+
+@media (max-width: 767px) {
+    [data-ma-theme=blue] .ha-menu {
+        background: #2196F3
+    }
+
+    [data-ma-theme=purple] .ha-menu {
+        background: #BA68C8
+    }
+}
+
+[data-ma-theme=purple] {
+    background-color: #BA68C8
+}
+
+[data-ma-theme=purple] .ss-icon {
+    color: #BA68C8
+}
+
+[data-ma-theme=orange] {
+    background-color: #FF9800
+}
+
+[data-ma-theme=orange] .ss-icon {
+    color: #FF9800
+}
+
+@media (max-width: 767px) {
+    [data-ma-theme=orange] .ha-menu {
+        background: #FF9800
+    }
+
+    [data-ma-theme=cyan] .ha-menu {
+        background: #00BCD4
+    }
+}
+
+[data-ma-theme=cyan] {
+    background-color: #00BCD4
+}
+
+[data-ma-theme=cyan] .ss-icon {
+    color: #00BCD4
+}
+
+[data-ma-theme=green] {
+    background-color: #4CAF50
+}
+
+[data-ma-theme=green] .ss-icon {
+    color: #4CAF50
+}
+
+@media (max-width: 767px) {
+    [data-ma-theme=green] .ha-menu {
+        background: #4CAF50
+    }
+
+    [data-ma-theme=teal] .ha-menu {
+        background: #009688
+    }
+}
+
+[data-ma-theme=teal] {
+    background-color: #009688
+}
+
+[data-ma-theme=teal] .ss-icon {
+    color: #009688
+}
+
+[data-ma-theme=pink] {
+    background-color: #E91E63
+}
+
+[data-ma-theme=pink] .ss-icon {
+    color: #E91E63
+}
+
+@media (max-width: 767px) {
+    [data-ma-theme=pink] .ha-menu {
+        background: #E91E63
+    }
+}

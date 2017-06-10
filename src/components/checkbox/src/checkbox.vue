@@ -75,8 +75,6 @@
 
                         (this._checkboxGroup.max !== undefined && val.length > this._checkboxGroup.max && (isLimitExceeded = true));
 
-                        console.log("isLimitExceeded === "+isLimitExceeded);
-
                         isLimitExceeded === false && this.dispatch('CheckboxGroup', 'input', [val]);
                     } else if (this.value !== undefined) {
                         this.$emit('input', val);

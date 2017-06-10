@@ -1,5 +1,33 @@
 <style>
-
+    .color-block {
+        height: 100px;
+        color: rgba(255,255,255,0.9);
+        text-align: center;
+        padding: 15px 0;
+        border-radius: 2px;
+        margin-bottom: 25px;
+    }
+    
+    .color-block span {
+        display: block;
+    }
+    
+    .color-block .color {
+        font-size: 14px;
+        text-transform: uppercase;
+    }
+    
+    .color-block .code {
+        margin: 5px 0;
+    }
+    
+    .color-block .less {
+        font-size: 11px;
+    }
+    
+    .color-block.dark {
+        color:#666;
+    }
 </style>
 
 ## Color 色彩

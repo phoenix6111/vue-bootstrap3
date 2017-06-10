@@ -1,32 +1,9 @@
-<template>
-    <div :class="classes"
-         v-clickoutside="handleClose">
-
-        <SplitButton v-if="splitButton"
-                     :size="size"
-                     :type="type"
-                     @caret-click="handleClick"
-                     @caret-mouse-enter="handleMouseEnter"
-                     @caret-mouse-leave="handleMouseLeave">
-            <slot></slot>
-        </SplitButton>
-
-        <span class="dropdown-trigger"
-              @click="handleClick"
-              @mouseenter="handleMouseEnter"
-              @mouseleave="handleMouseLeave"
-              v-else>
-            <slot></slot>
-        </span>
-
-        <slot name="list"></slot>
-    </div>
-</template>
 <script>
-    import clickoutside from '../../../directives/clickoutside';
+    import clickoutside from '../../../utils/clickoutside';
     import {oneOf} from '../../../utils/assist';
     import Emitter from '../../../mixins/emitter';
-    import SplitButton from '../../split-button';
+    import ButtonGroup from '../../button-group';
+    import IButton from '../../button';
 
     const prefixCls = 'dropdown';
 
@@ -35,24 +12,25 @@
         componentName: 'Dropdown',
         mixins: [Emitter],
         directives: {clickoutside},
+        components: {
+            ButtonGroup,IButton
+        },
         props: {
+            tag: { //dropdown 的根tag类型
+                type:String,
+                default:'div'
+            },
             trigger: {
                 validator (value) {
                     return oneOf(value, ['click', 'hover']);
                 },
                 default: 'hover'
             },
-            align: {
+            placement: {
                 validator (value) {
-                    return oneOf(value, ['left', 'right']);
+                    return oneOf(value, ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end']);
                 },
-                default: 'left'
-            },
-            direction: {
-                validator(value) {
-                    return oneOf(value, ['down', 'up']);
-                },
-                default: 'down'
+                default: 'bottom'
             },
             hideOnClick: {
                 type: Boolean,
@@ -80,18 +58,9 @@
         data () {
             return {
                 prefixCls: prefixCls,
+                timeout: null,
                 visible: false
             };
-        },
-        computed: {
-            classes() {
-                return [
-                    'dropdown',
-                    {
-                        'dropup': this.direction == 'up'
-                    }
-                ];
-            },
         },
         watch: {
             visible(val) {
@@ -99,56 +68,83 @@
             }
         },
         methods: {
-            handleClick () {
-                if (this.trigger !== 'click') {
-                    return false;
-                }
-                this.visible = !this.visible;
-            },
-            handleMouseEnter () {
-                if (this.trigger !== 'hover') {
-                    return false;
-                }
-
+            show() {
                 clearTimeout(this.timeout);
                 this.timeout = setTimeout(() => {
                     this.visible = true;
                 }, 250);
             },
-            handleMouseLeave () {
-                if (this.trigger !== 'hover') {
-                    return false;
-                }
-
+            hide() {
                 clearTimeout(this.timeout);
                 this.timeout = setTimeout(() => {
                     this.visible = false;
                 }, 150);
             },
-            handleClose () {
-                if (this.trigger !== 'click') {
-                    return false;
+            handleClick() {
+                this.visible = !this.visible;
+            },
+            initEvent() {
+                let { trigger, show, hide, handleClick, splitButton } = this;
+                let triggerElm = splitButton
+                    ? this.$refs.trigger.$el
+                    : this.$slots.default[0].elm;
+
+                if (trigger === 'hover') {
+                    triggerElm.addEventListener('mouseenter', show);
+                    triggerElm.addEventListener('mouseleave', hide);
+
+                    let dropdownElm = this.$slots.dropdown[0].elm;
+
+                    dropdownElm.addEventListener('mouseenter', show);
+                    dropdownElm.addEventListener('mouseleave', hide);
+                } else if (trigger === 'click') {
+                    triggerElm.addEventListener('click', handleClick);
                 }
-                this.visible = false;
             },
             handleMenuItemClick(command, instance) {
                 if (this.hideOnClick) {
                     this.visible = false;
                 }
                 this.$emit('command', command, instance);
-            },
-            initEvent() {
-                if (this.trigger === 'hover') {
-                    let dropdownElm = this.$slots.list[0].elm;
+            }
+        },
+        render(h) {
+            let { hide, splitButton, type, size } = this;
 
-                    dropdownElm.addEventListener('mouseenter', this.handleMouseEnter);
-                    dropdownElm.addEventListener('mouseleave', this.handleMouseLeave);
-                }
-            },
+            var handleClick = _ => {
+                this.$emit('click');
+            };
+
+            let triggerElm = !splitButton
+                ? this.$slots.default
+                : (
+                    <button-group>
+                        <i-button type={type} size={size} nativeOn-click={handleClick}>
+                            {this.$slots.default}
+                        </i-button>
+                        <i-button ref="trigger" type={type} size={size} class="dropdown-toggle-split">
+                            <span class="caret"></span>
+                        </i-button>
+                    </button-group>
+                );
+
+            const data = {
+                'class': {
+                    'dropdown': true
+                },
+                directives: [{
+                    name: 'clickoutside',
+                    value: hide
+                }],
+            };
+
+            return h(this.tag, data, [triggerElm, this.$slots.dropdown])
+
         },
         mounted () {
             this.$on('menu-item-click', this.handleMenuItemClick);
             this.initEvent();
+
         }
     }
 </script>

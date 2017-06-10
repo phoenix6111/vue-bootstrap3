@@ -1,0 +1,32 @@
+
+/*** Upcoming Events styles ***/
+.event-date {
+    width: 70px;
+    text-align: center;
+    border-radius: 2px;
+    padding: 6px 5px;
+    margin-top: -3px;
+    position: relative;
+    color: #fff
+}
+
+.ed-day {
+    font-size: 20px
+}
+
+.ed-month-time {
+    font-size: 12px;
+    margin-top: 1px
+}
+
+/*** calendar styles ***/
+.cwh-year {
+    color: rgba(255,255,255,.6);
+    font-size: 15px
+}
+
+.cwh-day {
+    font-size: 25px;
+    line-height: 100%;
+    color: #fff
+}
